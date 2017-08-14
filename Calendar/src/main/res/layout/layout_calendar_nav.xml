@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/dateTitlePaddingBottom" >
+<RelativeLayout android:id="@+id/rlHeaderCalendar"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dateTitlePaddingBottom">
 
 
     <ImageView
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_left_selector" />
+        android:src="@drawable/ic_left_selector"/>
 
     <com.archit.calendardaterangepicker.customviews.CustomTextView
         android:id="@+id/tvYearTitle"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_right_selector" />
+        android:src="@drawable/ic_right_selector"/>
 
 
 </RelativeLayout>

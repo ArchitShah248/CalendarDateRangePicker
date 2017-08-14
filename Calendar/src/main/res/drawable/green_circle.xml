@@ -3,6 +3,6 @@
     android:shape="oval">
     <size android:height="@dimen/dayOfMonthBoxSize" android:width="@dimen/dayOfMonthBoxSize"/>
     <corners android:radius="25dp" />
-    <solid android:color="@color/selected_date_color" />
+    <solid android:color="@color/selected_date_circle_color" />
 
 </shape>

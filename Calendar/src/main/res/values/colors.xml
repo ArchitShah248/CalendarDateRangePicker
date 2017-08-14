@@ -2,12 +2,7 @@
 <resources>
 
     <!-- General -->
-    <color name="alert_circle">#CC0000</color>
-    <color name="selected_date_color">#54B948</color>
-    <color name="info_cirle">#33b5e5</color>
-    <color name="silver">#C0C0C0</color>
-    <color name="black">#3b4144</color>
-    <color name="calendarBackgroundColor">#FFFFFF</color>
+    <color name="selected_date_circle_color">#54B948</color>
 
     <!-- Fonts -->
     <color name="title_color">#000</color>
@@ -15,7 +10,10 @@
     <color name="week_color">#000</color>
 
     <!-- Calendar Date -->
-    <color name="calendar_disable_date_color">#BDBDBD</color>
+    <color name="default_date_color">#3b4144</color>
+    <color name="disable_date_color">#BDBDBD</color>
+    <color name="range_date_color">@color/default_date_color</color>
+    <color name="selected_date_color">#FFF</color>
     <color name="range_bg_color">#B7C99D</color>
     <color name="calendar_text">#474747</color>
 

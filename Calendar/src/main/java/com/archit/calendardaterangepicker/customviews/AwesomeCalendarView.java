@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
@@ -46,9 +47,6 @@ public class AwesomeCalendarView extends LinearLayout {
 
     private Calendar currentCalendarMonth;
 
-    private int defaultDateTextColor = Color.BLACK;
-    private int selectedDateTextColor = Color.WHITE;
-
     private Calendar minSelectedDate, maxSelectedDate;
 
     private ArrayList<Integer> selectedDatesRange = new ArrayList<>();
@@ -64,10 +62,11 @@ public class AwesomeCalendarView extends LinearLayout {
     private int dateColor;
     private int weekColor;
     private int titleColor;
-    private int rangeColor;
-    private int selectedDateColor;
+    private int rangeStripColor;
+    private int selectedDateCircleColor;
+    private int selectedDateColor, defaultDateColor, disableDateColor, rangeDateColor;
     private boolean shouldEnabledTime = false;
-
+    private Drawable headerBg;
     private static final PorterDuff.Mode drawableMode = PorterDuff.Mode.SRC_OVER;
 
     private float textSizeTitle, textSizeWeek, textSizeDate;
@@ -128,6 +127,8 @@ public class AwesomeCalendarView extends LinearLayout {
         tvYearTitle = (CustomTextView) mainView.findViewById(R.id.tvYearTitle);
         imgVNavLeft = (ImageView) mainView.findViewById(R.id.imgVNavLeft);
         imgVNavRight = (ImageView) mainView.findViewById(R.id.imgVNavRight);
+        RelativeLayout rlHeaderCalendar = (RelativeLayout) mainView.findViewById(R.id.rlHeaderCalendar);
+        rlHeaderCalendar.setBackground(headerBg);
 
         setListeners();
 
@@ -154,8 +155,12 @@ public class AwesomeCalendarView extends LinearLayout {
         dateColor = ContextCompat.getColor(mContext, R.color.date_color);
         weekColor = ContextCompat.getColor(mContext, R.color.week_color);
         titleColor = ContextCompat.getColor(mContext, R.color.title_color);
-        rangeColor = ContextCompat.getColor(mContext, R.color.range_bg_color);
+        rangeStripColor = ContextCompat.getColor(mContext, R.color.range_bg_color);
+        selectedDateCircleColor = ContextCompat.getColor(mContext, R.color.selected_date_circle_color);
         selectedDateColor = ContextCompat.getColor(mContext, R.color.selected_date_color);
+        defaultDateColor = ContextCompat.getColor(mContext, R.color.default_date_color);
+        rangeDateColor = ContextCompat.getColor(mContext, R.color.range_date_color);
+        disableDateColor = ContextCompat.getColor(mContext, R.color.disable_date_color);
 
         if (attributeSet != null) {
             TypedArray ta = mContext.obtainStyledAttributes(attributeSet, R.styleable.AwesomeCalendarView, 0, 0);
@@ -163,13 +168,20 @@ public class AwesomeCalendarView extends LinearLayout {
                 dateColor = ta.getColor(R.styleable.AwesomeCalendarView_date_color, dateColor);
                 weekColor = ta.getColor(R.styleable.AwesomeCalendarView_week_color, weekColor);
                 titleColor = ta.getColor(R.styleable.AwesomeCalendarView_title_color, titleColor);
-                rangeColor = ta.getColor(R.styleable.AwesomeCalendarView_range_color, rangeColor);
-                selectedDateColor = ta.getColor(R.styleable.AwesomeCalendarView_selected_date_color, selectedDateColor);
+                rangeStripColor = ta.getColor(R.styleable.AwesomeCalendarView_range_color, rangeStripColor);
+                selectedDateCircleColor = ta.getColor(R.styleable.AwesomeCalendarView_selected_date_circle_color, selectedDateCircleColor);
                 shouldEnabledTime = ta.getBoolean(R.styleable.AwesomeCalendarView_enable_time_selection, false);
 
                 textSizeTitle = ta.getDimension(R.styleable.AwesomeCalendarView_text_size_title, textSizeTitle);
                 textSizeWeek = ta.getDimension(R.styleable.AwesomeCalendarView_text_size_week, textSizeWeek);
                 textSizeDate = ta.getDimension(R.styleable.AwesomeCalendarView_text_size_date, textSizeDate);
+
+                selectedDateColor = ta.getColor(R.styleable.AwesomeCalendarView_selected_date_color, selectedDateColor);
+                defaultDateColor = ta.getColor(R.styleable.AwesomeCalendarView_default_date_color, defaultDateColor);
+                rangeDateColor = ta.getColor(R.styleable.AwesomeCalendarView_range_date_color, rangeDateColor);
+                disableDateColor = ta.getColor(R.styleable.AwesomeCalendarView_disable_date_color, disableDateColor);
+
+                headerBg = ta.getDrawable(R.styleable.AwesomeCalendarView_header_bg);
 
             } finally {
                 ta.recycle();
@@ -368,7 +380,7 @@ public class AwesomeCalendarView extends LinearLayout {
         container.tvDate.setBackgroundColor(Color.TRANSPARENT);
         container.strip.setBackgroundColor(Color.TRANSPARENT);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
-        container.tvDate.setTextColor(Color.LTGRAY);
+        container.tvDate.setTextColor(disableDateColor);
         container.rootView.setVisibility(VISIBLE);
         container.rootView.setOnClickListener(null);
     }
@@ -382,7 +394,7 @@ public class AwesomeCalendarView extends LinearLayout {
         container.tvDate.setBackgroundColor(Color.TRANSPARENT);
         container.strip.setBackgroundColor(Color.TRANSPARENT);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
-        container.tvDate.setTextColor(defaultDateTextColor);
+        container.tvDate.setTextColor(defaultDateColor);
         container.rootView.setVisibility(VISIBLE);
         container.rootView.setOnClickListener(dayClickListener);
     }
@@ -397,12 +409,12 @@ public class AwesomeCalendarView extends LinearLayout {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) container.strip.getLayoutParams();
         if (stripType == STRIP_TYPE_LEFT) {
             GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.range_bg_left);
-            mDrawable.setColor(rangeColor);
+            mDrawable.setColor(rangeStripColor);
             container.strip.setBackground(mDrawable);
             layoutParams.setMargins(20, 0, 0, 0);
         } else if (stripType == STRIP_TYPE_RIGHT) {
             GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.range_bg_right);
-            mDrawable.setColor(rangeColor);
+            mDrawable.setColor(rangeStripColor);
             container.strip.setBackground(mDrawable);
             layoutParams.setMargins(0, 0, 20, 0);
         } else {
@@ -411,10 +423,10 @@ public class AwesomeCalendarView extends LinearLayout {
         }
         container.strip.setLayoutParams(layoutParams);
         GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.green_circle);
-        mDrawable.setColor(selectedDateColor);
+        mDrawable.setColor(selectedDateCircleColor);
         container.tvDate.setBackground(mDrawable);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
-        container.tvDate.setTextColor(Color.WHITE);
+        container.tvDate.setTextColor(selectedDateColor);
         container.rootView.setVisibility(VISIBLE);
     }
 
@@ -426,10 +438,10 @@ public class AwesomeCalendarView extends LinearLayout {
     private void makeAsRangeDate(DayContainer container) {
         container.tvDate.setBackgroundColor(Color.TRANSPARENT);
         GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.range_bg);
-        mDrawable.setColor(rangeColor);
+        mDrawable.setColor(rangeStripColor);
         container.strip.setBackground(mDrawable);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
-        container.tvDate.setTextColor(defaultDateTextColor);
+        container.tvDate.setTextColor(rangeDateColor);
         container.rootView.setVisibility(VISIBLE);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) container.strip.getLayoutParams();
         layoutParams.setMargins(0, 0, 0, 0);

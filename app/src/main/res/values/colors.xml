@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#EF5350</color>
+    <color name="colorPrimaryDark">#EF5350</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="range_color">#44FF4081</color>
+    <color name="calendar_header">@color/colorPrimary</color>
+    <color name="calendar_header_title">#FFF</color>
+    <color name="selected_date_circle_color">#FF5252</color>
+    <color name="range_color">#FFCDD2</color>
 </resources>

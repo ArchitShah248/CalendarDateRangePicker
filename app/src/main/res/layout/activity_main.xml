@@ -7,14 +7,24 @@
     android:layout_height="match_parent"
     tools:context="com.archit.calendardaterangepickerdemo.MainActivity">
 
-    <com.archit.calendardaterangepicker.customviews.AwesomeCalendarView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        custom:range_color="@color/range_color"
-        custom:selected_date_color="#F00"
-        custom:title_color="@color/colorPrimary">
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        custom:cardCornerRadius="8dp">
 
-    </com.archit.calendardaterangepicker.customviews.AwesomeCalendarView>
+        <com.archit.calendardaterangepicker.customviews.AwesomeCalendarView
+            android:id="@+id/calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            custom:disable_date_color="#ABABAB"
+            custom:header_bg="@drawable/calendar_header"
+            custom:range_color="@color/range_color"
+            custom:selected_date_circle_color="@color/selected_date_circle_color"
+            custom:title_color="@color/calendar_header_title">
 
+        </com.archit.calendardaterangepicker.customviews.AwesomeCalendarView>
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

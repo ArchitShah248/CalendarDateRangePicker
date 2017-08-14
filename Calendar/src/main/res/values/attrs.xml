@@ -6,11 +6,16 @@
         <attr name="week_color" format="color"/>
         <attr name="date_color" format="color"/>
         <attr name="range_color" format="color"/>
+        <attr name="selected_date_circle_color" format="color"/>
         <attr name="selected_date_color" format="color"/>
+        <attr name="default_date_color" format="color"/>
+        <attr name="range_date_color" format="color"/>
+        <attr name="disable_date_color" format="color"/>
         <attr name="enable_time_selection" format="boolean"/>
         <attr name="text_size_title" format="dimension"/>
         <attr name="text_size_week" format="dimension"/>
         <attr name="text_size_date" format="dimension"/>
+        <attr name="header_bg" format="integer"/>
     </declare-styleable>
 
 

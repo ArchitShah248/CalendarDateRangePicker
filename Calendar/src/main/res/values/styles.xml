@@ -37,6 +37,7 @@
         <item name="android:minWidth">@dimen/dayOfMonthMinWidth</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:paddingBottom">@dimen/dayOfMonthPaddingBottom</item>
+        <item name="android:textColor">@color/default_date_color</item>
     </style>
 
     <style name="ContainerDayOfWeek">
