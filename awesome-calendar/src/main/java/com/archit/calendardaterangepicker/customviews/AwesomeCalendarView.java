@@ -59,7 +59,6 @@ public class AwesomeCalendarView extends LinearLayout {
 
     private Typeface fonts;
 
-    private int dateColor;
     private int weekColor;
     private int titleColor;
     private int rangeStripColor;
@@ -152,7 +151,6 @@ public class AwesomeCalendarView extends LinearLayout {
         textSizeWeek = getResources().getDimension(R.dimen.text_size_week);
         textSizeDate = getResources().getDimension(R.dimen.text_size_date);
 
-        dateColor = ContextCompat.getColor(mContext, R.color.date_color);
         weekColor = ContextCompat.getColor(mContext, R.color.week_color);
         titleColor = ContextCompat.getColor(mContext, R.color.title_color);
         rangeStripColor = ContextCompat.getColor(mContext, R.color.range_bg_color);
@@ -165,7 +163,6 @@ public class AwesomeCalendarView extends LinearLayout {
         if (attributeSet != null) {
             TypedArray ta = mContext.obtainStyledAttributes(attributeSet, R.styleable.AwesomeCalendarView, 0, 0);
             try {
-                dateColor = ta.getColor(R.styleable.AwesomeCalendarView_date_color, dateColor);
                 weekColor = ta.getColor(R.styleable.AwesomeCalendarView_week_color, weekColor);
                 titleColor = ta.getColor(R.styleable.AwesomeCalendarView_title_color, titleColor);
                 rangeStripColor = ta.getColor(R.styleable.AwesomeCalendarView_range_color, rangeStripColor);
@@ -312,7 +309,6 @@ public class AwesomeCalendarView extends LinearLayout {
                 DayContainer container = new DayContainer(rlDayContainer);
 
                 container.tvDate.setText(String.valueOf(month.get(Calendar.DATE)));
-                container.tvDate.setTextColor(dateColor);
                 if (fonts != null) {
                     container.tvDate.setTypeface(fonts);
                 }

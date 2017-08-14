@@ -88,7 +88,7 @@ For Maven:
 License
 -------
 
-    Copyright 2016 Archit Shah
+    Copyright 2017 Archit Shah
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
