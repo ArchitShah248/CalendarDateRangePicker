@@ -21,6 +21,37 @@ Screenshots
 Developer setup
 ---------------
 
+**Import DateRangePicker dependency**
+
+
+For Gradle:
+compile 'com.archit.calendar:awesome-calendar:1.0'
+
+For Maven:
+<dependency>
+  <groupId>com.archit.calendar</groupId>
+  <artifactId>awesome-calendar</artifactId>
+  <version>1.0</version>
+  <type>pom</type>
+</dependency>
+
+
+**Usage**
+---------------
+`<com.archit.calendardaterangepicker.customviews.AwesomeCalendarView
+             android:id="@+id/calendar"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             custom:disable_date_color="#ABABAB"
+             custom:header_bg="@drawable/calendar_header"
+             custom:range_color="@color/range_color"
+             custom:selected_date_circle_color="@color/selected_date_circle_color"
+             custom:title_color="@color/calendar_header_title">
+</com.archit.calendardaterangepicker.customviews.AwesomeCalendarView>`
+
+
+
+
 ### Requirements
 
 - Java 8
@@ -44,4 +75,3 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
 
-[1]: https://www.themoviedb.org/documentation/api
