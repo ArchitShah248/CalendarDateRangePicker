@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.archit.calendardaterangepickerdemo.MainActivity">
+
+    <com.archit.calendardaterangepicker.customviews.AwesomeCalendarView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        custom:range_color="@color/range_color"
+        custom:selected_date_color="#F00"
+        custom:title_color="@color/colorPrimary">
+
+    </com.archit.calendardaterangepicker.customviews.AwesomeCalendarView>
+
+
+</RelativeLayout>
