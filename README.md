@@ -25,20 +25,27 @@ Developer setup
 
 
 For Gradle:
-compile 'com.archit.calendar:awesome-calendar:1.0'
+```
+dependencies {
+    compile 'com.archit.calendar:awesome-calendar:1.0'
+}
+```
+
 
 For Maven:
+```xml
 <dependency>
   <groupId>com.archit.calendar</groupId>
   <artifactId>awesome-calendar</artifactId>
   <version>1.0</version>
   <type>pom</type>
 </dependency>
-
+```
 
 **Usage**
 ---------------
-`<com.archit.calendardaterangepicker.customviews.AwesomeCalendarView
+````xml
+<com.archit.calendardaterangepicker.customviews.AwesomeCalendarView
              android:id="@+id/calendar"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
@@ -47,8 +54,28 @@ For Maven:
              custom:range_color="@color/range_color"
              custom:selected_date_circle_color="@color/selected_date_circle_color"
              custom:title_color="@color/calendar_header_title">
-</com.archit.calendardaterangepicker.customviews.AwesomeCalendarView>`
+</com.archit.calendardaterangepicker.customviews.AwesomeCalendarView>
+````
 
+
+**XML Attribute set**
+------------------
+
+| Attribute                  | Type      | Desciption                         |
+| :------------------------- | --------- | ---------------------------------- |
+| title_color                | Color     | Title color                        |
+| week_color                 | Color     | Week text color                    |
+| range_color                | Color     | Date range color                   |
+| selected_date_circle_color | Color     | Selected date circle color         |
+| selected_date_color        | Color     | Selected date color                |
+| default_date_color         | Color     | Default date color                 |
+| range_date_color           | Color     | Date color when it fall into range |
+| disable_date_color         | Color     | Disable date color                 |
+| enable_time_selection      | Boolean   | true for enable time else false    |
+| text_size_title            | Dimension | title size                         |
+| text_size_week             | Dimension | week text size                     |
+| text_size_date             | Dimension | date text size                     |
+| header_bg                  | Drawable  | header background                  |
 
 
 
@@ -66,9 +93,9 @@ License
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-
+    
        http://www.apache.org/licenses/LICENSE-2.0
-
+    
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
