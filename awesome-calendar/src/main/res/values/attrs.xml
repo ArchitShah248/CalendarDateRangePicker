@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="AwesomeCalendarView">
+    <declare-styleable name="DateRangeCalendarView">
         <attr name="title_color" format="color"/>
         <attr name="week_color" format="color"/>
         <attr name="range_color" format="color"/>

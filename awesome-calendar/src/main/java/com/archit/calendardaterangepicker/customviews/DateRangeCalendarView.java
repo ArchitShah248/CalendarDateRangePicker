@@ -35,9 +35,9 @@ import java.util.Locale;
  * Created by archit.shah on 08/09/2017.
  */
 
-public class AwesomeCalendarView extends LinearLayout {
+public class DateRangeCalendarView extends LinearLayout {
 
-    private static final String LOG_TAG = AwesomeCalendarView.class.getSimpleName();
+    private static final String LOG_TAG = DateRangeCalendarView.class.getSimpleName();
     private Context mContext;
     private LinearLayout llDaysContainer;
     private LinearLayout llTitleWeekContainer;
@@ -87,23 +87,23 @@ public class AwesomeCalendarView extends LinearLayout {
         this.calendarListener = calendarListener;
     }
 
-    public AwesomeCalendarView(Context context) {
+    public DateRangeCalendarView(Context context) {
         super(context);
         initView(context, null);
     }
 
-    public AwesomeCalendarView(Context context, AttributeSet attrs) {
+    public DateRangeCalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context, attrs);
     }
 
-    public AwesomeCalendarView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DateRangeCalendarView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public AwesomeCalendarView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public DateRangeCalendarView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initView(context, attrs);
     }
@@ -161,24 +161,24 @@ public class AwesomeCalendarView extends LinearLayout {
         disableDateColor = ContextCompat.getColor(mContext, R.color.disable_date_color);
 
         if (attributeSet != null) {
-            TypedArray ta = mContext.obtainStyledAttributes(attributeSet, R.styleable.AwesomeCalendarView, 0, 0);
+            TypedArray ta = mContext.obtainStyledAttributes(attributeSet, R.styleable.DateRangeCalendarView, 0, 0);
             try {
-                weekColor = ta.getColor(R.styleable.AwesomeCalendarView_week_color, weekColor);
-                titleColor = ta.getColor(R.styleable.AwesomeCalendarView_title_color, titleColor);
-                rangeStripColor = ta.getColor(R.styleable.AwesomeCalendarView_range_color, rangeStripColor);
-                selectedDateCircleColor = ta.getColor(R.styleable.AwesomeCalendarView_selected_date_circle_color, selectedDateCircleColor);
-                shouldEnabledTime = ta.getBoolean(R.styleable.AwesomeCalendarView_enable_time_selection, false);
+                weekColor = ta.getColor(R.styleable.DateRangeCalendarView_week_color, weekColor);
+                titleColor = ta.getColor(R.styleable.DateRangeCalendarView_title_color, titleColor);
+                rangeStripColor = ta.getColor(R.styleable.DateRangeCalendarView_range_color, rangeStripColor);
+                selectedDateCircleColor = ta.getColor(R.styleable.DateRangeCalendarView_selected_date_circle_color, selectedDateCircleColor);
+                shouldEnabledTime = ta.getBoolean(R.styleable.DateRangeCalendarView_enable_time_selection, false);
 
-                textSizeTitle = ta.getDimension(R.styleable.AwesomeCalendarView_text_size_title, textSizeTitle);
-                textSizeWeek = ta.getDimension(R.styleable.AwesomeCalendarView_text_size_week, textSizeWeek);
-                textSizeDate = ta.getDimension(R.styleable.AwesomeCalendarView_text_size_date, textSizeDate);
+                textSizeTitle = ta.getDimension(R.styleable.DateRangeCalendarView_text_size_title, textSizeTitle);
+                textSizeWeek = ta.getDimension(R.styleable.DateRangeCalendarView_text_size_week, textSizeWeek);
+                textSizeDate = ta.getDimension(R.styleable.DateRangeCalendarView_text_size_date, textSizeDate);
 
-                selectedDateColor = ta.getColor(R.styleable.AwesomeCalendarView_selected_date_color, selectedDateColor);
-                defaultDateColor = ta.getColor(R.styleable.AwesomeCalendarView_default_date_color, defaultDateColor);
-                rangeDateColor = ta.getColor(R.styleable.AwesomeCalendarView_range_date_color, rangeDateColor);
-                disableDateColor = ta.getColor(R.styleable.AwesomeCalendarView_disable_date_color, disableDateColor);
+                selectedDateColor = ta.getColor(R.styleable.DateRangeCalendarView_selected_date_color, selectedDateColor);
+                defaultDateColor = ta.getColor(R.styleable.DateRangeCalendarView_default_date_color, defaultDateColor);
+                rangeDateColor = ta.getColor(R.styleable.DateRangeCalendarView_range_date_color, rangeDateColor);
+                disableDateColor = ta.getColor(R.styleable.DateRangeCalendarView_disable_date_color, disableDateColor);
 
-                headerBg = ta.getDrawable(R.styleable.AwesomeCalendarView_header_bg);
+                headerBg = ta.getDrawable(R.styleable.DateRangeCalendarView_header_bg);
 
             } finally {
                 ta.recycle();
@@ -257,7 +257,7 @@ public class AwesomeCalendarView extends LinearLayout {
 
                     @Override
                     public void onCancel() {
-                        AwesomeCalendarView.this.resetAllSelectedViews();
+                        DateRangeCalendarView.this.resetAllSelectedViews();
                     }
                 });
                 awesomeTimePickerDialog.showDialog();
