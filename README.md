@@ -26,15 +26,6 @@ Developer setup
 
 For Gradle:
 
-Add following line to root level gradle:
-```
-allprojects {
-    repositories {
-       jcenter()
-       maven { url 'https://dl.bintray.com/architshah248/EnticeArc' }
-    }
-}
-```
 Add following line to App level gradle:
 ```
 dependencies {
