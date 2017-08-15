@@ -38,7 +38,7 @@ allprojects {
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:1.0'
+    compile 'com.archit.calendar:awesome-calendar:1.0.1'
 }
 ```
 
@@ -48,7 +48,7 @@ For Maven:
 <dependency>
   <groupId>com.archit.calendar</groupId>
   <artifactId>awesome-calendar</artifactId>
-  <version>1.0</version>
+  <version>1.0.1</version>
   <type>pom</type>
 </dependency>
 ```
