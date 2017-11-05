@@ -103,9 +103,11 @@ calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
 });
 ````
 
+### Please help me in making it best by reporting issue or posting any fetaure extension.
+
 ### Requirements
 
-- Java 8
+- Java 7
 - Latest version of Android SDK and Android Build Tools
 
 
