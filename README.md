@@ -80,6 +80,28 @@ For Maven:
 | header_bg                  | Drawable  | header background                  |
 
 
+**Set Callbacks**
+````Java
+public interface CalendarListener {
+        void onDateRangeSelected(Calendar startDate, Calendar endDate);
+        void onCancel();
+}
+````
+````Java
+calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
+    @Override
+    public void onDateRangeSelected(Calendar startDate, Calendar endDate) {
+        if (startDate != null && endDate != null) {
+            Toast.makeText(MainActivity.this, "Date range selected.\nStart date- " + startDate.getTime() + "\nEnd date- " +             endDate.getTime(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onCancel() {
+
+    }
+});
+````
 
 ### Requirements
 
