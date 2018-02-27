@@ -71,13 +71,13 @@ For Maven:
 | selected_date_circle_color | Color     | Selected date circle color         |
 | selected_date_color        | Color     | Selected date color                |
 | default_date_color         | Color     | Default date color                 |
-| range_date_color           | Color     | Date color when it fall into range |
+| range_date_color           | Color     | Date color when it falls into range |
 | disable_date_color         | Color     | Disable date color                 |
-| enable_time_selection      | Boolean   | true for enable time else false    |
-| text_size_title            | Dimension | title size                         |
-| text_size_week             | Dimension | week text size                     |
-| text_size_date             | Dimension | date text size                     |
-| header_bg                  | Drawable  | header background                  |
+| enable_time_selection      | Boolean   | true to enable time selection else false    |
+| text_size_title            | Dimension | Title size                         |
+| text_size_week             | Dimension | Week text size                     |
+| text_size_date             | Dimension | Date text size                     |
+| header_bg                  | Drawable  | Header background                  |
 
 
 **Set Callbacks**
