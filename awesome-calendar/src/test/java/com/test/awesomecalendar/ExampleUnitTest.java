@@ -1,4 +1,4 @@
-package com.gateway.awesomecalendar;
+package com.test.awesomecalendar;
 
 import org.junit.Test;
 

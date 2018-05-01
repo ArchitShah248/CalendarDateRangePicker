@@ -1,4 +1,4 @@
-package com.gateway.awesomecalendar;
+package com.test.awesomecalendar;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.gateway.awesomecalendar.test", appContext.getPackageName());
+        assertEquals("com.test.awesomecalendar.test", appContext.getPackageName());
     }
 }
