@@ -71,9 +71,9 @@ public class DateRangeCalendarView extends LinearLayout {
     private float textSizeTitle, textSizeWeek, textSizeDate;
 
     public interface CalendarListener {
-        void onDateRangeSelected(Calendar startDate, Calendar endDate);
+        void onFirstDateSelected(Calendar startDate);
 
-        void onCancel();
+        void onDateRangeSelected(Calendar startDate, Calendar endDate);
     }
 
 
@@ -250,8 +250,13 @@ public class DateRangeCalendarView extends LinearLayout {
                         selectedCal.set(Calendar.MINUTE, mins);
 
                         Log.i(LOG_TAG, "Time: " + selectedCal.getTime().toString());
-                        if (calendarListener != null && minSelectedDate != null && maxSelectedDate != null) {
-                            calendarListener.onDateRangeSelected(minSelectedDate, maxSelectedDate);
+                        if (calendarListener != null ) {
+
+                            if(minSelectedDate != null && maxSelectedDate != null) {
+                                calendarListener.onDateRangeSelected(minSelectedDate, maxSelectedDate);
+                            }else if(minSelectedDate != null && maxSelectedDate == null){
+                                calendarListener.onFirstDateSelected(minSelectedDate);
+                            }
                         }
                     }
 
@@ -263,8 +268,10 @@ public class DateRangeCalendarView extends LinearLayout {
                 awesomeTimePickerDialog.showDialog();
             } else {
                 Log.i(LOG_TAG, "Time: " + selectedCal.getTime().toString());
-                if (calendarListener != null && minSelectedDate != null && maxSelectedDate != null) {
+                if(minSelectedDate != null && maxSelectedDate != null) {
                     calendarListener.onDateRangeSelected(minSelectedDate, maxSelectedDate);
+                }else if(minSelectedDate != null && maxSelectedDate == null){
+                    calendarListener.onFirstDateSelected(minSelectedDate);
                 }
             }
         }
@@ -524,10 +531,6 @@ public class DateRangeCalendarView extends LinearLayout {
 
         minSelectedDate = null;
         maxSelectedDate = null;
-
-        if (calendarListener != null) {
-            calendarListener.onCancel();
-        }
 
     }
 
