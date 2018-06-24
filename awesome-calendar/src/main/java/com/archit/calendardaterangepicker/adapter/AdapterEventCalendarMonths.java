@@ -94,7 +94,7 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
                 public void run() {
                     notifyDataSetChanged();
                 }
-            },100);
+            },50);
 
 
             if (calendarListener != null) {
@@ -109,7 +109,7 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
                 public void run() {
                     notifyDataSetChanged();
                 }
-            },100);
+            },50);
             if (calendarListener != null) {
                 calendarListener.onDateRangeSelected(startDate, endDate);
             }

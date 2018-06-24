@@ -23,7 +23,7 @@ public class DateRangeCalendarManager {
     public static SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
 
-    @Retention(RetentionPolicy.RUNTIME)
+    @Retention(RetentionPolicy.SOURCE)
     @IntDef({NOT_IN_RANGE, START_DATE, MIDDLE_DATE, LAST_DATE})
     public @interface RANGE_TYPE {
         int NOT_IN_RANGE = 0;
