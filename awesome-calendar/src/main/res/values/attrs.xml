@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="DateRangeCalendarView">
+    <declare-styleable name="DateRangeMonthView">
         <attr name="title_color" format="color"/>
         <attr name="week_color" format="color"/>
         <attr name="range_color" format="color"/>
@@ -15,6 +15,7 @@
         <attr name="text_size_week" format="dimension"/>
         <attr name="text_size_date" format="dimension"/>
         <attr name="header_bg" format="integer"/>
+        <attr name="calendar_tag" format="string"/>
     </declare-styleable>
 
 

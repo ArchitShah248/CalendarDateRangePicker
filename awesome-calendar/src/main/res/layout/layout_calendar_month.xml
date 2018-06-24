@@ -6,11 +6,6 @@
               android:orientation="vertical">
 
     <include
-        layout="@layout/layout_calendar_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <include
         layout="@layout/layout_calendar_week_days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

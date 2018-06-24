@@ -3,9 +3,11 @@ package com.archit.calendardaterangepickerdemo;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView;
+import com.archit.calendardaterangepicker.customviews.DateRangeMonthView;
 
 import java.util.Calendar;
 
@@ -37,5 +39,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        findViewById(R.id.btnReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendar.resetAllSelectedViews();
+            }
+        });
     }
+
+
 }
