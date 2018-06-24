@@ -40,16 +40,9 @@ public class DateRangeMonthView extends LinearLayout {
 
     private CalendarStyleAttr calendarStyleAttr;
 
-    private static final PorterDuff.Mode drawableMode = PorterDuff.Mode.SRC_OVER;
-
-
     private DateRangeCalendarView.CalendarListener calendarListener;
 
     private DateRangeCalendarManager dateRangeCalendarManager;
-
-    public DateRangeCalendarView.CalendarListener getCalendarListener() {
-        return calendarListener;
-    }
 
     public void setCalendarListener(DateRangeCalendarView.CalendarListener calendarListener) {
         this.calendarListener = calendarListener;
@@ -190,8 +183,9 @@ public class DateRangeMonthView extends LinearLayout {
 
     /**
      * To draw calendar for the given month. Here calendar object should start from date of 1st.
-     *
-     * @param month
+     * @param calendarStyleAttr Calendar style attributes
+     * @param month Month to be drawn
+     * @param dateRangeCalendarManager Calendar data manager
      */
     public void drawCalendarForMonth(CalendarStyleAttr calendarStyleAttr, Calendar month, DateRangeCalendarManager dateRangeCalendarManager) {
         this.calendarStyleAttr = calendarStyleAttr;
@@ -205,7 +199,7 @@ public class DateRangeMonthView extends LinearLayout {
     /**
      * To draw calendar for the given month. Here calendar object should start from date of 1st.
      *
-     * @param month
+     * @param month Calendar month
      */
     private void drawCalendarForMonth(Calendar month) {
 

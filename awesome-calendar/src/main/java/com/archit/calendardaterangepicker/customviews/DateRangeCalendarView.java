@@ -1,17 +1,11 @@
 package com.archit.calendardaterangepicker.customviews;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -65,12 +59,6 @@ public class DateRangeCalendarView extends LinearLayout {
         initViews(context, attrs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public DateRangeCalendarView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        initViews(context, attrs);
-    }
-
     private void initViews(Context context, AttributeSet attrs) {
 
         mContext = context;
@@ -80,12 +68,12 @@ public class DateRangeCalendarView extends LinearLayout {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         layoutInflater.inflate(R.layout.layout_calendar_container, this, true);
 
-        RelativeLayout rlHeaderCalendar = (RelativeLayout) findViewById(R.id.rlHeaderCalendar);
+        RelativeLayout rlHeaderCalendar = findViewById(R.id.rlHeaderCalendar);
         rlHeaderCalendar.setBackground(calendarStyleAttr.getHeaderBg());
 
-        tvYearTitle = (CustomTextView) findViewById(R.id.tvYearTitle);
-        imgVNavLeft = (AppCompatImageView) findViewById(R.id.imgVNavLeft);
-        imgVNavRight = (AppCompatImageView) findViewById(R.id.imgVNavRight);
+        tvYearTitle = findViewById(R.id.tvYearTitle);
+        imgVNavLeft = findViewById(R.id.imgVNavLeft);
+        imgVNavRight = findViewById(R.id.imgVNavRight);
 
         vpCalendar = findViewById(R.id.vpCalendar);
 
@@ -175,7 +163,9 @@ public class DateRangeCalendarView extends LinearLayout {
         String dateText = new DateFormatSymbols(locale).getMonths()[currentCalendarMonth.get(Calendar.MONTH)];
         dateText = dateText.substring(0, 1).toUpperCase() + dateText.subSequence(1, dateText.length());
 
-        tvYearTitle.setText(dateText + " " + currentCalendarMonth.get(Calendar.YEAR));
+        String yearTitle = dateText + " " + currentCalendarMonth.get(Calendar.YEAR);
+
+        tvYearTitle.setText(yearTitle);
         tvYearTitle.setTextColor(calendarStyleAttr.getTitleColor());
 
     }

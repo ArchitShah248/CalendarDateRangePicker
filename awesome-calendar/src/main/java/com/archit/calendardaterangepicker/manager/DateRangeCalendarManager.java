@@ -55,7 +55,7 @@ public class DateRangeCalendarManager {
     /**
      * To check whether date belongs to range or not
      *
-     * @return
+     * @return Date type
      */
     @RANGE_TYPE
     public int checkDateRange(Calendar selectedDate) {
