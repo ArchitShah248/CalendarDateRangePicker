@@ -111,7 +111,7 @@ calendar.resetAllSelectedViews();
 
 **Set text fonts**
 ````Java
-Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
+Typeface typeface = Typeface.createFromAsset(getAssets(), "Roboto.ttf");
 calendar.setFonts(typeface);
 `````
 
