@@ -30,7 +30,7 @@ For Gradle:
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:1.1.0'
+    compile 'com.archit.calendar:awesome-calendar:1.1.1'
 }
 ```
 
@@ -40,7 +40,7 @@ For Maven:
 <dependency>
   <groupId>com.archit.calendar</groupId>
   <artifactId>awesome-calendar</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
   <type>pom</type>
 </dependency>
 ```
@@ -79,6 +79,7 @@ For Maven:
 | text_size_week             | Dimension | Week text size                     |
 | text_size_date             | Dimension | Date text size                     |
 | header_bg                  | Drawable  | Header background                  |
+| week_offset                | Dimension | To set week start day offset                  |
 
 
 **Set callbacks**
@@ -113,6 +114,11 @@ calendar.resetAllSelectedViews();
 ````Java
 Typeface typeface = Typeface.createFromAsset(getAssets(), "Roboto.ttf");
 calendar.setFonts(typeface);
+`````
+
+**Set week offset ( 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat )**
+````Java
+calendar.setWeekOffset(1);
 `````
 
 
