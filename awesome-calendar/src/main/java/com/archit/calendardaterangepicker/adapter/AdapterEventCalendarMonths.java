@@ -121,6 +121,18 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
     }
 
     /**
+     * To redraw calendar.
+     */
+    public void invalidateCalendar(){
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                notifyDataSetChanged();
+            }
+        },50);
+    }
+
+    /**
      * To remove all selection and redraw current calendar
      */
     public void resetAllSelectedViews() {
