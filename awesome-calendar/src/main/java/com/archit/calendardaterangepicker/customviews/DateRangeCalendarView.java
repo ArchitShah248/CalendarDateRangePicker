@@ -200,7 +200,7 @@ public class DateRangeCalendarView extends LinearLayout {
     /**
      * To set week offset. To start week from any of the day. Default is 0 (Sunday).
      *
-     * @param offset- 0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat
+     * @param offset 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat
      */
     public void setWeekOffset(int offset) {
         calendarStyleAttr.setWeekOffset(offset);

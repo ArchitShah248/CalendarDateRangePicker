@@ -1,7 +1,6 @@
 package com.archit.calendardaterangepicker.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
