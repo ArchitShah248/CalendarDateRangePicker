@@ -22,6 +22,7 @@ public class CalendarStyleAttr {
     private int selectedDateColor, defaultDateColor, disableDateColor, rangeDateColor;
     private float textSizeTitle, textSizeWeek, textSizeDate;
     private boolean shouldEnabledTime = false;
+    private int weekOffset = 0;
 
     public CalendarStyleAttr(Context context) {
         setDefAttributes(context);
@@ -92,6 +93,7 @@ public class CalendarStyleAttr {
                 defaultDateColor = ta.getColor(R.styleable.DateRangeMonthView_default_date_color, defaultDateColor);
                 rangeDateColor = ta.getColor(R.styleable.DateRangeMonthView_range_date_color, rangeDateColor);
                 disableDateColor = ta.getColor(R.styleable.DateRangeMonthView_disable_date_color, disableDateColor);
+                setWeekOffset(ta.getColor(R.styleable.DateRangeMonthView_week_offset, 0));
 
 
             } finally {
@@ -210,5 +212,21 @@ public class CalendarStyleAttr {
 
     public void setShouldEnabledTime(boolean shouldEnabledTime) {
         this.shouldEnabledTime = shouldEnabledTime;
+    }
+
+    public int getWeekOffset() {
+        return weekOffset;
+    }
+
+    /**
+     * To set week offset
+     * @param weekOffset
+     */
+    public void setWeekOffset(int weekOffset) {
+        if(weekOffset < 0 || weekOffset > 6 ){
+            throw new RuntimeException("Week offset can only be between 0 to 6. " +
+                    "0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat");
+        }
+        this.weekOffset = weekOffset;
     }
 }

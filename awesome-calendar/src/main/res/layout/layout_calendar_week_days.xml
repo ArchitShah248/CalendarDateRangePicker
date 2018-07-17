@@ -7,38 +7,45 @@
     android:orientation="horizontal">
 
     <com.archit.calendardaterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek1"
         style="@style/WeekDayTitleStyle"
         android:tag="dayOfWeek1"
-        android:text="@string/sun" />
+        android:text="@string/cdrp_sun" />
 
     <com.archit.calendardaterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek2"
         style="@style/WeekDayTitleStyle"
         android:tag="dayOfWeek2"
-        android:text="@string/mon" />
+        android:text="@string/cdrp_mon" />
 
     <com.archit.calendardaterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek3"
         style="@style/WeekDayTitleStyle"
         android:tag="dayOfWeek3"
-        android:text="@string/tue" />
+        android:text="@string/cdrp_tue" />
 
     <com.archit.calendardaterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek4"
         style="@style/WeekDayTitleStyle"
         android:tag="dayOfWeek4"
-        android:text="@string/wed" />
+        android:text="@string/cdrp_wed" />
 
     <com.archit.calendardaterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek5"
         style="@style/WeekDayTitleStyle"
         android:tag="dayOfWeek5"
-        android:text="@string/thu" />
+        android:text="@string/cdrp_thu" />
 
     <com.archit.calendardaterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek6"
         style="@style/WeekDayTitleStyle"
         android:tag="dayOfWeek6"
-        android:text="@string/fri" />
+        android:text="@string/cdrp_fri" />
 
     <com.archit.calendardaterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek7"
         style="@style/WeekDayTitleStyle"
         android:tag="dayOfWeek7"
-        android:text="@string/sat" />
+        android:text="@string/cdrp_sat" />
 
 </LinearLayout>

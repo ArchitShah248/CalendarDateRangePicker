@@ -183,8 +183,9 @@ public class DateRangeMonthView extends LinearLayout {
 
     /**
      * To draw calendar for the given month. Here calendar object should start from date of 1st.
-     * @param calendarStyleAttr Calendar style attributes
-     * @param month Month to be drawn
+     *
+     * @param calendarStyleAttr        Calendar style attributes
+     * @param month                    Month to be drawn
      * @param dateRangeCalendarManager Calendar data manager
      */
     public void drawCalendarForMonth(CalendarStyleAttr calendarStyleAttr, Calendar month, DateRangeCalendarManager dateRangeCalendarManager) {
@@ -205,8 +206,29 @@ public class DateRangeMonthView extends LinearLayout {
 
         Log.v(LOG_TAG, "Current cal: " + month.getTime().toString());
         currentCalendarMonth = (Calendar) month.clone();
-        int startDay = month.get(Calendar.DAY_OF_WEEK);
+        currentCalendarMonth.set(Calendar.DATE, 1);
+        currentCalendarMonth.set(Calendar.HOUR, 0);
+        currentCalendarMonth.set(Calendar.MINUTE, 0);
+        currentCalendarMonth.set(Calendar.SECOND, 0);
 
+        String[] weekTitle = mContext.getResources().getStringArray(R.array.week_sun_sat);
+
+        //To set week day title as per offset
+        for (int i = 0; i < 7; i++) {
+
+            CustomTextView textView = (CustomTextView) llTitleWeekContainer.getChildAt(i);
+
+            String weekStr = weekTitle[(i + calendarStyleAttr.getWeekOffset()) % 7];
+            textView.setText(weekStr);
+
+        }
+
+        int startDay = month.get(Calendar.DAY_OF_WEEK) - calendarStyleAttr.getWeekOffset();
+
+        //To ratate week day according to offset
+        if(startDay < 1){
+            startDay = startDay + 7;
+        }
 
         month.add(Calendar.DATE, -startDay + 1);
 
@@ -312,12 +334,14 @@ public class DateRangeMonthView extends LinearLayout {
      * @param container - Container
      * @param stripType - Right end date, Left end date or middle
      */
-    private void makeAsSelectedDate(DayContainer container,@DateRangeCalendarManager.RANGE_TYPE int stripType) {
+    private void makeAsSelectedDate(DayContainer container, @DateRangeCalendarManager.RANGE_TYPE int stripType) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) container.strip.getLayoutParams();
 
+        Calendar minDate = dateRangeCalendarManager.getMinSelectedDate();
         Calendar maxDate = dateRangeCalendarManager.getMaxSelectedDate();
 
-        if (stripType == DateRangeCalendarManager.RANGE_TYPE.START_DATE && maxDate != null) {
+        if (stripType == DateRangeCalendarManager.RANGE_TYPE.START_DATE && maxDate != null &&
+                minDate.compareTo(maxDate) != 0) {
             GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.range_bg_left);
             mDrawable.setColor(calendarStyleAttr.getRangeStripColor());
             container.strip.setBackground(mDrawable);
