@@ -2,6 +2,8 @@ package com.archit.calendardaterangepicker.customviews;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
@@ -205,5 +207,19 @@ public class DateRangeCalendarView extends LinearLayout {
     public void setWeekOffset(int offset) {
         calendarStyleAttr.setWeekOffset(offset);
         adapterEventCalendarMonths.invalidateCalendar();
+    }
+
+    /**
+     * To set left navigation ImageView drawable
+     */
+    public void setNavLeftImage(@NonNull Drawable leftDrawable) {
+        imgVNavLeft.setImageDrawable(leftDrawable);
+    }
+
+    /**
+     * To set right navigation ImageView drawable
+     */
+    public void setNavRightImage(@NonNull Drawable rightDrawable) {
+        imgVNavRight.setImageDrawable(rightDrawable);
     }
 }
