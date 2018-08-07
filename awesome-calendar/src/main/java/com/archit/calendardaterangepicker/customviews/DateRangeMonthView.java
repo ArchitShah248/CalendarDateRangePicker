@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
@@ -43,6 +45,8 @@ public class DateRangeMonthView extends LinearLayout {
     private DateRangeCalendarView.CalendarListener calendarListener;
 
     private DateRangeCalendarManager dateRangeCalendarManager;
+
+    private final static PorterDuff.Mode FILTER_MODE = PorterDuff.Mode.SRC_IN;
 
     public void setCalendarListener(DateRangeCalendarView.CalendarListener calendarListener) {
         this.calendarListener = calendarListener;
@@ -90,7 +94,6 @@ public class DateRangeMonthView extends LinearLayout {
         }
 
     }
-
 
 
     /**
@@ -226,7 +229,7 @@ public class DateRangeMonthView extends LinearLayout {
         int startDay = month.get(Calendar.DAY_OF_WEEK) - calendarStyleAttr.getWeekOffset();
 
         //To ratate week day according to offset
-        if(startDay < 1){
+        if (startDay < 1) {
             startDay = startDay + 7;
         }
 
@@ -342,13 +345,14 @@ public class DateRangeMonthView extends LinearLayout {
 
         if (stripType == DateRangeCalendarManager.RANGE_TYPE.START_DATE && maxDate != null &&
                 minDate.compareTo(maxDate) != 0) {
-            GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.range_bg_left);
-            mDrawable.setColor(calendarStyleAttr.getRangeStripColor());
+            Drawable mDrawable = ContextCompat.getDrawable(mContext, R.drawable.range_bg_left);
+            mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
+
             container.strip.setBackground(mDrawable);
             layoutParams.setMargins(20, 0, 0, 0);
         } else if (stripType == DateRangeCalendarManager.RANGE_TYPE.LAST_DATE) {
-            GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.range_bg_right);
-            mDrawable.setColor(calendarStyleAttr.getRangeStripColor());
+            Drawable mDrawable = ContextCompat.getDrawable(mContext, R.drawable.range_bg_right);
+            mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
             container.strip.setBackground(mDrawable);
             layoutParams.setMargins(0, 0, 20, 0);
         } else {
@@ -356,8 +360,8 @@ public class DateRangeMonthView extends LinearLayout {
             layoutParams.setMargins(0, 0, 0, 0);
         }
         container.strip.setLayoutParams(layoutParams);
-        GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.green_circle);
-        mDrawable.setColor(calendarStyleAttr.getSelectedDateCircleColor());
+        Drawable mDrawable = ContextCompat.getDrawable(mContext, R.drawable.green_circle);
+        mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getSelectedDateCircleColor(), FILTER_MODE));
         container.tvDate.setBackground(mDrawable);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
         container.tvDate.setTextColor(calendarStyleAttr.getSelectedDateColor());
@@ -372,8 +376,8 @@ public class DateRangeMonthView extends LinearLayout {
      */
     private void makeAsRangeDate(DayContainer container) {
         container.tvDate.setBackgroundColor(Color.TRANSPARENT);
-        GradientDrawable mDrawable = (GradientDrawable) ContextCompat.getDrawable(mContext, R.drawable.range_bg);
-        mDrawable.setColor(calendarStyleAttr.getRangeStripColor());
+        Drawable mDrawable = ContextCompat.getDrawable(mContext, R.drawable.range_bg);
+        mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
         container.strip.setBackground(mDrawable);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
         container.tvDate.setTextColor(calendarStyleAttr.getRangeDateColor());
