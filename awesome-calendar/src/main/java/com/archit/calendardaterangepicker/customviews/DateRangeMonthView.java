@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
@@ -34,7 +33,6 @@ import java.util.Date;
 public class DateRangeMonthView extends LinearLayout {
 
     private static final String LOG_TAG = DateRangeMonthView.class.getSimpleName();
-    private Context mContext;
     private LinearLayout llDaysContainer;
     private LinearLayout llTitleWeekContainer;
 
@@ -80,12 +78,10 @@ public class DateRangeMonthView extends LinearLayout {
      * @param attributeSet - Attr set
      */
     private void initView(Context context, AttributeSet attributeSet) {
-        mContext = context;
-
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
         LinearLayout mainView = (LinearLayout) layoutInflater.inflate(R.layout.layout_calendar_month, this, true);
-        llDaysContainer = (LinearLayout) mainView.findViewById(R.id.llDaysContainer);
-        llTitleWeekContainer = (LinearLayout) mainView.findViewById(R.id.llTitleWeekContainer);
+        llDaysContainer = mainView.findViewById(R.id.llDaysContainer);
+        llTitleWeekContainer = mainView.findViewById(R.id.llTitleWeekContainer);
 
         setListeners();
 
@@ -150,7 +146,7 @@ public class DateRangeMonthView extends LinearLayout {
             if (calendarStyleAttr.isShouldEnabledTime()) {
                 final Calendar finalMinSelectedDate = minSelectedDate;
                 final Calendar finalMaxSelectedDate = maxSelectedDate;
-                AwesomeTimePickerDialog awesomeTimePickerDialog = new AwesomeTimePickerDialog(mContext, mContext.getString(R.string.select_time), new AwesomeTimePickerDialog.TimePickerCallback() {
+                AwesomeTimePickerDialog awesomeTimePickerDialog = new AwesomeTimePickerDialog(getContext(), getContext().getString(R.string.select_time), new AwesomeTimePickerDialog.TimePickerCallback() {
                     @Override
                     public void onTimeSelected(int hours, int mins) {
                         selectedCal.set(Calendar.HOUR, hours);
@@ -214,7 +210,7 @@ public class DateRangeMonthView extends LinearLayout {
         currentCalendarMonth.set(Calendar.MINUTE, 0);
         currentCalendarMonth.set(Calendar.SECOND, 0);
 
-        String[] weekTitle = mContext.getResources().getStringArray(R.array.week_sun_sat);
+        String[] weekTitle = getContext().getResources().getStringArray(R.array.week_sun_sat);
 
         //To set week day title as per offset
         for (int i = 0; i < 7; i++) {
@@ -345,13 +341,13 @@ public class DateRangeMonthView extends LinearLayout {
 
         if (stripType == DateRangeCalendarManager.RANGE_TYPE.START_DATE && maxDate != null &&
                 minDate.compareTo(maxDate) != 0) {
-            Drawable mDrawable = ContextCompat.getDrawable(mContext, R.drawable.range_bg_left);
+            Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg_left);
             mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
 
             container.strip.setBackground(mDrawable);
             layoutParams.setMargins(20, 0, 0, 0);
         } else if (stripType == DateRangeCalendarManager.RANGE_TYPE.LAST_DATE) {
-            Drawable mDrawable = ContextCompat.getDrawable(mContext, R.drawable.range_bg_right);
+            Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg_right);
             mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
             container.strip.setBackground(mDrawable);
             layoutParams.setMargins(0, 0, 20, 0);
@@ -360,7 +356,7 @@ public class DateRangeMonthView extends LinearLayout {
             layoutParams.setMargins(0, 0, 0, 0);
         }
         container.strip.setLayoutParams(layoutParams);
-        Drawable mDrawable = ContextCompat.getDrawable(mContext, R.drawable.green_circle);
+        Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.green_circle);
         mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getSelectedDateCircleColor(), FILTER_MODE));
         container.tvDate.setBackground(mDrawable);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
@@ -376,7 +372,7 @@ public class DateRangeMonthView extends LinearLayout {
      */
     private void makeAsRangeDate(DayContainer container) {
         container.tvDate.setBackgroundColor(Color.TRANSPARENT);
-        Drawable mDrawable = ContextCompat.getDrawable(mContext, R.drawable.range_bg);
+        Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg);
         mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
         container.strip.setBackground(mDrawable);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);

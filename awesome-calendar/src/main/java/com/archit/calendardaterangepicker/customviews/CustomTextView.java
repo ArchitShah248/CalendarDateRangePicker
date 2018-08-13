@@ -6,8 +6,6 @@ import android.util.AttributeSet;
 
 public class CustomTextView extends AppCompatTextView {
 
-    private Context mContext;
-
     public CustomTextView(Context context) {
         super(context);
         initViews(context, null, 0);
@@ -24,8 +22,6 @@ public class CustomTextView extends AppCompatTextView {
     }
 
     private void initViews(Context context, AttributeSet attrs, int defStyle) {
-
-        mContext = context;
 
         if (isInEditMode()) {
             return;
