@@ -220,10 +220,37 @@ public class DateRangeCalendarView extends LinearLayout {
         imgVNavRight.setImageDrawable(rightDrawable);
     }
 
+    /**
+     * Sets start date.
+     *
+     * @param startDate
+     */
     public void setStartDate(Calendar startDate) {
-
+        adapterEventCalendarMonths.setMinSelectedDate(startDate);
     }
 
+    /**
+     * Sets end date.
+     *
+     * @param endDate
+     */
     public void setEndDate(Calendar endDate) {
+        adapterEventCalendarMonths.setMaxSelectedDate(endDate);
+    }
+
+
+    /**
+     * Gets start date.
+     */
+    public Calendar getStartDate() {
+        return adapterEventCalendarMonths.getMinSelectedDate();
+    }
+
+
+    /**
+     * Gets end date.
+     */
+    public Calendar getEndDate() {
+        return adapterEventCalendarMonths.getMaxSelectedDate();
     }
 }
