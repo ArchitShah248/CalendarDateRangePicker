@@ -93,7 +93,7 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
                 public void run() {
                     notifyDataSetChanged();
                 }
-            },50);
+            }, 50);
 
 
             if (calendarListener != null) {
@@ -108,7 +108,7 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
                 public void run() {
                     notifyDataSetChanged();
                 }
-            },50);
+            }, 50);
             if (calendarListener != null) {
                 calendarListener.onDateRangeSelected(startDate, endDate);
             }
@@ -122,13 +122,13 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
     /**
      * To redraw calendar.
      */
-    public void invalidateCalendar(){
+    public void invalidateCalendar() {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 notifyDataSetChanged();
             }
-        },50);
+        }, 50);
     }
 
     /**

@@ -7,25 +7,18 @@
     android:minHeight="@dimen/weekRowMinHeight"
     android:orientation="horizontal">
 
-    <include
-        layout="@layout/layout_calendar_day" />
+    <include layout="@layout/layout_calendar_day" />
 
-    <include
-        layout="@layout/layout_calendar_day" />
+    <include layout="@layout/layout_calendar_day" />
 
-    <include
-        layout="@layout/layout_calendar_day" />
+    <include layout="@layout/layout_calendar_day" />
 
-    <include
-        layout="@layout/layout_calendar_day" />
+    <include layout="@layout/layout_calendar_day" />
 
-    <include
-        layout="@layout/layout_calendar_day" />
+    <include layout="@layout/layout_calendar_day" />
 
-    <include
-        layout="@layout/layout_calendar_day" />
+    <include layout="@layout/layout_calendar_day" />
 
-    <include
-        layout="@layout/layout_calendar_day" />
+    <include layout="@layout/layout_calendar_day" />
 
 </LinearLayout>

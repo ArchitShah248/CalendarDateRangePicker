@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
                 calendar.resetAllSelectedViews();
             }
         });
+
+        calendar.setStartDate(Calendar.getInstance());
+        calendar.setEndDate(Calendar.getInstance());
     }
 
 
