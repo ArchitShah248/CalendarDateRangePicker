@@ -30,7 +30,7 @@ public class CalendarStyleAttr {
 
     public CalendarStyleAttr(Context context, AttributeSet attributeSet) {
         setDefAttributes(context);
-        setAttributes(context,attributeSet);
+        setAttributes(context, attributeSet);
     }
 
     /**
@@ -74,7 +74,7 @@ public class CalendarStyleAttr {
 
     }
 
-    public void setAttributes(Context context,AttributeSet attributeSet){
+    public void setAttributes(Context context, AttributeSet attributeSet) {
         if (attributeSet != null) {
             TypedArray ta = context.obtainStyledAttributes(attributeSet, R.styleable.DateRangeMonthView, 0, 0);
             try {
@@ -220,10 +220,11 @@ public class CalendarStyleAttr {
 
     /**
      * To set week offset
+     *
      * @param weekOffset
      */
     public void setWeekOffset(int weekOffset) {
-        if(weekOffset < 0 || weekOffset > 6 ){
+        if (weekOffset < 0 || weekOffset > 6) {
             throw new RuntimeException("Week offset can only be between 0 to 6. " +
                     "0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat");
         }

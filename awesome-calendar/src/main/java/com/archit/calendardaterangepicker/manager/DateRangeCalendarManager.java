@@ -35,7 +35,6 @@ public class DateRangeCalendarManager {
     public DateRangeCalendarManager() {
     }
 
-
     public void setMinSelectedDate(Calendar minSelectedDate) {
         this.minSelectedDate = minSelectedDate;
     }

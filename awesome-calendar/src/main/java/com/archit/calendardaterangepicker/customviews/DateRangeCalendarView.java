@@ -25,14 +25,12 @@ import java.util.Locale;
 
 public class DateRangeCalendarView extends LinearLayout {
 
-
     public interface CalendarListener {
         void onFirstDateSelected(Calendar startDate);
 
         void onDateRangeSelected(Calendar startDate, Calendar endDate);
     }
 
-    private Context mContext;
     private CustomTextView tvYearTitle;
     private AppCompatImageView imgVNavLeft, imgVNavRight;
     private List<Calendar> dataList = new ArrayList<>();
@@ -63,9 +61,8 @@ public class DateRangeCalendarView extends LinearLayout {
 
     private void initViews(Context context, AttributeSet attrs) {
 
-        mContext = context;
         locale = context.getResources().getConfiguration().locale;
-        calendarStyleAttr = new CalendarStyleAttr(mContext, attrs);
+        calendarStyleAttr = new CalendarStyleAttr(context, attrs);
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         layoutInflater.inflate(R.layout.layout_calendar_container, this, true);
@@ -89,7 +86,7 @@ public class DateRangeCalendarView extends LinearLayout {
             today.add(Calendar.MONTH, 1);
         }
 
-        adapterEventCalendarMonths = new AdapterEventCalendarMonths(mContext, dataList, calendarStyleAttr);
+        adapterEventCalendarMonths = new AdapterEventCalendarMonths(context, dataList, calendarStyleAttr);
         vpCalendar.setAdapter(adapterEventCalendarMonths);
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(TOTAL_ALLOWED_MONTHS);
@@ -221,5 +218,39 @@ public class DateRangeCalendarView extends LinearLayout {
      */
     public void setNavRightImage(@NonNull Drawable rightDrawable) {
         imgVNavRight.setImageDrawable(rightDrawable);
+    }
+
+    /**
+     * Sets start date.
+     *
+     * @param startDate
+     */
+    public void setStartDate(Calendar startDate) {
+        adapterEventCalendarMonths.setMinSelectedDate(startDate);
+    }
+
+    /**
+     * Sets end date.
+     *
+     * @param endDate
+     */
+    public void setEndDate(Calendar endDate) {
+        adapterEventCalendarMonths.setMaxSelectedDate(endDate);
+    }
+
+
+    /**
+     * Gets start date.
+     */
+    public Calendar getStartDate() {
+        return adapterEventCalendarMonths.getMinSelectedDate();
+    }
+
+
+    /**
+     * Gets end date.
+     */
+    public Calendar getEndDate() {
+        return adapterEventCalendarMonths.getMaxSelectedDate();
     }
 }

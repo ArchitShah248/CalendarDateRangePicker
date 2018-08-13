@@ -3,11 +3,11 @@ package com.archit.calendardaterangepickerdemo;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView;
-import com.archit.calendardaterangepicker.customviews.DateRangeMonthView;
 
 import java.util.Calendar;
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        calendar = (DateRangeCalendarView) findViewById(R.id.calendar);
+        calendar = findViewById(R.id.calendar);
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
 //        Typeface typeface = Typeface.createFromAsset(getAssets(), "LobsterTwo-Regular.ttf");
@@ -46,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
                 calendar.resetAllSelectedViews();
             }
         });
+
+        Calendar now = Calendar.getInstance();
+        Calendar later = Calendar.getInstance();
+        later.add(Calendar.MONTH, 1);
+
+        calendar.setStartDate(now);
+        calendar.setEndDate(later);
+
+        Log.v(this.getClass().getSimpleName(), "Start Date: " + calendar.getStartDate().getTime().toString());
+        Log.v(this.getClass().getSimpleName(), "End Date: " + calendar.getEndDate().getTime().toString());
     }
 
 

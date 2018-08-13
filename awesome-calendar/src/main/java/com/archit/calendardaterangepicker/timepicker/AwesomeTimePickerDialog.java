@@ -17,7 +17,6 @@ import java.util.Calendar;
 public class AwesomeTimePickerDialog extends Dialog {
 
     private static final String LOG_TAG = AwesomeTimePickerDialog.class.getSimpleName();
-    private Context mContext;
 
     private CustomTextView tvHeaderTitle, tvDialogDone, tvDialogCancel;
 
@@ -36,7 +35,6 @@ public class AwesomeTimePickerDialog extends Dialog {
 
     public AwesomeTimePickerDialog(Context context, String title, TimePickerCallback timePickerCallback) {
         super(context);
-        mContext = context;
         mTitle = title;
         this.onTimeChangedListener = timePickerCallback;
 
