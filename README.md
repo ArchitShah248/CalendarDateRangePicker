@@ -1,4 +1,8 @@
 # CalendarDateRangePicker
+[ ![Download](https://api.bintray.com/packages/architshah248/EnticeArc/awesome-calendar/images/download.svg) ](https://bintray.com/architshah248/EnticeArc/awesome-calendar/_latestVersion)
+ [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CalendarDateRangePicker-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6929)
+ 
+
 ==================
 
 An Android Library to pick dates range, that helps user to select range from future dates.
