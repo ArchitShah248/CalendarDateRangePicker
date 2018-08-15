@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.archit.daterangecalendarpicker", appContext.getPackageName());
+        assertEquals("com.archit.calendardaterangepickerdemo", appContext.getPackageName());
     }
 }
