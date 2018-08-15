@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Calendar later = Calendar.getInstance();
         later.add(Calendar.MONTH, 1);
 
-        calendar.setStartDate(now);
-        calendar.setEndDate(later);
+        calendar.setSelectedDateRange(now, later);
 
         Log.v(this.getClass().getSimpleName(), "Start Date: " + calendar.getStartDate().getTime().toString());
         Log.v(this.getClass().getSimpleName(), "End Date: " + calendar.getEndDate().getTime().toString());
