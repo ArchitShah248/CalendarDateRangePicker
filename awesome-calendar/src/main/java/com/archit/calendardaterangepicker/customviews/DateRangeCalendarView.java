@@ -221,10 +221,10 @@ public class DateRangeCalendarView extends LinearLayout {
     }
 
     /**
-     * Sets start and end date.<br/>
-     * Note:<br/>
-     * You can not set null start date with valid end date.<br/>
-     * You can not set end date before start date.<br/>
+     * Sets start and end date.<br>
+     * <B>Note:</B><br>
+     * You can not set null start date with valid end date.<br>
+     * You can not set end date before start date.<br>
      * @param startDate Start date
      * @param endDate   End date
      */

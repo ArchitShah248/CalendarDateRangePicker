@@ -2,6 +2,7 @@ package com.archit.calendardaterangepickerdemo;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         later.add(Calendar.MONTH, 1);
 
         calendar.setSelectedDateRange(now, later);
+
+//        calendar.setNavLeftImage(ContextCompat.getDrawable(this,R.drawable.ic_left));
+//        calendar.setNavRightImage(ContextCompat.getDrawable(this,R.drawable.ic_right));
 
         Log.v(this.getClass().getSimpleName(), "Start Date: " + calendar.getStartDate().getTime().toString());
         Log.v(this.getClass().getSimpleName(), "End Date: " + calendar.getEndDate().getTime().toString());
