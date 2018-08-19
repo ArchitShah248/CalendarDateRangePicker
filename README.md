@@ -1,6 +1,8 @@
 # CalendarDateRangePicker
 [ ![Download](https://api.bintray.com/packages/architshah248/EnticeArc/awesome-calendar/images/download.svg) ](https://bintray.com/architshah248/EnticeArc/awesome-calendar/_latestVersion)
  [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CalendarDateRangePicker-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6929)
+ [![Xamarin](https://img.shields.io/badge/Xamarin-CalendarDateRangePicker-ff69b4.svg?style=flat)](https://github.com/kibotu/Xamarin.Awesome.Calendar)
+ [![NuGet Badge](https://buildstats.info/nuget/Xamarin.Awesome.Calendar)](https://www.nuget.org/packages/Xamarin.Awesome.Calendar/)
  
 
 ==================
@@ -34,7 +36,7 @@ For Gradle:
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:1.1.1'
+    compile 'com.archit.calendar:awesome-calendar:1.1.2'
 }
 ```
 
@@ -44,7 +46,7 @@ For Maven:
 <dependency>
   <groupId>com.archit.calendar</groupId>
   <artifactId>awesome-calendar</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <type>pom</type>
 </dependency>
 ```
@@ -107,12 +109,21 @@ calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
 });
 ````
 
+**Set selected date range**
+````Java
+calendar.setSelectedDateRange(startDate, endDate);
+`````
 
 **Reset calendar date selection**
 ````Java
 calendar.resetAllSelectedViews();
 `````
 
+**Set navigation arrow left-right image**
+````Java
+calendar.setNavLeftImage(ContextCompat.getDrawable(this,R.drawable.ic_left));
+calendar.setNavRightImage(ContextCompat.getDrawable(this,R.drawable.ic_right));
+`````
 
 **Set text fonts**
 ````Java
@@ -125,7 +136,10 @@ calendar.setFonts(typeface);
 calendar.setWeekOffset(1);
 `````
 
-
+### Xamarin
+You can add this into your xamarin project from below link<br/>
+[How to add Xamarin.Awesome.Calendar into xamarin project](https://www.nuget.org/packages/Xamarin.Awesome.Calendar)
+ 
 ### Please help me in making it best by reporting issue or posting any fetaure extension.
 
 ### Requirements
