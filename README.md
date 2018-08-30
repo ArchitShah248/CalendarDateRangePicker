@@ -140,6 +140,11 @@ calendar.setWeekOffset(1);
 You can add this into your xamarin project from below link<br/>
 [How to add Xamarin.Awesome.Calendar into xamarin project](https://www.nuget.org/packages/Xamarin.Awesome.Calendar)
  
+
+### Special Thanks to contributors:
+- [Kibotu](https://github.com/kibotu)
+ 
+ 
 ### Please help me in making it best by reporting issue or posting any fetaure extension.
 
 ### Requirements
