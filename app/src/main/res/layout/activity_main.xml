@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             custom:calendar_tag="Test"
             custom:disable_date_color="#ABABAB"
+            custom:enable_past_date="false"
             custom:header_bg="@drawable/calendar_header"
             custom:range_color="@color/range_bg_color_app"
             custom:selected_date_circle_color="@color/selected_date_circle_color_app"
