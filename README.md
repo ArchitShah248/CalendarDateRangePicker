@@ -86,6 +86,7 @@ For Maven:
 | text_size_date             | Dimension | Date text size                     |
 | header_bg                  | Drawable  | Header background                  |
 | week_offset                | Dimension | To set week start day offset                  |
+| enable_past_date           | Boolean   | Enable/Disable past date's by default its value its false               |
 
 
 **Set callbacks**
