@@ -141,7 +141,7 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
     }
 
 
-    public void setSelectedDate(Calendar minSelectedDate,Calendar maxSelectedDate) {
+    public void setSelectedDate(Calendar minSelectedDate, Calendar maxSelectedDate) {
         dateRangeCalendarManager.setMinSelectedDate(minSelectedDate);
         dateRangeCalendarManager.setMaxSelectedDate(maxSelectedDate);
         notifyDataSetChanged();
@@ -153,5 +153,20 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
 
     public Calendar getMaxSelectedDate() {
         return dateRangeCalendarManager.getMaxSelectedDate();
+    }
+
+    /**
+     * To set editable mode. Set true if you want user to select date range else false. Default value will be true.
+     */
+    public void setEditable(boolean isEditable) {
+        calendarStyleAttr.setEditable(isEditable);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * To get editable mode.
+     */
+    public boolean isEditable() {
+        return calendarStyleAttr.isEditable();
     }
 }

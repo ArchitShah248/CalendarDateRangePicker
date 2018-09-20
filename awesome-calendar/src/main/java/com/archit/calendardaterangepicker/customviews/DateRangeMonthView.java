@@ -105,76 +105,78 @@ public class DateRangeMonthView extends LinearLayout {
         @Override
         public void onClick(View view) {
 
-            int key = (int) view.getTag();
-            final Calendar selectedCal = Calendar.getInstance();
-            Date date = new Date();
-            try {
-                date = DateRangeCalendarManager.SIMPLE_DATE_FORMAT.parse(String.valueOf(key));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            selectedCal.setTime(date);
-
-            Calendar minSelectedDate = dateRangeCalendarManager.getMinSelectedDate();
-            Calendar maxSelectedDate = dateRangeCalendarManager.getMaxSelectedDate();
-
-            if (minSelectedDate != null && maxSelectedDate == null) {
-                maxSelectedDate = selectedCal;
-
-                int startDateKey = DayContainer.GetContainerKey(minSelectedDate);
-                int lastDateKey = DayContainer.GetContainerKey(maxSelectedDate);
-
-                if (startDateKey == lastDateKey) {
-                    minSelectedDate = maxSelectedDate;
-                } else if (startDateKey > lastDateKey) {
-                    Calendar temp = (Calendar) minSelectedDate.clone();
-                    minSelectedDate = maxSelectedDate;
-                    maxSelectedDate = temp;
+            if (calendarStyleAttr.isEditable()) {
+                int key = (int) view.getTag();
+                final Calendar selectedCal = Calendar.getInstance();
+                Date date = new Date();
+                try {
+                    date = DateRangeCalendarManager.SIMPLE_DATE_FORMAT.parse(String.valueOf(key));
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            } else if (maxSelectedDate == null) {
-                //This will call one time only
-                minSelectedDate = selectedCal;
-            } else {
-                minSelectedDate = selectedCal;
-                maxSelectedDate = null;
-            }
+                selectedCal.setTime(date);
 
-            dateRangeCalendarManager.setMinSelectedDate(minSelectedDate);
-            dateRangeCalendarManager.setMaxSelectedDate(maxSelectedDate);
-            drawCalendarForMonth(currentCalendarMonth);
+                Calendar minSelectedDate = dateRangeCalendarManager.getMinSelectedDate();
+                Calendar maxSelectedDate = dateRangeCalendarManager.getMaxSelectedDate();
 
-            if (calendarStyleAttr.isShouldEnabledTime()) {
-                final Calendar finalMinSelectedDate = minSelectedDate;
-                final Calendar finalMaxSelectedDate = maxSelectedDate;
-                AwesomeTimePickerDialog awesomeTimePickerDialog = new AwesomeTimePickerDialog(getContext(), getContext().getString(R.string.select_time), new AwesomeTimePickerDialog.TimePickerCallback() {
-                    @Override
-                    public void onTimeSelected(int hours, int mins) {
-                        selectedCal.set(Calendar.HOUR, hours);
-                        selectedCal.set(Calendar.MINUTE, mins);
+                if (minSelectedDate != null && maxSelectedDate == null) {
+                    maxSelectedDate = selectedCal;
 
-                        Log.i(LOG_TAG, "Time: " + selectedCal.getTime().toString());
-                        if (calendarListener != null) {
+                    int startDateKey = DayContainer.GetContainerKey(minSelectedDate);
+                    int lastDateKey = DayContainer.GetContainerKey(maxSelectedDate);
 
-                            if (finalMaxSelectedDate != null) {
-                                calendarListener.onDateRangeSelected(finalMinSelectedDate, finalMaxSelectedDate);
-                            } else {
-                                calendarListener.onFirstDateSelected(finalMinSelectedDate);
+                    if (startDateKey == lastDateKey) {
+                        minSelectedDate = maxSelectedDate;
+                    } else if (startDateKey > lastDateKey) {
+                        Calendar temp = (Calendar) minSelectedDate.clone();
+                        minSelectedDate = maxSelectedDate;
+                        maxSelectedDate = temp;
+                    }
+                } else if (maxSelectedDate == null) {
+                    //This will call one time only
+                    minSelectedDate = selectedCal;
+                } else {
+                    minSelectedDate = selectedCal;
+                    maxSelectedDate = null;
+                }
+
+                dateRangeCalendarManager.setMinSelectedDate(minSelectedDate);
+                dateRangeCalendarManager.setMaxSelectedDate(maxSelectedDate);
+                drawCalendarForMonth(currentCalendarMonth);
+
+                if (calendarStyleAttr.isShouldEnabledTime()) {
+                    final Calendar finalMinSelectedDate = minSelectedDate;
+                    final Calendar finalMaxSelectedDate = maxSelectedDate;
+                    AwesomeTimePickerDialog awesomeTimePickerDialog = new AwesomeTimePickerDialog(getContext(), getContext().getString(R.string.select_time), new AwesomeTimePickerDialog.TimePickerCallback() {
+                        @Override
+                        public void onTimeSelected(int hours, int mins) {
+                            selectedCal.set(Calendar.HOUR, hours);
+                            selectedCal.set(Calendar.MINUTE, mins);
+
+                            Log.i(LOG_TAG, "Time: " + selectedCal.getTime().toString());
+                            if (calendarListener != null) {
+
+                                if (finalMaxSelectedDate != null) {
+                                    calendarListener.onDateRangeSelected(finalMinSelectedDate, finalMaxSelectedDate);
+                                } else {
+                                    calendarListener.onFirstDateSelected(finalMinSelectedDate);
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onCancel() {
-                        DateRangeMonthView.this.resetAllSelectedViews();
-                    }
-                });
-                awesomeTimePickerDialog.showDialog();
-            } else {
-                Log.i(LOG_TAG, "Time: " + selectedCal.getTime().toString());
-                if (maxSelectedDate != null) {
-                    calendarListener.onDateRangeSelected(minSelectedDate, maxSelectedDate);
+                        @Override
+                        public void onCancel() {
+                            DateRangeMonthView.this.resetAllSelectedViews();
+                        }
+                    });
+                    awesomeTimePickerDialog.showDialog();
                 } else {
-                    calendarListener.onFirstDateSelected(minSelectedDate);
+                    Log.i(LOG_TAG, "Time: " + selectedCal.getTime().toString());
+                    if (maxSelectedDate != null) {
+                        calendarListener.onDateRangeSelected(minSelectedDate, maxSelectedDate);
+                    } else {
+                        calendarListener.onFirstDateSelected(minSelectedDate);
+                    }
                 }
             }
         }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.hardware.camera2.TotalCaptureResult;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
@@ -24,6 +25,7 @@ public class CalendarStyleAttr {
     private boolean shouldEnabledTime = false;
     private int weekOffset = 0;
     private boolean enabledPastDates = false;
+    private boolean isEditable = true;
 
     public CalendarStyleAttr(Context context) {
         setDefAttributes(context);
@@ -86,6 +88,7 @@ public class CalendarStyleAttr {
                 selectedDateCircleColor = ta.getColor(R.styleable.DateRangeMonthView_selected_date_circle_color, selectedDateCircleColor);
                 shouldEnabledTime = ta.getBoolean(R.styleable.DateRangeMonthView_enable_time_selection, false);
                 enabledPastDates = ta.getBoolean(R.styleable.DateRangeMonthView_enable_past_date,false);
+                isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_is_editable,true);
 
                 textSizeTitle = ta.getDimension(R.styleable.DateRangeMonthView_text_size_title, textSizeTitle);
                 textSizeWeek = ta.getDimension(R.styleable.DateRangeMonthView_text_size_week, textSizeWeek);
@@ -239,5 +242,13 @@ public class CalendarStyleAttr {
                     "0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat");
         }
         this.weekOffset = weekOffset;
+    }
+
+    public boolean isEditable() {
+        return isEditable;
+    }
+
+    public void setEditable(boolean editable) {
+        isEditable = editable;
     }
 }
