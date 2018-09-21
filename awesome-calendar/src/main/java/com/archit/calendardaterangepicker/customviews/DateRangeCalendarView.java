@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.archit.calendardaterangepicker.R;
-import com.archit.calendardaterangepicker.adapter.AdapterEventCalendarMonths;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttr;
 
 import java.text.DateFormatSymbols;
@@ -40,6 +39,7 @@ public class DateRangeCalendarView extends LinearLayout {
 
     private ViewPager vpCalendar;
     private CalendarStyleAttr calendarStyleAttr;
+    private CalendarListener mCalendarListener;
 
 
     private final static int TOTAL_ALLOWED_MONTHS = 30;
@@ -144,7 +144,10 @@ public class DateRangeCalendarView extends LinearLayout {
     private void setNavigationHeader(int position) {
         imgVNavRight.setVisibility(VISIBLE);
         imgVNavLeft.setVisibility(VISIBLE);
-        if (position == 0) {
+        if (dataList.size() == 1) {
+            imgVNavLeft.setVisibility(INVISIBLE);
+            imgVNavRight.setVisibility(INVISIBLE);
+        } else if (position == 0) {
             imgVNavLeft.setVisibility(INVISIBLE);
         } else if (position == dataList.size() - 1) {
             imgVNavRight.setVisibility(INVISIBLE);
@@ -175,7 +178,8 @@ public class DateRangeCalendarView extends LinearLayout {
      * @param calendarListener Listener
      */
     public void setCalendarListener(final CalendarListener calendarListener) {
-        adapterEventCalendarMonths.setCalendarListener(calendarListener);
+        mCalendarListener = calendarListener;
+        adapterEventCalendarMonths.setCalendarListener(mCalendarListener);
     }
 
     /**
@@ -271,5 +275,51 @@ public class DateRangeCalendarView extends LinearLayout {
     }
 
 
+    /**
+     * To provide month range to be shown to user. If start month is greater than end month than it will give {@link IllegalArgumentException}.
+     *
+     * @param startMonth Start month of the calendar
+     * @param endMonth   End month of the calendar
+     */
+    public void setVisibleMonthRange(Calendar startMonth, Calendar endMonth) {
 
+        if (startMonth == null) {
+            throw new IllegalArgumentException("Start month can not be null.");
+        }
+        startMonth.set(Calendar.DATE, 1);
+        startMonth.set(Calendar.HOUR, 0);
+        startMonth.set(Calendar.MINUTE, 0);
+        startMonth.set(Calendar.SECOND, 0);
+        startMonth.set(Calendar.MILLISECOND, 0);
+
+
+        if (endMonth == null) {
+            throw new IllegalArgumentException("End month can not be null.");
+        }
+        endMonth.set(Calendar.DATE, 1);
+        endMonth.set(Calendar.HOUR, 0);
+        endMonth.set(Calendar.MINUTE, 0);
+        endMonth.set(Calendar.SECOND, 0);
+        endMonth.set(Calendar.MILLISECOND, 0);
+
+        if (startMonth.after(endMonth)) {
+            throw new IllegalArgumentException("Start month can not be greater than end month.");
+        }
+        dataList.clear();
+
+        do {
+            dataList.add((Calendar) startMonth.clone());
+            startMonth.add(Calendar.MONTH, 1);
+        }
+        while (startMonth.compareTo(endMonth) != 0);
+
+        adapterEventCalendarMonths = new AdapterEventCalendarMonths(getContext(), dataList, calendarStyleAttr);
+        vpCalendar.setAdapter(adapterEventCalendarMonths);
+        vpCalendar.setOffscreenPageLimit(0);
+        vpCalendar.setCurrentItem(0);
+        setCalendarYearTitle(0);
+        setNavigationHeader(0);
+        adapterEventCalendarMonths.setCalendarListener(mCalendarListener);
+
+    }
 }

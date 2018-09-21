@@ -1,4 +1,4 @@
-package com.archit.calendardaterangepicker.adapter;
+package com.archit.calendardaterangepicker.customviews;
 
 import android.content.Context;
 import android.os.Handler;
@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.archit.calendardaterangepicker.R;
-import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView;
-import com.archit.calendardaterangepicker.customviews.DateRangeMonthView;
-import com.archit.calendardaterangepicker.manager.DateRangeCalendarManager;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttr;
 
 import java.util.ArrayList;

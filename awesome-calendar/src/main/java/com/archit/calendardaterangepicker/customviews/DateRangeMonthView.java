@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.archit.calendardaterangepicker.R;
-import com.archit.calendardaterangepicker.manager.DateRangeCalendarManager;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttr;
 import com.archit.calendardaterangepicker.models.DayContainer;
 import com.archit.calendardaterangepicker.timepicker.AwesomeTimePickerDialog;
@@ -30,7 +29,7 @@ import java.util.Date;
  * Created by archit.shah on 08/09/2017.
  */
 
-public class DateRangeMonthView extends LinearLayout {
+class DateRangeMonthView extends LinearLayout {
 
     private static final String LOG_TAG = DateRangeMonthView.class.getSimpleName();
     private LinearLayout llDaysContainer;
@@ -205,7 +204,6 @@ public class DateRangeMonthView extends LinearLayout {
      */
     private void drawCalendarForMonth(Calendar month) {
 
-        Log.v(LOG_TAG, "Current cal: " + month.getTime().toString());
         currentCalendarMonth = (Calendar) month.clone();
         currentCalendarMonth.set(Calendar.DATE, 1);
         currentCalendarMonth.set(Calendar.HOUR, 0);
@@ -245,7 +243,6 @@ public class DateRangeMonthView extends LinearLayout {
                 if (calendarStyleAttr.getFonts() != null) {
                     container.tvDate.setTypeface(calendarStyleAttr.getFonts());
                 }
-                Log.v(LOG_TAG, "Date: " + month.getTime().toString());
                 drawDayContainer(container, month);
                 month.add(Calendar.DATE, 1);
             }
@@ -266,7 +263,8 @@ public class DateRangeMonthView extends LinearLayout {
 
         if (currentCalendarMonth.get(Calendar.MONTH) != calendar.get(Calendar.MONTH)) {
             hideDayContainer(container);
-        } else if (today.after(calendar) && (today.get(Calendar.DAY_OF_YEAR) != calendar.get(Calendar.DAY_OF_YEAR)) && !calendarStyleAttr.isEnabledPastDates()) {
+            } else if (today.after(calendar) && (today.get(Calendar.DAY_OF_YEAR) != calendar.get(Calendar.DAY_OF_YEAR))
+                && !calendarStyleAttr.isEnabledPastDates()) {
             disableDayContainer(container);
             container.tvDate.setText(String.valueOf(date));
         } else {

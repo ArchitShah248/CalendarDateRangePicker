@@ -1,4 +1,4 @@
-package com.archit.calendardaterangepicker.manager;
+package com.archit.calendardaterangepicker.customviews;
 
 import android.support.annotation.IntDef;
 
@@ -10,12 +10,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import static com.archit.calendardaterangepicker.manager.DateRangeCalendarManager.RANGE_TYPE.LAST_DATE;
-import static com.archit.calendardaterangepicker.manager.DateRangeCalendarManager.RANGE_TYPE.MIDDLE_DATE;
-import static com.archit.calendardaterangepicker.manager.DateRangeCalendarManager.RANGE_TYPE.NOT_IN_RANGE;
-import static com.archit.calendardaterangepicker.manager.DateRangeCalendarManager.RANGE_TYPE.START_DATE;
+import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.RANGE_TYPE.LAST_DATE;
+import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.RANGE_TYPE.MIDDLE_DATE;
+import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.RANGE_TYPE.NOT_IN_RANGE;
+import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.RANGE_TYPE.START_DATE;
 
-public class DateRangeCalendarManager {
+class DateRangeCalendarManager {
 
     private Calendar minSelectedDate, maxSelectedDate;
     private List<Calendar> calendarMonths = new ArrayList<>();
