@@ -36,7 +36,7 @@ For Gradle:
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:1.1.2'
+    compile 'com.archit.calendar:awesome-calendar:1.1.3'
 }
 ```
 
@@ -46,7 +46,7 @@ For Maven:
 <dependency>
   <groupId>com.archit.calendar</groupId>
   <artifactId>awesome-calendar</artifactId>
-  <version>1.1.2</version>
+  <version>1.1.3</version>
   <type>pom</type>
 </dependency>
 ```
@@ -86,7 +86,8 @@ For Maven:
 | text_size_date             | Dimension | Date text size                     |
 | header_bg                  | Drawable  | Header background                  |
 | week_offset                | Dimension | To set week start day offset                  |
-| enable_past_date           | Boolean   | Enable/Disable past date's by default its value its false               |
+| enable_past_date           | Boolean   | Enable/Disable past date's by default its value is false               |
+| editable           | Boolean   | When true user can edit. By default its value is true               |
 
 
 **Set callbacks**
@@ -137,6 +138,27 @@ calendar.setFonts(typeface);
 calendar.setWeekOffset(1);
 `````
 
+**Set calendar visible months**
+````Java
+Calendar startMonth = Calendar.getInstance();
+startMonth.add(Calendar.MONTH, -2);
+Calendar endMonth = (Calendar) now.clone();
+endMonth.add(Calendar.MONTH, 5);
+
+calendar.setVisibleMonthRange(startMonth,endMonth);
+````
+
+**Set pre selected dates**
+````Java
+Calendar startSelectionDate = Calendar.getInstance();
+startSelectionDate.add(Calendar.MONTH, -1);
+Calendar endSelectionDate = (Calendar) startSelectionDate.clone();
+endSelectionDate.add(Calendar.DATE, 40);
+
+calendar.setSelectedDateRange(startSelectionDate, endSelectionDate);
+````
+
+
 ### Xamarin
 You can add this into your xamarin project from below link<br/>
 [How to add Xamarin.Awesome.Calendar into xamarin project](https://www.nuget.org/packages/Xamarin.Awesome.Calendar)
@@ -144,6 +166,7 @@ You can add this into your xamarin project from below link<br/>
 
 ### Special Thanks to contributors:
 - [Kibotu](https://github.com/kibotu)
+- [FahanBakht](https://github.com/FahanBakht)
  
  
 ### Please help me in making it best by reporting issue or posting any fetaure extension.
