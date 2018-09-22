@@ -48,17 +48,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Calendar now = Calendar.getInstance();
-        Calendar later = Calendar.getInstance();
-        later.add(Calendar.MONTH, 1);
-
-        calendar.setSelectedDateRange(now, later);
 
 //        calendar.setNavLeftImage(ContextCompat.getDrawable(this,R.drawable.ic_left));
 //        calendar.setNavRightImage(ContextCompat.getDrawable(this,R.drawable.ic_right));
 
-        Log.v(this.getClass().getSimpleName(), "Start Date: " + calendar.getStartDate().getTime().toString());
-        Log.v(this.getClass().getSimpleName(), "End Date: " + calendar.getEndDate().getTime().toString());
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.MONTH, -2);
+        Calendar later = (Calendar) now.clone();
+        later.add(Calendar.MONTH, 5);
+
+        calendar.setVisibleMonthRange(now,later);
+
+        Calendar startSelectionDate = Calendar.getInstance();
+        startSelectionDate.add(Calendar.MONTH, -1);
+        Calendar endSelectionDate = (Calendar) startSelectionDate.clone();
+        endSelectionDate.add(Calendar.DATE, 40);
+
+        calendar.setSelectedDateRange(startSelectionDate, endSelectionDate);
+
+
     }
 
 

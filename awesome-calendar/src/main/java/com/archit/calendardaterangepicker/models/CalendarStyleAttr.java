@@ -88,7 +88,7 @@ public class CalendarStyleAttr {
                 selectedDateCircleColor = ta.getColor(R.styleable.DateRangeMonthView_selected_date_circle_color, selectedDateCircleColor);
                 shouldEnabledTime = ta.getBoolean(R.styleable.DateRangeMonthView_enable_time_selection, false);
                 enabledPastDates = ta.getBoolean(R.styleable.DateRangeMonthView_enable_past_date,false);
-                isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_is_editable,true);
+                isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_editable,true);
 
                 textSizeTitle = ta.getDimension(R.styleable.DateRangeMonthView_text_size_title, textSizeTitle);
                 textSizeWeek = ta.getDimension(R.styleable.DateRangeMonthView_text_size_week, textSizeWeek);
