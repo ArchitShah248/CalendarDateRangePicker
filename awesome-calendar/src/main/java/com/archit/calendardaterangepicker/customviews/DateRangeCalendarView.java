@@ -229,7 +229,7 @@ public class DateRangeCalendarView extends LinearLayout {
      * <B>Note:</B><br>
      * You can not set null start date with valid end date.<br>
      * You can not set end date before start date.<br>
-     * If you are setting custom month range than do not call this before calling (@method setVisibleMonthRange).<br/
+     * If you are setting custom month range than do not call this before calling (@method setVisibleMonthRange).<br>
      *
      * @param startDate Start date
      * @param endDate   End date
@@ -277,7 +277,7 @@ public class DateRangeCalendarView extends LinearLayout {
 
 
     /**
-     * To provide month range to be shown to user. If start month is greater than end month than it will give {@link IllegalArgumentException}.<br/>
+     * To provide month range to be shown to user. If start month is greater than end month than it will give {@link IllegalArgumentException}.<br>
      * <b>Note:</b> Do not call this method after calling date selection method (@method setSelectedDateRange) as it will reset date selection.
      *
      * @param startMonth Start month of the calendar
