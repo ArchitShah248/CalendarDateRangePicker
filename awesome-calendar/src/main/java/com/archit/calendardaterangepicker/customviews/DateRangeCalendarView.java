@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.archit.calendardaterangepicker.R;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttr;
@@ -31,6 +32,7 @@ public class DateRangeCalendarView extends LinearLayout {
     }
 
     private CustomTextView tvYearTitle;
+    private CustomTextView tvSubtitle;
     private AppCompatImageView imgVNavLeft, imgVNavRight;
     private List<Calendar> dataList = new ArrayList<>();
 
@@ -71,6 +73,7 @@ public class DateRangeCalendarView extends LinearLayout {
         rlHeaderCalendar.setBackground(calendarStyleAttr.getHeaderBg());
 
         tvYearTitle = findViewById(R.id.tvYearTitle);
+        tvSubtitle = findViewById(R.id.tvSubtitle);
         imgVNavLeft = findViewById(R.id.imgVNavLeft);
         imgVNavRight = findViewById(R.id.imgVNavRight);
 
@@ -170,6 +173,10 @@ public class DateRangeCalendarView extends LinearLayout {
         tvYearTitle.setText(yearTitle);
         tvYearTitle.setTextColor(calendarStyleAttr.getTitleColor());
 
+    }
+
+    public void setSubtitleVisibility(int visibility) {
+        tvSubtitle.setVisibility(visibility);
     }
 
     /**
