@@ -22,10 +22,8 @@
             custom:calendar_tag="Test"
             custom:disable_date_color="#ABABAB"
             custom:enable_past_date="true"
-            custom:header_bg="@drawable/calendar_header"
             custom:range_color="@color/range_bg_color_app"
             custom:selected_date_circle_color="@color/selected_date_circle_color_app"
-            custom:title_color="@color/calendar_header_title"
             custom:editable="true"
             custom:week_offset="0">
 

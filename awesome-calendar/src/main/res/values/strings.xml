@@ -23,5 +23,6 @@
     <string name="done">Done</string>
     <string name="title_time_picker">Select Time</string>
     <string name="select_time">Select a Time</string>
+    <string name="subtitle">Escolha a data de volta</string>
 
 </resources>
