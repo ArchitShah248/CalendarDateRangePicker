@@ -25,5 +25,6 @@
     <string name="select_time">Selecione um horário</string>
     <string name="subtitle">Escolha uma data</string>
     <string name="clear_selection">Limpar</string>
+    <string name="confirm">Confirmar</string>
 
 </resources>

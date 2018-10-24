@@ -25,5 +25,6 @@
     <string name="select_time">Select a Time</string>
     <string name="subtitle">Choose date</string>
     <string name="clear_selection">Clear</string>
+    <string name="confirm">Confirm</string>
 
 </resources>

@@ -4,7 +4,10 @@
     android:minWidth="320dp"
     android:layout_height="478dp"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingRight="@dimen/vertical_padding"
+    android:paddingLeft="@dimen/vertical_padding"
+    android:paddingTop="@dimen/horizontal_padding">
 
     <include
         layout="@layout/layout_calendar_nav"
@@ -39,7 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="0"
         android:gravity="center">
 
         <ImageView
@@ -57,5 +59,17 @@
             android:textColor="@color/week_color"
             android:textSize="@dimen/clear_text_size"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/confirm_text_size"
+        android:layout_marginTop="@dimen/confirm_margin_top"
+        android:layout_marginBottom="@dimen/confirm_margin_bottom"
+        android:background="@drawable/confirm_background"/>
 
 </LinearLayout>

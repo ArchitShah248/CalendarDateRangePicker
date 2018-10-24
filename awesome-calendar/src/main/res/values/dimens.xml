@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- container -->
+    <dimen name="vertical_padding">23dp</dimen>
+    <dimen name="horizontal_padding">24dp</dimen>
     <!-- dateTitleLayout -->
     <dimen name="text_size_title">22sp</dimen>
     <dimen name="dateTitlePaddingBottom">5dp</dimen>
@@ -33,5 +36,11 @@
     <dimen name="clear_image_margin">6dp</dimen>
     <dimen name="clear_margin_top">46dp</dimen>
     <dimen name="clear_margin_bottom">23dp</dimen>
+
+    <!-- confirm -->
+    <dimen name="confirm_background_corners">20dp</dimen>
+    <dimen name="confirm_text_size">14sp</dimen>
+    <dimen name="confirm_margin_top">24dp</dimen>
+    <dimen name="confirm_margin_bottom">21dp</dimen>
 
 </resources>
