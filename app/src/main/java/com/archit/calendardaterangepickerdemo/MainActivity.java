@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
 //        Typeface typeface = Typeface.createFromAsset(getAssets(), "LobsterTwo-Regular.ttf");
-        calendar.setFonts(typeface);
+        //calendar.setFonts(typeface);
 
         calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
             @Override

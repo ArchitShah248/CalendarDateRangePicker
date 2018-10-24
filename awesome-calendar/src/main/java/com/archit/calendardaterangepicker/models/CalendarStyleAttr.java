@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.hardware.camera2.TotalCaptureResult;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.archit.calendardaterangepicker.R;
 
 public class CalendarStyleAttr {
+
+    private Context context;
 
     private Typeface fonts;
     private Drawable headerBg;
@@ -26,12 +27,20 @@ public class CalendarStyleAttr {
     private int weekOffset = 0;
     private boolean enabledPastDates = false;
     private boolean isEditable = true;
+    private CharSequence subtitle;
+    private boolean subtitleVisible;
+    private int subtitleColor;
+    private float subtitleSize;
+    private float subtitleMarginTop;
+    private float subtitleMarginBottom;
 
     public CalendarStyleAttr(Context context) {
+        this.context = context;
         setDefAttributes(context);
     }
 
     public CalendarStyleAttr(Context context, AttributeSet attributeSet) {
+        this.context = context;
         setDefAttributes(context);
         setAttributes(context, attributeSet);
     }
@@ -75,6 +84,10 @@ public class CalendarStyleAttr {
         setRangeDateColor(ContextCompat.getColor(context, R.color.range_date_color));
         setDisableDateColor(ContextCompat.getColor(context, R.color.disable_date_color));
 
+        subtitleSize = context.getResources().getDimension(R.dimen.text_size_subtitle);
+        subtitleColor = ContextCompat.getColor(context, R.color.subtitle_color);
+        subtitleMarginTop = context.getResources().getDimension(R.dimen.subtitle_margin_top);
+        subtitleMarginBottom = context.getResources().getDimension(R.dimen.subtitle_margin_bottom);
     }
 
     public void setAttributes(Context context, AttributeSet attributeSet) {
@@ -100,7 +113,12 @@ public class CalendarStyleAttr {
                 disableDateColor = ta.getColor(R.styleable.DateRangeMonthView_disable_date_color, disableDateColor);
                 setWeekOffset(ta.getColor(R.styleable.DateRangeMonthView_week_offset, 0));
 
-
+                subtitle = ta.getText(R.styleable.DateRangeMonthView_subtitle_text);
+                subtitleVisible = ta.getBoolean(R.styleable.DateRangeMonthView_subtitle_visible, false);
+                subtitleColor = ta.getColor(R.styleable.DateRangeMonthView_subtitle_color, defaultDateColor);
+                subtitleSize = ta.getDimension(R.styleable.DateRangeMonthView_subtitle_size, subtitleSize);
+                subtitleMarginTop = ta.getDimension(R.styleable.DateRangeMonthView_subtitle_margin_top, subtitleMarginTop);
+                subtitleMarginBottom = ta.getDimension(R.styleable.DateRangeMonthView_subtitle_margin_bottom, subtitleMarginBottom);
             } finally {
                 ta.recycle();
             }
@@ -250,5 +268,30 @@ public class CalendarStyleAttr {
 
     public void setEditable(boolean editable) {
         isEditable = editable;
+    }
+
+    public String getSubtitle() {
+        return subtitle.toString();
+    }
+
+    public boolean isSubtitleVisible() {
+        return subtitleVisible;
+    }
+
+    public int getSubtitleColor() {
+        return subtitleColor;
+    }
+
+    public float getSubtitleSize() {
+        float scaleRatio = context.getResources().getDisplayMetrics().density;
+        return subtitleSize / scaleRatio;
+    }
+
+    public int getSubtitleMarginTop() {
+        return (int) subtitleMarginTop;
+    }
+
+    public int getSubtitleMarginBottom() {
+        return (int) subtitleMarginBottom;
     }
 }
