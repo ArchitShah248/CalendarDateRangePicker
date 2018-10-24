@@ -23,7 +23,12 @@
     <dimen name="dayOfMonthImageMarginTop">32dp</dimen>
 
     <dimen name="strip_height">28dp</dimen>
+
+    <!-- divider -->
     <dimen name="divider_height">2dp</dimen>
     <dimen name="divider_margin">9dp</dimen>
+
+    <!-- clear -->
+    <dimen name="clear_text_size">12sp</dimen>
 
 </resources>

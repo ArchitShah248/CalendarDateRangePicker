@@ -42,7 +42,7 @@ public class DateRangeCalendarView extends LinearLayout {
     private ViewPager vpCalendar;
     private CalendarStyleAttr calendarStyleAttr;
     private CalendarListener mCalendarListener;
-
+    private LinearLayout btClear;
 
     private final static int TOTAL_ALLOWED_MONTHS = 30;
 
@@ -78,7 +78,7 @@ public class DateRangeCalendarView extends LinearLayout {
         imgVNavRight = findViewById(R.id.imgVNavRight);
 
         vpCalendar = findViewById(R.id.vpCalendar);
-
+        btClear = findViewById(R.id.btClear);
 
         dataList.clear();
         Calendar today = (Calendar) Calendar.getInstance().clone();
@@ -94,8 +94,18 @@ public class DateRangeCalendarView extends LinearLayout {
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(TOTAL_ALLOWED_MONTHS);
         setCalendarYearTitle(TOTAL_ALLOWED_MONTHS);
+        initClearEvent();
         initSubtitleAttr();
         setListeners();
+    }
+
+    private void initClearEvent() {
+        btClear.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetAllSelectedViews();
+            }
+        });
     }
 
     private void initSubtitleAttr() {
