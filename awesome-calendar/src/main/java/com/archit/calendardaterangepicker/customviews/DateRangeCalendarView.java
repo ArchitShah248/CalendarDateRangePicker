@@ -8,11 +8,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.archit.calendardaterangepicker.R;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttr;
@@ -94,8 +94,18 @@ public class DateRangeCalendarView extends LinearLayout {
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(TOTAL_ALLOWED_MONTHS);
         setCalendarYearTitle(TOTAL_ALLOWED_MONTHS);
-
+        initSubtitleAttr();
         setListeners();
+    }
+
+    private void initSubtitleAttr() {
+        tvSubtitle.setText(calendarStyleAttr.getSubtitle());
+        tvSubtitle.setTextColor(calendarStyleAttr.getSubtitleColor());
+        tvSubtitle.setVisibility(calendarStyleAttr.isSubtitleVisible() ? View.VISIBLE : View.GONE);
+        tvSubtitle.setTextSize(calendarStyleAttr.getSubtitleSize());
+        LayoutParams margins = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        margins.setMargins(0, calendarStyleAttr.getSubtitleMarginTop(), 0, calendarStyleAttr.getSubtitleMarginBottom());
+        tvSubtitle.setLayoutParams(margins);
     }
 
     private void setListeners() {
@@ -168,15 +178,10 @@ public class DateRangeCalendarView extends LinearLayout {
         String dateText = new DateFormatSymbols(locale).getMonths()[currentCalendarMonth.get(Calendar.MONTH)];
         dateText = dateText.substring(0, 1).toUpperCase() + dateText.subSequence(1, dateText.length());
 
-        String yearTitle = dateText + " " + currentCalendarMonth.get(Calendar.YEAR);
+        String yearTitle = dateText + ", " + currentCalendarMonth.get(Calendar.YEAR);
 
         tvYearTitle.setText(yearTitle);
         tvYearTitle.setTextColor(calendarStyleAttr.getTitleColor());
-
-    }
-
-    public void setSubtitleVisibility(int visibility) {
-        tvSubtitle.setVisibility(visibility);
     }
 
     /**
@@ -196,7 +201,21 @@ public class DateRangeCalendarView extends LinearLayout {
      */
     public void setFonts(Typeface fonts) {
         tvYearTitle.setTypeface(fonts);
+        tvSubtitle.setTypeface(fonts);
         calendarStyleAttr.setFonts(fonts);
+        adapterEventCalendarMonths.invalidateCalendar();
+    }
+
+    public void setYearTitleFont(Typeface font) {
+        tvYearTitle.setTypeface(font);
+    }
+
+    public void setSubtitleFont(Typeface font) {
+        tvSubtitle.setTypeface(font);
+    }
+
+    public void setCalendarFont(Typeface font) {
+        calendarStyleAttr.setFonts(font);
         adapterEventCalendarMonths.invalidateCalendar();
     }
 

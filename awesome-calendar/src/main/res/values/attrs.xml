@@ -3,6 +3,12 @@
 
     <declare-styleable name="DateRangeMonthView">
         <attr name="title_color" format="color" />
+        <attr name="subtitle_color" format="color"/>
+        <attr name="subtitle_size" format="dimension"/>
+        <attr name="subtitle_text" format="string"/>
+        <attr name="subtitle_visible" format="boolean"/>
+        <attr name="subtitle_margin_top" format="dimension"/>
+        <attr name="subtitle_margin_bottom" format="dimension"/>
         <attr name="week_color" format="color" />
         <attr name="range_color" format="color" />
         <attr name="selected_date_circle_color" format="color" />
