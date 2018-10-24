@@ -30,5 +30,8 @@
 
     <!-- clear -->
     <dimen name="clear_text_size">12sp</dimen>
+    <dimen name="clear_image_margin">6dp</dimen>
+    <dimen name="clear_margin_top">46dp</dimen>
+    <dimen name="clear_margin_bottom">23dp</dimen>
 
 </resources>

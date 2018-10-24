@@ -31,7 +31,8 @@
             custom:week_offset="0"
             custom:subtitle_text="Testando o subtitulo"
             custom:subtitle_visible="true"
-            custom:subtitle_color="@color/range_bg_color_app">
+            custom:subtitle_color="@color/range_bg_color_app"
+            custom:show_clear_button="true">
 
         </com.archit.calendardaterangepicker.customviews.DateRangeCalendarView>
 
@@ -43,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/cvCalendar"
         android:layout_centerHorizontal="true"
-        android:text="Reset" />
+        android:text="Reset"
+        android:visibility="gone"/>
 
 </RelativeLayout>
