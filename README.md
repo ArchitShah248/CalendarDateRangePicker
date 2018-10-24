@@ -87,7 +87,13 @@ For Maven:
 | header_bg                  | Drawable  | Header background                  |
 | week_offset                | Dimension | To set week start day offset                  |
 | enable_past_date           | Boolean   | Enable/Disable past date's by default its value is false               |
-| editable           | Boolean   | When true user can edit. By default its value is true               |
+| editable                   | Boolean   | When true user can edit. By default its value is true               |
+| subtitle_color             | Color     | Subtitle color |
+| subtitle_size              | Dimension | Subtitle text size |
+| subtitle_text              | String    | Subtitle text content |
+| subtitle_visible           | Boolean   | true to show subtitle. By default its value is false |
+| subtitle_margin_top        | Dimension | Margin top for subtitle. By default its value is 32dp |
+| subtitle_margin_bottom     | Dimension | Margin bottom for subtitle. By default its values is 10dp |
 
 
 **Set callbacks**
