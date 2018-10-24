@@ -90,6 +90,7 @@ public class CalendarStyleAttr {
         setRangeDateColor(ContextCompat.getColor(context, R.color.range_date_color));
         setDisableDateColor(ContextCompat.getColor(context, R.color.disable_date_color));
 
+        subtitle = context.getString(R.string.subtitle);
         subtitleSize = context.getResources().getDimension(R.dimen.text_size_subtitle);
         subtitleColor = ContextCompat.getColor(context, R.color.subtitle_color);
         subtitleMarginTop = context.getResources().getDimension(R.dimen.subtitle_margin_top);
@@ -125,7 +126,7 @@ public class CalendarStyleAttr {
                 disableDateColor = ta.getColor(R.styleable.DateRangeMonthView_disable_date_color, disableDateColor);
                 setWeekOffset(ta.getColor(R.styleable.DateRangeMonthView_week_offset, 0));
 
-                subtitle = ta.getText(R.styleable.DateRangeMonthView_subtitle_text);
+                subtitle = ta.getText(R.styleable.DateRangeMonthView_subtitle_text) == null ? subtitle : ta.getText(R.styleable.DateRangeMonthView_subtitle_text);
                 subtitleVisible = ta.getBoolean(R.styleable.DateRangeMonthView_subtitle_visible, false);
                 subtitleColor = ta.getColor(R.styleable.DateRangeMonthView_subtitle_color, defaultDateColor);
                 subtitleSize = ta.getDimension(R.styleable.DateRangeMonthView_subtitle_size, subtitleSize);
