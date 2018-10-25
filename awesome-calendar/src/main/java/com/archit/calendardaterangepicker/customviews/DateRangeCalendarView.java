@@ -26,7 +26,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class DateRangeCalendarView extends LinearLayout {
+public class DateRangeCalendarView extends RelativeLayout {
 
     public interface CalendarListener {
         void onFirstDateSelected(Calendar startDate);
@@ -45,9 +45,7 @@ public class DateRangeCalendarView extends LinearLayout {
     private ViewPager vpCalendar;
     private CalendarStyleAttr calendarStyleAttr;
     private CalendarListener mCalendarListener;
-    private LinearLayout btClear;
     private TextView tvClear;
-    private ImageView ivClear;
     private Button btConfirm;
 
     private final static int TOTAL_ALLOWED_MONTHS = 30;
@@ -85,9 +83,7 @@ public class DateRangeCalendarView extends LinearLayout {
 
         vpCalendar = findViewById(R.id.vpCalendar);
 
-        btClear = findViewById(R.id.btClear);
         tvClear = findViewById(R.id.tvClear);
-        ivClear = findViewById(R.id.ivClear);
 
         btConfirm = findViewById(R.id.btConfirm);
 
@@ -112,17 +108,14 @@ public class DateRangeCalendarView extends LinearLayout {
     }
 
     private void initClearAttr() {
-        btClear.setVisibility(calendarStyleAttr.isShowClearButton() ? VISIBLE : GONE);
         tvClear.setTextSize(calendarStyleAttr.getClearSize());
-        LayoutParams margins = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        margins.setMargins(0, calendarStyleAttr.getClearMarginTop(), 0, calendarStyleAttr.getClearMarginBottom());
-        btClear.setLayoutParams(margins);
         tvClear.setTextColor(calendarStyleAttr.getClearTextColor());
-        ivClear.setImageResource(calendarStyleAttr.getClearIcon());
+        tvClear.setCompoundDrawablePadding(20);
+        tvClear.setCompoundDrawablesWithIntrinsicBounds(getContext().getResources().getDrawable(calendarStyleAttr.getClearIcon()), null, null, null);
     }
 
     private void initClearEvent() {
-        btClear.setOnClickListener(new OnClickListener() {
+        tvClear.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 resetAllSelectedViews();
@@ -234,6 +227,8 @@ public class DateRangeCalendarView extends LinearLayout {
         tvYearTitle.setTypeface(fonts);
         tvSubtitle.setTypeface(fonts);
         calendarStyleAttr.setFonts(fonts);
+        tvClear.setTypeface(fonts);
+        btConfirm.setTypeface(fonts);
         adapterEventCalendarMonths.invalidateCalendar();
     }
 

@@ -11,6 +11,7 @@
         android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         custom:calendar_tag="Test"
         custom:disable_date_color="#ABABAB"
         custom:enable_past_date="true"
@@ -21,7 +22,7 @@
         custom:editable="true"
         custom:week_offset="0"
         custom:subtitle_visible="true"
-        custom:subtitle_color="@color/range_bg_color_app"
+        custom:subtitle_color="@color/subtitle_color"
         custom:show_clear_button="true">
 
     </com.archit.calendardaterangepicker.customviews.DateRangeCalendarView>
