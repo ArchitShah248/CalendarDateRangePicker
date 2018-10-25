@@ -48,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        calendar.setBtConfirmListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar.setVisibility(View.GONE);
+            }
+        });
+
 
 //        calendar.setNavLeftImage(ContextCompat.getDrawable(this,R.drawable.ic_left));
 //        calendar.setNavRightImage(ContextCompat.getDrawable(this,R.drawable.ic_right));

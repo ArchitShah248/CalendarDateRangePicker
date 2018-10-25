@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -47,6 +48,7 @@ public class DateRangeCalendarView extends LinearLayout {
     private LinearLayout btClear;
     private TextView tvClear;
     private ImageView ivClear;
+    private Button btConfirm;
 
     private final static int TOTAL_ALLOWED_MONTHS = 30;
 
@@ -86,6 +88,8 @@ public class DateRangeCalendarView extends LinearLayout {
         btClear = findViewById(R.id.btClear);
         tvClear = findViewById(R.id.tvClear);
         ivClear = findViewById(R.id.ivClear);
+
+        btConfirm = findViewById(R.id.btConfirm);
 
         dataList.clear();
         Calendar today = (Calendar) Calendar.getInstance().clone();
@@ -137,7 +141,6 @@ public class DateRangeCalendarView extends LinearLayout {
     }
 
     private void setListeners() {
-
         vpCalendar.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -376,6 +379,9 @@ public class DateRangeCalendarView extends LinearLayout {
         setCalendarYearTitle(0);
         setNavigationHeader(0);
         adapterEventCalendarMonths.setCalendarListener(mCalendarListener);
+    }
 
+    public void setBtConfirmListener(OnClickListener listener) {
+        btConfirm.setOnClickListener(listener);
     }
 }

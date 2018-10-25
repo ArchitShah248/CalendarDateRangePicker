@@ -7,41 +7,30 @@
     android:background="@drawable/background"
     tools:context="com.archit.calendardaterangepickerdemo.MainActivity">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cvCalendar"
+    <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
+        android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        custom:cardCornerRadius="8dp">
+        custom:calendar_tag="Test"
+        custom:disable_date_color="#ABABAB"
+        custom:enable_past_date="true"
+        custom:range_color="@color/range_bg_color_app"
+        custom:selected_date_color="@android:color/white"
+        custom:range_date_color="@android:color/white"
+        custom:selected_date_circle_color="@color/selected_date_circle_color_app"
+        custom:editable="true"
+        custom:week_offset="0"
+        custom:subtitle_visible="true"
+        custom:subtitle_color="@color/range_bg_color_app"
+        custom:show_clear_button="true">
 
-        <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
-            android:id="@+id/calendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            custom:calendar_tag="Test"
-            custom:disable_date_color="#ABABAB"
-            custom:enable_past_date="true"
-            custom:range_color="@color/range_bg_color_app"
-            custom:selected_date_color="@android:color/white"
-            custom:range_date_color="@android:color/white"
-            custom:selected_date_circle_color="@color/selected_date_circle_color_app"
-            custom:editable="true"
-            custom:week_offset="0"
-            custom:subtitle_visible="true"
-            custom:subtitle_color="@color/range_bg_color_app"
-            custom:show_clear_button="true">
-
-        </com.archit.calendardaterangepicker.customviews.DateRangeCalendarView>
-
-    </android.support.v7.widget.CardView>
+    </com.archit.calendardaterangepicker.customviews.DateRangeCalendarView>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btnReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cvCalendar"
+        android:layout_below="@+id/calendar"
         android:layout_centerHorizontal="true"
         android:text="Reset"
         android:visibility="gone"/>
