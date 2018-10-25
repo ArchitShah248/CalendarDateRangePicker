@@ -94,6 +94,12 @@ For Maven:
 | subtitle_visible           | Boolean   | true to show subtitle. By default its value is false |
 | subtitle_margin_top        | Dimension | Margin top for subtitle. By default its value is 32dp |
 | subtitle_margin_bottom     | Dimension | Margin bottom for subtitle. By default its values is 10dp |
+| show_clear_button          | Boolean   | true to show clear button. By default its value is false |
+| clear_size                 | Dimension | Text size for button |
+| clear_margin_top           | Dimension | Margin top for clear button. By default its value is 16dp |
+| clear_margin_bottom        | Dimension | Margin bottom for clear button. By default its value is 16 dp|
+| clear_text_color           | Color     | Clear button color |
+| clear_icon                 | Reference | Icon for clear button. This icon will be left side of text |
 
 
 **Set callbacks**

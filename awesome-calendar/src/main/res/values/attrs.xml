@@ -25,6 +25,12 @@
         <attr name="week_offset" format="integer" />
         <attr name="enable_past_date" format="boolean" />
         <attr name="editable" format="boolean" />
+        <attr name="show_clear_button" format="boolean"/>
+        <attr name="clear_size" format="dimension"/>
+        <attr name="clear_margin_top" format="dimension"/>
+        <attr name="clear_margin_bottom" format="dimension"/>
+        <attr name="clear_text_color" format="color"/>
+        <attr name="clear_icon" format="reference"/>
     </declare-styleable>
 
 </resources>

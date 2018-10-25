@@ -11,8 +11,11 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.archit.calendardaterangepicker.R;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttr;
@@ -23,7 +26,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class DateRangeCalendarView extends LinearLayout {
+public class DateRangeCalendarView extends RelativeLayout {
 
     public interface CalendarListener {
         void onFirstDateSelected(Calendar startDate);
@@ -42,7 +45,8 @@ public class DateRangeCalendarView extends LinearLayout {
     private ViewPager vpCalendar;
     private CalendarStyleAttr calendarStyleAttr;
     private CalendarListener mCalendarListener;
-
+    private TextView tvClear;
+    private Button btConfirm;
 
     private final static int TOTAL_ALLOWED_MONTHS = 30;
 
@@ -79,6 +83,9 @@ public class DateRangeCalendarView extends LinearLayout {
 
         vpCalendar = findViewById(R.id.vpCalendar);
 
+        tvClear = findViewById(R.id.tvClear);
+
+        btConfirm = findViewById(R.id.btConfirm);
 
         dataList.clear();
         Calendar today = (Calendar) Calendar.getInstance().clone();
@@ -93,9 +100,27 @@ public class DateRangeCalendarView extends LinearLayout {
         vpCalendar.setAdapter(adapterEventCalendarMonths);
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(TOTAL_ALLOWED_MONTHS);
+        initClearAttr();
         setCalendarYearTitle(TOTAL_ALLOWED_MONTHS);
+        initClearEvent();
         initSubtitleAttr();
         setListeners();
+    }
+
+    private void initClearAttr() {
+        tvClear.setTextSize(calendarStyleAttr.getClearSize());
+        tvClear.setTextColor(calendarStyleAttr.getClearTextColor());
+        tvClear.setCompoundDrawablePadding(20);
+        tvClear.setCompoundDrawablesWithIntrinsicBounds(getContext().getResources().getDrawable(calendarStyleAttr.getClearIcon()), null, null, null);
+    }
+
+    private void initClearEvent() {
+        tvClear.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetAllSelectedViews();
+            }
+        });
     }
 
     private void initSubtitleAttr() {
@@ -109,7 +134,6 @@ public class DateRangeCalendarView extends LinearLayout {
     }
 
     private void setListeners() {
-
         vpCalendar.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -203,6 +227,8 @@ public class DateRangeCalendarView extends LinearLayout {
         tvYearTitle.setTypeface(fonts);
         tvSubtitle.setTypeface(fonts);
         calendarStyleAttr.setFonts(fonts);
+        tvClear.setTypeface(fonts);
+        btConfirm.setTypeface(fonts);
         adapterEventCalendarMonths.invalidateCalendar();
     }
 
@@ -217,6 +243,14 @@ public class DateRangeCalendarView extends LinearLayout {
     public void setCalendarFont(Typeface font) {
         calendarStyleAttr.setFonts(font);
         adapterEventCalendarMonths.invalidateCalendar();
+    }
+
+    public void setClearFont(Typeface font) {
+        tvClear.setTypeface(font);
+    }
+
+    public void setConfirmFont(Typeface font) {
+        btConfirm.setTypeface(font);
     }
 
     /**
@@ -348,6 +382,9 @@ public class DateRangeCalendarView extends LinearLayout {
         setCalendarYearTitle(0);
         setNavigationHeader(0);
         adapterEventCalendarMonths.setCalendarListener(mCalendarListener);
+    }
 
+    public void setBtConfirmListener(OnClickListener listener) {
+        btConfirm.setOnClickListener(listener);
     }
 }

@@ -1,37 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvCalendar"
     android:layout_width="wrap_content"
-    android:minWidth="340dp"
-    android:layout_height="360dp"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="20dp"
+    custom:cardCornerRadius="8dp">
 
-    <include
-        layout="@layout/layout_calendar_nav"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.archit.calendardaterangepicker.customviews.CustomTextView
-        android:id="@+id/tvSubtitle"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_subtitle"
-        android:text="@string/subtitle"
-        android:gravity="center_horizontal"
-        android:textColor="@color/subtitle_color"/>
+        android:paddingRight="@dimen/vertical_padding"
+        android:paddingLeft="@dimen/vertical_padding"
+        android:paddingTop="@dimen/horizontal_padding">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"
-        android:background="@color/divider"
-        android:layout_marginTop="@dimen/divider_margin"
-        android:layout_marginBottom="@dimen/divider_margin"/>
+        <include
+            android:id="@+id/rlHeaderCalendar"
+            layout="@layout/layout_calendar_nav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vpCalendar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        <com.archit.calendardaterangepicker.customviews.CustomTextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_subtitle"
+            android:text="@string/subtitle"
+            android:gravity="center_horizontal"
+            android:textColor="@color/subtitle_color"
+            android:layout_below="@+id/rlHeaderCalendar"/>
 
-    </android.support.v4.view.ViewPager>
+        <View
+            android:id="@+id/calendar_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider"
+            android:layout_marginTop="@dimen/divider_margin"
+            android:layout_marginBottom="@dimen/divider_margin"
+            android:layout_below="@+id/tvSubtitle"/>
 
-</LinearLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/month_height"
+            android:layout_below="@+id/calendar_divider">
+        </android.support.v4.view.ViewPager>
+
+        <TextView
+            android:id="@+id/tvClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear_selection"
+            android:textColor="@color/week_color"
+            android:textSize="@dimen/clear_text_size"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/vpCalendar"
+            android:drawableStart="@drawable/clear"/>
+
+        <Button
+            android:id="@+id/btConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/confirm_text_size"
+            android:layout_marginTop="@dimen/confirm_margin_top"
+            android:layout_marginBottom="@dimen/confirm_margin_bottom"
+            android:background="@drawable/confirm_background"
+            android:layout_below="@+id/tvClear"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

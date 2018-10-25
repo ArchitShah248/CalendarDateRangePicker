@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
 //        Typeface typeface = Typeface.createFromAsset(getAssets(), "LobsterTwo-Regular.ttf");
-        //calendar.setFonts(typeface);
+        calendar.setFonts(typeface);
 
         calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
             @Override
@@ -45,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 calendar.resetAllSelectedViews();
+            }
+        });
+
+        calendar.setBtConfirmListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar.setVisibility(View.GONE);
             }
         });
 

@@ -33,6 +33,12 @@ public class CalendarStyleAttr {
     private float subtitleSize;
     private float subtitleMarginTop;
     private float subtitleMarginBottom;
+    private boolean showClearButton;
+    private float clearSize;
+    private float clearMarginTop;
+    private float clearMarginBottom;
+    private int clearTextColor;
+    private int clearIcon;
 
     public CalendarStyleAttr(Context context) {
         this.context = context;
@@ -84,10 +90,17 @@ public class CalendarStyleAttr {
         setRangeDateColor(ContextCompat.getColor(context, R.color.range_date_color));
         setDisableDateColor(ContextCompat.getColor(context, R.color.disable_date_color));
 
+        subtitle = context.getString(R.string.subtitle);
         subtitleSize = context.getResources().getDimension(R.dimen.text_size_subtitle);
         subtitleColor = ContextCompat.getColor(context, R.color.subtitle_color);
         subtitleMarginTop = context.getResources().getDimension(R.dimen.subtitle_margin_top);
         subtitleMarginBottom = context.getResources().getDimension(R.dimen.subtitle_margin_bottom);
+
+        clearSize = context.getResources().getDimension(R.dimen.clear_text_size);
+        clearMarginTop = context.getResources().getDimension(R.dimen.clear_margin_top);
+        clearMarginBottom = context.getResources().getDimension(R.dimen.clear_margin_bottom);
+        clearTextColor = ContextCompat.getColor(context, R.color.week_color);
+        clearIcon = R.drawable.clear;
     }
 
     public void setAttributes(Context context, AttributeSet attributeSet) {
@@ -113,12 +126,19 @@ public class CalendarStyleAttr {
                 disableDateColor = ta.getColor(R.styleable.DateRangeMonthView_disable_date_color, disableDateColor);
                 setWeekOffset(ta.getColor(R.styleable.DateRangeMonthView_week_offset, 0));
 
-                subtitle = ta.getText(R.styleable.DateRangeMonthView_subtitle_text);
+                subtitle = ta.getText(R.styleable.DateRangeMonthView_subtitle_text) == null ? subtitle : ta.getText(R.styleable.DateRangeMonthView_subtitle_text);
                 subtitleVisible = ta.getBoolean(R.styleable.DateRangeMonthView_subtitle_visible, false);
                 subtitleColor = ta.getColor(R.styleable.DateRangeMonthView_subtitle_color, defaultDateColor);
                 subtitleSize = ta.getDimension(R.styleable.DateRangeMonthView_subtitle_size, subtitleSize);
                 subtitleMarginTop = ta.getDimension(R.styleable.DateRangeMonthView_subtitle_margin_top, subtitleMarginTop);
                 subtitleMarginBottom = ta.getDimension(R.styleable.DateRangeMonthView_subtitle_margin_bottom, subtitleMarginBottom);
+                showClearButton = ta.getBoolean(R.styleable.DateRangeMonthView_show_clear_button, false);
+
+                clearSize = ta.getDimension(R.styleable.DateRangeMonthView_clear_size, clearSize);
+                clearMarginTop = ta.getDimension(R.styleable.DateRangeMonthView_clear_margin_top, clearMarginTop);
+                clearMarginBottom = ta.getDimension(R.styleable.DateRangeMonthView_clear_margin_bottom, clearMarginBottom);
+                clearTextColor = ta.getColor(R.styleable.DateRangeMonthView_clear_text_color, clearTextColor);
+                clearIcon = ta.getResourceId(R.styleable.DateRangeMonthView_clear_icon, clearIcon);
             } finally {
                 ta.recycle();
             }
@@ -293,5 +313,30 @@ public class CalendarStyleAttr {
 
     public int getSubtitleMarginBottom() {
         return (int) subtitleMarginBottom;
+    }
+
+    public boolean isShowClearButton() {
+        return showClearButton;
+    }
+
+    public float getClearSize() {
+        float scaleRatio = context.getResources().getDisplayMetrics().density;
+        return clearSize / scaleRatio;
+    }
+
+    public int getClearMarginTop() {
+        return (int) clearMarginTop;
+    }
+
+    public int getClearMarginBottom() {
+        return (int) clearMarginBottom;
+    }
+
+    public int getClearTextColor() {
+        return clearTextColor;
+    }
+
+    public int getClearIcon() {
+        return clearIcon;
     }
 }

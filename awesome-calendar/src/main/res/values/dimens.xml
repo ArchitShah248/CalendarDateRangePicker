@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- container -->
+    <dimen name="vertical_padding">23dp</dimen>
+    <dimen name="horizontal_padding">24dp</dimen>
     <!-- dateTitleLayout -->
-    <dimen name="text_size_title">22sp</dimen>
+    <dimen name="text_size_title">20sp</dimen>
     <dimen name="dateTitlePaddingBottom">5dp</dimen>
     <!-- subtitle -->
     <dimen name="text_size_subtitle">20sp</dimen>
@@ -10,20 +13,36 @@
     <dimen name="subtitle_margin_bottom">10dp</dimen>
     <!-- weekLayout -->
     <dimen name="weekDaysPaddingBottom">0dp</dimen>
-    <dimen name="text_size_week">15sp</dimen>
+    <dimen name="text_size_week">12sp</dimen>
     <!-- weekRowLayout -->
-    <dimen name="weekRowMinHeight">44dp</dimen>
-    <dimen name="text_size_date">18sp</dimen>
-    <dimen name="dayOfMonthBoxSize">44dp</dimen>
-    <dimen name="dayOfMonthSize">34dp</dimen>
-    <dimen name="dayOfMonthMinWidth">50dp</dimen>
+    <dimen name="weekRowMinHeight">40dp</dimen>
+    <dimen name="text_size_date">12sp</dimen>
+    <dimen name="dayOfMonthBoxSize">36dp</dimen>
+    <dimen name="dayOfMonthSize">30dp</dimen>
+    <dimen name="dayOfMonthMinWidth">40dp</dimen>
     <dimen name="dayOfMonthMinHeight">0dp</dimen>
     <dimen name="dayOfMonthPaddingBottom">0dp</dimen>
     <dimen name="dayOfMonthImageSize">4dp</dimen>
     <dimen name="dayOfMonthImageMarginTop">32dp</dimen>
 
     <dimen name="strip_height">28dp</dimen>
+
+    <!-- divider -->
     <dimen name="divider_height">2dp</dimen>
     <dimen name="divider_margin">9dp</dimen>
+
+    <!-- clear -->
+    <dimen name="clear_text_size">12sp</dimen>
+    <dimen name="clear_image_margin">6dp</dimen>
+    <dimen name="clear_margin_top">16dp</dimen>
+    <dimen name="clear_margin_bottom">16dp</dimen>
+
+    <!-- confirm -->
+    <dimen name="confirm_background_corners">20dp</dimen>
+    <dimen name="confirm_text_size">14sp</dimen>
+    <dimen name="confirm_margin_top">16dp</dimen>
+    <dimen name="confirm_margin_bottom">21dp</dimen>
+
+    <dimen name="month_height">280dp</dimen>
 
 </resources>
