@@ -245,6 +245,14 @@ public class DateRangeCalendarView extends RelativeLayout {
         adapterEventCalendarMonths.invalidateCalendar();
     }
 
+    public void setClearFont(Typeface font) {
+        tvClear.setTypeface(font);
+    }
+
+    public void setConfirmFont(Typeface font) {
+        btConfirm.setTypeface(font);
+    }
+
     /**
      * To remove all selection and redraw current calendar
      */
