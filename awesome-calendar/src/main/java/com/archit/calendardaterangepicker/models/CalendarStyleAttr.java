@@ -160,7 +160,7 @@ public class CalendarStyleAttr {
 
                 confirmButtonBackground = ta.getResourceId(R.styleable.DateRangeMonthView_confirm_button_background, confirmButtonBackground);
                 confirmButtonMarginTop = ta.getDimension(R.styleable.DateRangeMonthView_confirm_button_margin_top, confirmButtonMarginTop);
-                confirmButtonText = ta.getString(R.styleable.DateRangeMonthView_confirm_button_text);
+                confirmButtonText = ta.getString(R.styleable.DateRangeMonthView_confirm_button_text) == null ? confirmButtonText : ta.getString(R.styleable.DateRangeMonthView_confirm_button_text);
                 confirmButtonSize = ta.getDimension(R.styleable.DateRangeMonthView_confirm_button_size, confirmButtonSize);
                 confirmButtonTextColor = ta.getColor(R.styleable.DateRangeMonthView_confirm_button_text_color, confirmButtonTextColor);
             } finally {
