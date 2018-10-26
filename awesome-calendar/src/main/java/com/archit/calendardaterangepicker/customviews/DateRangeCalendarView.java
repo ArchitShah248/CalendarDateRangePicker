@@ -47,6 +47,7 @@ public class DateRangeCalendarView extends RelativeLayout {
     private CalendarListener mCalendarListener;
     private TextView tvClear;
     private Button btConfirm;
+    private RelativeLayout containerLayout;
 
     private final static int TOTAL_ALLOWED_MONTHS = 30;
 
@@ -76,6 +77,7 @@ public class DateRangeCalendarView extends RelativeLayout {
         RelativeLayout rlHeaderCalendar = findViewById(R.id.rlHeaderCalendar);
         rlHeaderCalendar.setBackground(calendarStyleAttr.getHeaderBg());
 
+        containerLayout = findViewById(R.id.calendarContainer);
         tvYearTitle = findViewById(R.id.tvYearTitle);
         tvSubtitle = findViewById(R.id.tvSubtitle);
         imgVNavLeft = findViewById(R.id.imgVNavLeft);
@@ -100,11 +102,28 @@ public class DateRangeCalendarView extends RelativeLayout {
         vpCalendar.setAdapter(adapterEventCalendarMonths);
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(TOTAL_ALLOWED_MONTHS);
+        initContainerAttr();
+        initConfirmAttr();
         initClearAttr();
         setCalendarYearTitle(TOTAL_ALLOWED_MONTHS);
         initClearEvent();
         initSubtitleAttr();
         setListeners();
+    }
+
+    private void initContainerAttr() {
+        containerLayout.setPadding(calendarStyleAttr.getContainerPaddingVertical(), calendarStyleAttr.getContainerPaddingHorizontal(), calendarStyleAttr.getContainerPaddingVertical(), calendarStyleAttr.getContainerPaddingHorizontal());;
+    }
+
+    private void initConfirmAttr() {
+        LayoutParams margins = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        margins.addRule(BELOW, R.id.tvClear);
+        margins.setMargins(0, calendarStyleAttr.getConfirmButtonMarginTop(), 0, 0);
+        btConfirm.setLayoutParams(margins);
+        btConfirm.setBackgroundResource(calendarStyleAttr.getConfirmButtonBackground());
+        btConfirm.setText(calendarStyleAttr.getConfirmButtonText());
+        btConfirm.setTextSize(calendarStyleAttr.getConfirmButtonSize());
+        btConfirm.setTextColor(calendarStyleAttr.getConfirmButtonTextColor());
     }
 
     private void initClearAttr() {

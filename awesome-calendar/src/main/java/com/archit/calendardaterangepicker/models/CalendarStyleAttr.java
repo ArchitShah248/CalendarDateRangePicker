@@ -39,6 +39,13 @@ public class CalendarStyleAttr {
     private float clearMarginBottom;
     private int clearTextColor;
     private int clearIcon;
+    private float containerPaddingVertical;
+    private float containerPaddingHorizontal;
+    private int confirmButtonBackground;
+    private float confirmButtonMarginTop;
+    private String confirmButtonText;
+    private float confirmButtonSize;
+    private int confirmButtonTextColor;
 
     public CalendarStyleAttr(Context context) {
         this.context = context;
@@ -101,6 +108,14 @@ public class CalendarStyleAttr {
         clearMarginBottom = context.getResources().getDimension(R.dimen.clear_margin_bottom);
         clearTextColor = ContextCompat.getColor(context, R.color.week_color);
         clearIcon = R.drawable.clear;
+
+        containerPaddingVertical = context.getResources().getDimension(R.dimen.container_margin_vertical);
+        containerPaddingHorizontal = context.getResources().getDimension(R.dimen.container_margin_horizontal);
+        confirmButtonBackground = R.drawable.confirm_background;
+        confirmButtonMarginTop = context.getResources().getDimension(R.dimen.confirm_margin_top);
+        confirmButtonSize = context.getResources().getDimension(R.dimen.confirm_text_size);
+        confirmButtonText = context.getString(R.string.confirm);
+        confirmButtonTextColor = ContextCompat.getColor(context, R.color.confirm_text);
     }
 
     public void setAttributes(Context context, AttributeSet attributeSet) {
@@ -139,6 +154,15 @@ public class CalendarStyleAttr {
                 clearMarginBottom = ta.getDimension(R.styleable.DateRangeMonthView_clear_margin_bottom, clearMarginBottom);
                 clearTextColor = ta.getColor(R.styleable.DateRangeMonthView_clear_text_color, clearTextColor);
                 clearIcon = ta.getResourceId(R.styleable.DateRangeMonthView_clear_icon, clearIcon);
+
+                containerPaddingVertical = ta.getDimension(R.styleable.DateRangeMonthView_container_margin_vertical, containerPaddingVertical);
+                containerPaddingHorizontal = ta.getDimension(R.styleable.DateRangeMonthView_container_margin_horizontal, containerPaddingHorizontal);
+
+                confirmButtonBackground = ta.getInt(R.styleable.DateRangeMonthView_confirm_button_background, confirmButtonBackground);
+                confirmButtonMarginTop = ta.getDimension(R.styleable.DateRangeMonthView_confirm_button_margin_top, confirmButtonMarginTop);
+                confirmButtonText = ta.getString(R.styleable.DateRangeMonthView_confirm_button_text);
+                confirmButtonSize = ta.getDimension(R.styleable.DateRangeMonthView_confirm_button_size, confirmButtonSize);
+                confirmButtonTextColor = ta.getColor(R.styleable.DateRangeMonthView_confirm_button_text_color, confirmButtonTextColor);
             } finally {
                 ta.recycle();
             }
@@ -338,5 +362,34 @@ public class CalendarStyleAttr {
 
     public int getClearIcon() {
         return clearIcon;
+    }
+
+    public int getContainerPaddingVertical() {
+        return (int) containerPaddingVertical;
+    }
+
+    public int getContainerPaddingHorizontal() {
+        return (int) containerPaddingHorizontal;
+    }
+
+    public int getConfirmButtonBackground() {
+        return confirmButtonBackground;
+    }
+
+    public int getConfirmButtonMarginTop() {
+        return (int) confirmButtonMarginTop;
+    }
+
+    public String getConfirmButtonText() {
+        return confirmButtonText;
+    }
+
+    public float getConfirmButtonSize() {
+        float scaleRatio = context.getResources().getDisplayMetrics().density;
+        return confirmButtonSize / scaleRatio;
+    }
+
+    public int getConfirmButtonTextColor() {
+        return confirmButtonTextColor;
     }
 }

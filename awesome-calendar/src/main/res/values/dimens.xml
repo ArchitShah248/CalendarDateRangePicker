@@ -44,5 +44,7 @@
     <dimen name="confirm_margin_bottom">21dp</dimen>
 
     <dimen name="month_height">280dp</dimen>
-
+    <dimen name="card_view_corners">16dp</dimen>
+    <dimen name="container_margin_vertical">23dp</dimen>
+    <dimen name="container_margin_horizontal">23dp</dimen>
 </resources>

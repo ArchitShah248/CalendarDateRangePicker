@@ -11,6 +11,8 @@
         android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_centerInParent="true"
         custom:calendar_tag="Test"
         custom:disable_date_color="#ABABAB"
@@ -23,7 +25,12 @@
         custom:week_offset="0"
         custom:subtitle_visible="true"
         custom:subtitle_color="@color/subtitle_color"
-        custom:show_clear_button="true">
+        custom:show_clear_button="true"
+        custom:container_margin_vertical="16dp"
+        custom:container_margin_horizontal="16dp"
+        custom:clear_margin_top="0dp"
+        custom:confirm_button_text="Fechar"
+        custom:confirm_button_background="@drawable/custom_confirm_background">
 
     </com.archit.calendardaterangepicker.customviews.DateRangeCalendarView>
 
