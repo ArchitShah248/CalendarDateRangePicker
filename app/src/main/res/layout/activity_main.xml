@@ -26,13 +26,16 @@
         custom:subtitle_visible="true"
         custom:subtitle_color="@color/subtitle_color"
         custom:show_clear_button="true"
-        custom:container_margin_vertical="16dp"
+        custom:container_margin_vertical="@dimen/container_margin"
+        custom:subtitle_margin_bottom="@dimen/subtitle_margin_horizontal"
         custom:container_margin_horizontal="16dp"
         custom:clear_margin_top="0dp"
-        custom:confirm_button_text="Fechar"
-        custom:confirm_button_background="@drawable/custom_confirm_background"
-        custom:confirm_button_text_color="@android:color/holo_orange_dark"
-        custom:clear_icon="@drawable/baseline_clear_black_18">
+        custom:text_size_title="@dimen/title_size"
+        custom:text_size_week="@dimen/week_size"
+        custom:text_size_date="@dimen/date_size"
+        custom:subtitle_size="@dimen/subtitle_size"
+        custom:clear_size="@dimen/clear_size"
+        custom:confirm_button_size="@dimen/confirm_size">
 
     </com.archit.calendardaterangepicker.customviews.DateRangeCalendarView>
 

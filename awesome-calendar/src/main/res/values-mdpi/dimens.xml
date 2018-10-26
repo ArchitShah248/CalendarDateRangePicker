@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="divider_margin">3dp</dimen>
+    <dimen name="month_height">220dp</dimen>
+    <dimen name="clear_image_margin">3dp</dimen>
+    <dimen name="dayOfMonthSize">20dp</dimen>
+    <dimen name="text_size_date">10sp</dimen>
+    <dimen name="dayOfMonthMinWidth">35dp</dimen>
+    <dimen name="dayOfMonthBoxSize">28dp</dimen>
+    <dimen name="weekRowMinHeight">30dp</dimen>
+    <dimen name="strip_height">18dp</dimen>
+</resources>
