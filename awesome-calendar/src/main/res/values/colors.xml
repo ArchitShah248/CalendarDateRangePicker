@@ -21,4 +21,5 @@
     <color name="divider">#c8c8c8</color>
 
     <color name="confirm_background">#5500b4</color>
+    <color name="confirm_text">@android:color/white</color>
 </resources>

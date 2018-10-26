@@ -100,6 +100,13 @@ For Maven:
 | clear_margin_bottom        | Dimension | Margin bottom for clear button. By default its value is 16 dp|
 | clear_text_color           | Color     | Clear button color |
 | clear_icon                 | Reference | Icon for clear button. This icon will be left side of text |
+| container_margin_vertical  | Dimension | Vertical margin for the main view |
+| container_margin_horizontal| Dimension | Horizontal margin for the main view |
+| confirm_button_background  | Reference | Reference for background of confirm button |
+| confirm_button_margin_top  | Dimension | Margin for top of confirm button |
+| confirm_button_text        | String    | Text for confirm button |
+| confirm_button_size        | Dimension | Text size for confirm button |
+| confirm_button_text_color  | Color     | Color for text of confirm button |
 
 
 **Set callbacks**

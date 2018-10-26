@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title_size">12sp</dimen>
+    <dimen name="week_size">6sp</dimen>
+    <dimen name="date_size">6sp</dimen>
+    <dimen name="subtitle_size">11sp</dimen>
+    <dimen name="clear_size">6sp</dimen>
+    <dimen name="confirm_size">8sp</dimen>
+    <dimen name="container_margin">8dp</dimen>
+    <dimen name="subtitle_margin_horizontal">12dp</dimen>
+</resources>
