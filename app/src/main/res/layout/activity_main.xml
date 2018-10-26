@@ -30,7 +30,9 @@
         custom:container_margin_horizontal="16dp"
         custom:clear_margin_top="0dp"
         custom:confirm_button_text="Fechar"
-        custom:confirm_button_background="@drawable/custom_confirm_background">
+        custom:confirm_button_background="@drawable/custom_confirm_background"
+        custom:confirm_button_text_color="@android:color/holo_orange_dark"
+        custom:clear_icon="@drawable/baseline_clear_black_18">
 
     </com.archit.calendardaterangepicker.customviews.DateRangeCalendarView>
 

@@ -57,7 +57,8 @@
             android:textSize="@dimen/clear_text_size"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/vpCalendar"
-            android:drawableStart="@drawable/clear"/>
+            android:drawableStart="@drawable/clear"
+            android:gravity="center"/>
 
         <Button
             android:id="@+id/btConfirm"

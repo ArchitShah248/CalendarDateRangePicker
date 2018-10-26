@@ -158,7 +158,7 @@ public class CalendarStyleAttr {
                 containerPaddingVertical = ta.getDimension(R.styleable.DateRangeMonthView_container_margin_vertical, containerPaddingVertical);
                 containerPaddingHorizontal = ta.getDimension(R.styleable.DateRangeMonthView_container_margin_horizontal, containerPaddingHorizontal);
 
-                confirmButtonBackground = ta.getInt(R.styleable.DateRangeMonthView_confirm_button_background, confirmButtonBackground);
+                confirmButtonBackground = ta.getResourceId(R.styleable.DateRangeMonthView_confirm_button_background, confirmButtonBackground);
                 confirmButtonMarginTop = ta.getDimension(R.styleable.DateRangeMonthView_confirm_button_margin_top, confirmButtonMarginTop);
                 confirmButtonText = ta.getString(R.styleable.DateRangeMonthView_confirm_button_text);
                 confirmButtonSize = ta.getDimension(R.styleable.DateRangeMonthView_confirm_button_size, confirmButtonSize);
