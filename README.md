@@ -149,7 +149,12 @@ calendar.setNavRightImage(ContextCompat.getDrawable(this,R.drawable.ic_right));
 **Set text fonts**
 ````Java
 Typeface typeface = Typeface.createFromAsset(getAssets(), "Roboto.ttf");
-calendar.setFonts(typeface);
+calendar.setFonts(typeface);//set the same font for all text.
+calendar.setYearTitleFont(typeface);
+calendar.setSubtitleFont(typeface);
+calendar.setCalendarFont(typeface);
+calendar.setClearFont(typeface);
+calendar.setConfirmFont(typeface);
 `````
 
 **Set week offset ( 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat )**
