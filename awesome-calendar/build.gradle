@@ -1,31 +1,8 @@
 apply plugin: 'com.android.library'
 
-ext {
-    bintrayRepo = 'EnticeArc'
-    bintrayName = 'awesome-calendar'   // Has to be same as your library module name
+apply plugin: 'maven'
 
-    publishedGroupId = 'com.archit.calendar'
-    libraryName = 'Awesome-Calendar'
-    artifact = 'awesome-calendar'     // Has to be same as your library module name
-
-    libraryDescription = 'Android library to select range of dates.'
-
-    // Your github repo link
-    siteUrl = 'https://github.com/ArchitShah248/CalendarDateRangePicker'
-    gitUrl = 'https://github.com/ArchitShah248/CalendarDateRangePicker.git'
-    githubRepository= 'ArchitShah248/CalendarDateRangePicker'
-
-    libraryVersion = '1.1.3'
-
-    developerId = 'architshah248'
-    developerName = 'Archit Shah'
-    developerEmail = 'architshah248@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
+version = '1.0.1'
 
 android {
     compileSdkVersion 27
@@ -48,6 +25,22 @@ android {
     }
 }
 
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://nexus.sicredi.in/repository/releases/") {
+                authentication(
+                        userName: System.getProperty('REPOSITORY_USERNAME', project.repositoryUsername),
+                        password: System.getProperty('REPOSITORY_PASSWORD', project.repositoryPassword)
+                )
+                pom.groupId = 'io.sicredi.android.lib'
+                pom.artifactId = 'awesome-calendar'
+                pom.version = version
+            }
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -58,6 +51,3 @@ dependencies {
     implementation 'com.android.support:support-annotations:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
 }
-
-apply from: 'install.gradle'
-apply from: 'bintray.gradle'

@@ -22,4 +22,6 @@
 
     <color name="confirm_background">#5500b4</color>
     <color name="confirm_text">@android:color/white</color>
+
+    <color name="disabled_component">#e9e9e9</color>
 </resources>
