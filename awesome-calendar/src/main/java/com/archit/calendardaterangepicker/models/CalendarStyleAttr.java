@@ -111,7 +111,7 @@ public class CalendarStyleAttr {
 
         containerPaddingVertical = context.getResources().getDimension(R.dimen.container_margin_vertical);
         containerPaddingHorizontal = context.getResources().getDimension(R.dimen.container_margin_horizontal);
-        confirmButtonBackground = R.drawable.confirm_background;
+        confirmButtonBackground = R.drawable.confirm_button_selector;
         confirmButtonMarginTop = context.getResources().getDimension(R.dimen.confirm_margin_top);
         confirmButtonSize = context.getResources().getDimension(R.dimen.confirm_text_size);
         confirmButtonText = context.getString(R.string.confirm);

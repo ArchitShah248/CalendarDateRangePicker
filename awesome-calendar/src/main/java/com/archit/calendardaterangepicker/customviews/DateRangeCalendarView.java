@@ -138,6 +138,9 @@ public class DateRangeCalendarView extends RelativeLayout {
             @Override
             public void onClick(View view) {
                 resetAllSelectedViews();
+                setConfirmEnabled(false);
+                setClearEnabled(false);
+                tvSubtitle.setText(calendarStyleAttr.getSubtitle());
             }
         });
     }
@@ -405,5 +408,28 @@ public class DateRangeCalendarView extends RelativeLayout {
 
     public void setBtConfirmListener(OnClickListener listener) {
         btConfirm.setOnClickListener(listener);
+    }
+
+    public void setClearEnabled(boolean enabled) {
+        if (enabled) {
+            initClearAttr();
+        } else {
+            disableClear();
+        }
+    }
+
+    private void disableClear() {
+        tvClear.setTextSize(calendarStyleAttr.getClearSize());
+        tvClear.setTextColor(getResources().getColor(R.color.disabled_component));
+        tvClear.setCompoundDrawablePadding(20);
+        tvClear.setCompoundDrawablesWithIntrinsicBounds(getContext().getResources().getDrawable(R.drawable.clear_disabled), null, null, null);
+    }
+
+    public void setConfirmEnabled(boolean enabled) {
+        btConfirm.setEnabled(enabled);
+    }
+
+    public void setSubtitle(String text) {
+        tvSubtitle.setText(text);
     }
 }
