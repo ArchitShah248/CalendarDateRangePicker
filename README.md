@@ -157,7 +157,7 @@ calendar.setClearFont(typeface);
 calendar.setConfirmFont(typeface);
 `````
 
-**Set text fonts**
+**Set subtitle text**
 ````Java
 calendar.setSubtitle("My subtitle text") {
 `````
