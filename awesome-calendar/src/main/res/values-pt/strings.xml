@@ -23,8 +23,9 @@
     <string name="done">Confirmar</string>
     <string name="title_time_picker">Selecione um horário</string>
     <string name="select_time">Selecione um horário</string>
-    <string name="subtitle">Escolha uma data</string>
+    <string name="subtitle">Escolha a data de ida</string>
     <string name="clear_selection">Limpar</string>
     <string name="confirm">Confirmar</string>
+    <string name="subtitle_return">Escolha a data de volta</string>
 
 </resources>

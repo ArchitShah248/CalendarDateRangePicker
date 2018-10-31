@@ -140,6 +140,7 @@ public class DateRangeCalendarView extends RelativeLayout {
                 resetAllSelectedViews();
                 setConfirmEnabled(false);
                 setClearEnabled(false);
+                tvSubtitle.setText(calendarStyleAttr.getSubtitle());
             }
         });
     }
@@ -426,5 +427,9 @@ public class DateRangeCalendarView extends RelativeLayout {
 
     public void setConfirmEnabled(boolean enabled) {
         btConfirm.setEnabled(enabled);
+    }
+
+    public void setSubtitle(String text) {
+        tvSubtitle.setText(text);
     }
 }

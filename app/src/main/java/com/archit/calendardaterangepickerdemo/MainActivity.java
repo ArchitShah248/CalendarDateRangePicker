@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
             @Override
             public void onFirstDateSelected(Calendar startDate) {
-
+                calendar.setSubtitle(getString(R.string.subtitle_return));
             }
 
             @Override

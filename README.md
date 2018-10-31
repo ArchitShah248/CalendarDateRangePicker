@@ -157,6 +157,11 @@ calendar.setClearFont(typeface);
 calendar.setConfirmFont(typeface);
 `````
 
+**Set text fonts**
+````Java
+calendar.setSubtitle("My subtitle text") {
+`````
+
 **Set week offset ( 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat )**
 ````Java
 calendar.setWeekOffset(1);
