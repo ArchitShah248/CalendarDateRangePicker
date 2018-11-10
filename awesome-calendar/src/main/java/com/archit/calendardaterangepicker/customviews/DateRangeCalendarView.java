@@ -331,7 +331,7 @@ public class DateRangeCalendarView extends LinearLayout {
     /**
      * To set current visible month.
      *
-     * @param calendar Calendar month
+     * @param calendar Month to be set as current
      */
     public void setCurrentMonth(Calendar calendar) {
         if (calendar != null && monthDataList != null) {
