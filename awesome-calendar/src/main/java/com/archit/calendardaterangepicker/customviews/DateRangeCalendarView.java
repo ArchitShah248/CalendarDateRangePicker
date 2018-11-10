@@ -33,7 +33,7 @@ public class DateRangeCalendarView extends LinearLayout {
 
     private CustomTextView tvYearTitle;
     private AppCompatImageView imgVNavLeft, imgVNavRight;
-    private List<Calendar> dataList = new ArrayList<>();
+    private List<Calendar> monthDataList = new ArrayList<>();
 
     private AdapterEventCalendarMonths adapterEventCalendarMonths;
     private Locale locale;
@@ -80,16 +80,16 @@ public class DateRangeCalendarView extends LinearLayout {
         vpCalendar = findViewById(R.id.vpCalendar);
 
 
-        dataList.clear();
+        monthDataList.clear();
         Calendar today = (Calendar) Calendar.getInstance().clone();
         today.add(Calendar.MONTH, -TOTAL_ALLOWED_MONTHS);
 
         for (int i = 0; i < TOTAL_ALLOWED_MONTHS * 2; i++) {
-            dataList.add((Calendar) today.clone());
+            monthDataList.add((Calendar) today.clone());
             today.add(Calendar.MONTH, 1);
         }
 
-        adapterEventCalendarMonths = new AdapterEventCalendarMonths(context, dataList, calendarStyleAttr);
+        adapterEventCalendarMonths = new AdapterEventCalendarMonths(context, monthDataList, calendarStyleAttr);
         vpCalendar.setAdapter(adapterEventCalendarMonths);
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(TOTAL_ALLOWED_MONTHS);
@@ -131,7 +131,7 @@ public class DateRangeCalendarView extends LinearLayout {
             @Override
             public void onClick(View view) {
                 int newPosition = vpCalendar.getCurrentItem() + 1;
-                if (newPosition < dataList.size()) {
+                if (newPosition < monthDataList.size()) {
                     vpCalendar.setCurrentItem(newPosition);
                 }
             }
@@ -147,12 +147,12 @@ public class DateRangeCalendarView extends LinearLayout {
     private void setNavigationHeader(int position) {
         imgVNavRight.setVisibility(VISIBLE);
         imgVNavLeft.setVisibility(VISIBLE);
-        if (dataList.size() == 1) {
+        if (monthDataList.size() == 1) {
             imgVNavLeft.setVisibility(INVISIBLE);
             imgVNavRight.setVisibility(INVISIBLE);
         } else if (position == 0) {
             imgVNavLeft.setVisibility(INVISIBLE);
-        } else if (position == dataList.size() - 1) {
+        } else if (position == monthDataList.size() - 1) {
             imgVNavRight.setVisibility(INVISIBLE);
         }
     }
@@ -164,7 +164,7 @@ public class DateRangeCalendarView extends LinearLayout {
      */
     private void setCalendarYearTitle(int position) {
 
-        Calendar currentCalendarMonth = dataList.get(position);
+        Calendar currentCalendarMonth = monthDataList.get(position);
         String dateText = new DateFormatSymbols(locale).getMonths()[currentCalendarMonth.get(Calendar.MONTH)];
         dateText = dateText.substring(0, 1).toUpperCase() + dateText.subSequence(1, dateText.length());
 
@@ -310,15 +310,15 @@ public class DateRangeCalendarView extends LinearLayout {
         if (startMonth.after(endMonth)) {
             throw new IllegalArgumentException("Start month can not be greater than end month.");
         }
-        dataList.clear();
+        monthDataList.clear();
 
         do {
-            dataList.add((Calendar) startMonth.clone());
+            monthDataList.add((Calendar) startMonth.clone());
             startMonth.add(Calendar.MONTH, 1);
         }
         while (startMonth.compareTo(endMonth) != 0);
 
-        adapterEventCalendarMonths = new AdapterEventCalendarMonths(getContext(), dataList, calendarStyleAttr);
+        adapterEventCalendarMonths = new AdapterEventCalendarMonths(getContext(), monthDataList, calendarStyleAttr);
         vpCalendar.setAdapter(adapterEventCalendarMonths);
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(0);
@@ -326,5 +326,22 @@ public class DateRangeCalendarView extends LinearLayout {
         setNavigationHeader(0);
         adapterEventCalendarMonths.setCalendarListener(mCalendarListener);
 
+    }
+
+    /**
+     * To set current visible month.
+     *
+     * @param calendar Calendar month
+     */
+    public void setCurrentMonth(Calendar calendar) {
+        if (calendar != null && monthDataList != null) {
+            for (int i = 0; i < monthDataList.size(); i++) {
+                Calendar month = monthDataList.get(i);
+                if (month.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+                    vpCalendar.setCurrentItem(i);
+                    break;
+                }
+            }
+        }
     }
 }
