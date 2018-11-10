@@ -11,6 +11,7 @@ import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -192,7 +193,7 @@ class DateRangeMonthView extends LinearLayout {
         this.calendarStyleAttr = calendarStyleAttr;
         this.currentCalendarMonth = (Calendar) month.clone();
         this.dateRangeCalendarManager = dateRangeCalendarManager;
-        setFonts();
+        setConfigs();
         setWeekTitleColor(calendarStyleAttr.getWeekColor());
         drawCalendarForMonth(currentCalendarMonth);
     }
@@ -263,7 +264,7 @@ class DateRangeMonthView extends LinearLayout {
 
         if (currentCalendarMonth.get(Calendar.MONTH) != calendar.get(Calendar.MONTH)) {
             hideDayContainer(container);
-            } else if (today.after(calendar) && (today.get(Calendar.DAY_OF_YEAR) != calendar.get(Calendar.DAY_OF_YEAR))
+        } else if (today.after(calendar) && (today.get(Calendar.DAY_OF_YEAR) != calendar.get(Calendar.DAY_OF_YEAR))
                 && !calendarStyleAttr.isEnabledPastDates()) {
             disableDayContainer(container);
             container.tvDate.setText(String.valueOf(date));
@@ -279,6 +280,7 @@ class DateRangeMonthView extends LinearLayout {
             }
 
             container.tvDate.setText(String.valueOf(date));
+            container.tvDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, calendarStyleAttr.getTextSizeDate());
         }
 
         container.rootView.setTag(DayContainer.GetContainerKey(calendar));
@@ -410,9 +412,9 @@ class DateRangeMonthView extends LinearLayout {
     }
 
     /**
-     * To apply custom fonts to all the text views
+     * To apply configs to all the text views
      */
-    private void setFonts() {
+    private void setConfigs() {
 
         drawCalendarForMonth(currentCalendarMonth);
 
@@ -420,7 +422,7 @@ class DateRangeMonthView extends LinearLayout {
 
             CustomTextView textView = (CustomTextView) llTitleWeekContainer.getChildAt(i);
             textView.setTypeface(calendarStyleAttr.getFonts());
-
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, calendarStyleAttr.getTextSizeWeek());
         }
     }
 }

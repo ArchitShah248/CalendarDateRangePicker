@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -71,6 +72,8 @@ public class DateRangeCalendarView extends LinearLayout {
         rlHeaderCalendar.setBackground(calendarStyleAttr.getHeaderBg());
 
         tvYearTitle = findViewById(R.id.tvYearTitle);
+        tvYearTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, calendarStyleAttr.getTextSizeTitle());
+
         imgVNavLeft = findViewById(R.id.imgVNavLeft);
         imgVNavRight = findViewById(R.id.imgVNavRight);
 
