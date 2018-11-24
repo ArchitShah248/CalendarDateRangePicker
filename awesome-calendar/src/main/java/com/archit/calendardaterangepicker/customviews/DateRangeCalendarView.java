@@ -67,8 +67,7 @@ public class DateRangeCalendarView extends RelativeLayout {
     }
 
     private void initViews(Context context, AttributeSet attrs) {
-
-        locale = context.getResources().getConfiguration().locale;
+        locale = new Locale("pt", "BR");
         calendarStyleAttr = new CalendarStyleAttr(context, attrs);
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);

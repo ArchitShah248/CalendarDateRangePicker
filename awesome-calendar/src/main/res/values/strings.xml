@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">AwesomeCalendar</string>
+    <string name="library_app_name">AwesomeCalendar</string>
 
-    <string name="cdrp_mon">Mon</string>
-    <string name="cdrp_tue">Tue</string>
-    <string name="cdrp_wed">Wed</string>
-    <string name="cdrp_thu">Thu</string>
-    <string name="cdrp_fri">Fri</string>
-    <string name="cdrp_sat">Sat</string>
-    <string name="cdrp_sun">Sun</string>
+    <string name="cdrp_mon">Seg</string>
+    <string name="cdrp_tue">Ter</string>
+    <string name="cdrp_wed">Qua</string>
+    <string name="cdrp_thu">Qui</string>
+    <string name="cdrp_fri">Sex</string>
+    <string name="cdrp_sat">Sáb</string>
+    <string name="cdrp_sun">Dom</string>
 
     <string-array name="week_sun_sat">
         <item>@string/cdrp_sun</item>
@@ -19,13 +19,13 @@
         <item>@string/cdrp_sat</item>
     </string-array>
 
-    <string name="cancel">Cancel</string>
-    <string name="done">Done</string>
-    <string name="title_time_picker">Select Time</string>
-    <string name="select_time">Select a Time</string>
-    <string name="subtitle">Choose date of departure</string>
-    <string name="clear_selection">Clear</string>
-    <string name="confirm">Confirm</string>
-    <string name="subtitle_return">Choose date of return</string>
+    <string name="cancel">Cancelar</string>
+    <string name="done">Confirmar</string>
+    <string name="title_time_picker">Selecione um horário</string>
+    <string name="select_time">Selecione um horário</string>
+    <string name="subtitle">Escolha a data de ida</string>
+    <string name="clear_selection">Limpar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="subtitle_return">Escolha a data de volta</string>
 
 </resources>
