@@ -89,8 +89,8 @@ public class CalendarStyleAttr {
                 titleColor = ta.getColor(R.styleable.DateRangeMonthView_title_color, titleColor);
                 headerBg = ta.getDrawable(R.styleable.DateRangeMonthView_header_bg);
                 weekColor = ta.getColor(R.styleable.DateRangeMonthView_week_color, weekColor);
-                startRangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_start_range_color, startRangeStripColor);
-                endRangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_end_range_color, endRangeStripColor);
+                startRangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_start_date_selected_color, startRangeStripColor);
+                endRangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_end_date_selected_color, endRangeStripColor);
                 rangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_range_color, rangeStripColor);
                 selectedDateCircleColor = ta.getColor(R.styleable.DateRangeMonthView_selected_date_circle_color, selectedDateCircleColor);
                 shouldEnabledTime = ta.getBoolean(R.styleable.DateRangeMonthView_enable_time_selection, false);

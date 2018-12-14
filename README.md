@@ -22,7 +22,7 @@ Screenshots
 -----------
 
 <img width="30%" src="screenshots/device-2017-08-14-143753.png" />
-<img width="30%" src="screenshots/device-2017-08-14-143933.png" />
+<img width="30%" src="screenshots/IMAGE 2018-12-14 16:26:54.jpg" />
 
 
 Developer setup
@@ -75,6 +75,8 @@ For Maven:
 | title_color                | Color     | Title color                        |
 | week_color                 | Color     | Week text color                    |
 | range_color                | Color     | Date range color                   |
+| end_date_selected_color    | Color     | End Date selected color               |
+| start_date_selected_color  | Color     | Start Date selected color             |
 | selected_date_circle_color | Color     | Selected date text circle color         |
 | selected_date_color        | Color     | Selected date text color                |
 | default_date_color         | Color     | Default date text color                 |

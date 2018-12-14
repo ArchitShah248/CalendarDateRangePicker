@@ -4,8 +4,8 @@
     <declare-styleable name="DateRangeMonthView">
         <attr name="title_color" format="color" />
         <attr name="week_color" format="color" />
-        <attr name="start_range_color" format="color"/>
-        <attr name="end_range_color" format="color"/>
+        <attr name="start_date_selected_color" format="color"/>
+        <attr name="end_date_selected_color" format="color"/>
         <attr name="range_color" format="color" />
         <attr name="selected_date_circle_color" format="color" />
         <attr name="selected_date_color" format="color" />
