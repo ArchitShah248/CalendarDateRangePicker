@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.hardware.camera2.TotalCaptureResult;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
@@ -19,6 +18,8 @@ public class CalendarStyleAttr {
 
     private int weekColor;
     private int rangeStripColor;
+    private int startRangeStripColor;
+    private int endRangeStripColor;
     private int selectedDateCircleColor;
     private int selectedDateColor, defaultDateColor, disableDateColor, rangeDateColor;
     private float textSizeTitle, textSizeWeek, textSizeDate;
@@ -47,6 +48,8 @@ public class CalendarStyleAttr {
         calendarStyleAttr.setTextSizeDate(context.getResources().getDimension(R.dimen.text_size_date));
 
         calendarStyleAttr.setWeekColor(ContextCompat.getColor(context, R.color.week_color));
+        calendarStyleAttr.setStartRangeStripColor(ContextCompat.getColor(context, R.color.start_range_bg_color));
+        calendarStyleAttr.setEndRangeStripColor(ContextCompat.getColor(context, R.color.end_range_bg_color));
         calendarStyleAttr.setRangeStripColor(ContextCompat.getColor(context, R.color.range_bg_color));
         calendarStyleAttr.setSelectedDateCircleColor(ContextCompat.getColor(context, R.color.selected_date_circle_color));
         calendarStyleAttr.setSelectedDateColor(ContextCompat.getColor(context, R.color.selected_date_color));
@@ -68,6 +71,8 @@ public class CalendarStyleAttr {
 
         setTitleColor(ContextCompat.getColor(context, R.color.title_color));
         setWeekColor(ContextCompat.getColor(context, R.color.week_color));
+        setStartRangeStripColor(ContextCompat.getColor(context, R.color.start_range_bg_color));
+        setEndRangeStripColor(ContextCompat.getColor(context, R.color.end_range_bg_color));
         setRangeStripColor(ContextCompat.getColor(context, R.color.range_bg_color));
         setSelectedDateCircleColor(ContextCompat.getColor(context, R.color.selected_date_circle_color));
         setSelectedDateColor(ContextCompat.getColor(context, R.color.selected_date_color));
@@ -84,11 +89,13 @@ public class CalendarStyleAttr {
                 titleColor = ta.getColor(R.styleable.DateRangeMonthView_title_color, titleColor);
                 headerBg = ta.getDrawable(R.styleable.DateRangeMonthView_header_bg);
                 weekColor = ta.getColor(R.styleable.DateRangeMonthView_week_color, weekColor);
+                startRangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_start_range_color, startRangeStripColor);
+                endRangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_end_range_color, endRangeStripColor);
                 rangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_range_color, rangeStripColor);
                 selectedDateCircleColor = ta.getColor(R.styleable.DateRangeMonthView_selected_date_circle_color, selectedDateCircleColor);
                 shouldEnabledTime = ta.getBoolean(R.styleable.DateRangeMonthView_enable_time_selection, false);
-                enabledPastDates = ta.getBoolean(R.styleable.DateRangeMonthView_enable_past_date,false);
-                isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_editable,true);
+                enabledPastDates = ta.getBoolean(R.styleable.DateRangeMonthView_enable_past_date, false);
+                isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_editable, true);
 
                 textSizeTitle = ta.getDimension(R.styleable.DateRangeMonthView_text_size_title, textSizeTitle);
                 textSizeWeek = ta.getDimension(R.styleable.DateRangeMonthView_text_size_week, textSizeWeek);
@@ -223,14 +230,6 @@ public class CalendarStyleAttr {
         return weekOffset;
     }
 
-    public boolean isEnabledPastDates() {
-        return enabledPastDates;
-    }
-
-    public void setEnabledPastDates(boolean enabledPastDates) {
-        this.enabledPastDates = enabledPastDates;
-    }
-
     /**
      * To set week offset
      *
@@ -242,6 +241,30 @@ public class CalendarStyleAttr {
                     "0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat");
         }
         this.weekOffset = weekOffset;
+    }
+
+    public boolean isEnabledPastDates() {
+        return enabledPastDates;
+    }
+
+    public void setEnabledPastDates(boolean enabledPastDates) {
+        this.enabledPastDates = enabledPastDates;
+    }
+
+    public int getStartRangeStripColor() {
+        return startRangeStripColor;
+    }
+
+    public void setStartRangeStripColor(int startRangeStripColor) {
+        this.startRangeStripColor = startRangeStripColor;
+    }
+
+    public int getEndRangeStripColor() {
+        return endRangeStripColor;
+    }
+
+    public void setEndRangeStripColor(int endRangeStripColor) {
+        this.endRangeStripColor = endRangeStripColor;
     }
 
     public boolean isEditable() {

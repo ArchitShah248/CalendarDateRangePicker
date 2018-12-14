@@ -13,6 +13,8 @@
     <color name="default_date_color">#3b4144</color>
     <color name="disable_date_color">#BDBDBD</color>
     <color name="range_date_color">@color/default_date_color</color>
+    <color name="start_range_bg_color">#B7C99D</color>
+    <color name="end_range_bg_color">#B7C99D</color>
     <color name="selected_date_color">#FFF</color>
     <color name="range_bg_color">#B7C99D</color>
     <color name="calendar_text">#474747</color>

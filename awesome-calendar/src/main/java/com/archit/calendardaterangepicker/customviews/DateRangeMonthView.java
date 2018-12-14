@@ -33,74 +33,13 @@ import java.util.Date;
 class DateRangeMonthView extends LinearLayout {
 
     private static final String LOG_TAG = DateRangeMonthView.class.getSimpleName();
+    private final static PorterDuff.Mode FILTER_MODE = PorterDuff.Mode.SRC_IN;
     private LinearLayout llDaysContainer;
     private LinearLayout llTitleWeekContainer;
-
     private Calendar currentCalendarMonth;
-
     private CalendarStyleAttr calendarStyleAttr;
-
     private DateRangeCalendarView.CalendarListener calendarListener;
-
     private DateRangeCalendarManager dateRangeCalendarManager;
-
-    private final static PorterDuff.Mode FILTER_MODE = PorterDuff.Mode.SRC_IN;
-
-    public void setCalendarListener(DateRangeCalendarView.CalendarListener calendarListener) {
-        this.calendarListener = calendarListener;
-    }
-
-    public DateRangeMonthView(Context context) {
-        super(context);
-        initView(context, null);
-    }
-
-    public DateRangeMonthView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initView(context, attrs);
-    }
-
-    public DateRangeMonthView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initView(context, attrs);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public DateRangeMonthView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        initView(context, attrs);
-    }
-
-    /**
-     * To initialize child views
-     *
-     * @param context      - App context
-     * @param attributeSet - Attr set
-     */
-    private void initView(Context context, AttributeSet attributeSet) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        LinearLayout mainView = (LinearLayout) layoutInflater.inflate(R.layout.layout_calendar_month, this, true);
-        llDaysContainer = mainView.findViewById(R.id.llDaysContainer);
-        llTitleWeekContainer = mainView.findViewById(R.id.llTitleWeekContainer);
-
-        setListeners();
-
-        if (isInEditMode()) {
-            return;
-        }
-
-    }
-
-
-    /**
-     * To set listeners.
-     */
-    private void setListeners() {
-
-
-    }
-
-
     private OnClickListener dayClickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -181,6 +120,59 @@ class DateRangeMonthView extends LinearLayout {
             }
         }
     };
+
+    public DateRangeMonthView(Context context) {
+        super(context);
+        initView(context, null);
+    }
+
+    public DateRangeMonthView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initView(context, attrs);
+    }
+
+    public DateRangeMonthView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView(context, attrs);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public DateRangeMonthView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        initView(context, attrs);
+    }
+
+    public void setCalendarListener(DateRangeCalendarView.CalendarListener calendarListener) {
+        this.calendarListener = calendarListener;
+    }
+
+    /**
+     * To initialize child views
+     *
+     * @param context      - App context
+     * @param attributeSet - Attr set
+     */
+    private void initView(Context context, AttributeSet attributeSet) {
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        LinearLayout mainView = (LinearLayout) layoutInflater.inflate(R.layout.layout_calendar_month, this, true);
+        llDaysContainer = mainView.findViewById(R.id.llDaysContainer);
+        llTitleWeekContainer = mainView.findViewById(R.id.llTitleWeekContainer);
+
+        setListeners();
+
+        if (isInEditMode()) {
+            return;
+        }
+
+    }
+
+    /**
+     * To set listeners.
+     */
+    private void setListeners() {
+
+
+    }
 
     /**
      * To draw calendar for the given month. Here calendar object should start from date of 1st.
@@ -340,30 +332,42 @@ class DateRangeMonthView extends LinearLayout {
         Calendar minDate = dateRangeCalendarManager.getMinSelectedDate();
         Calendar maxDate = dateRangeCalendarManager.getMaxSelectedDate();
 
-        if (stripType == DateRangeCalendarManager.RANGE_TYPE.START_DATE && maxDate != null &&
-                minDate.compareTo(maxDate) != 0) {
+        if (stripType == DateRangeCalendarManager.RANGE_TYPE.START_DATE && maxDate != null && minDate.compareTo(maxDate) != 0) {
             Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg_left);
-            mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
-
+            mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getStartRangeStripColor(), FILTER_MODE));
             container.strip.setBackground(mDrawable);
-            layoutParams.setMargins(20, 0, 0, 0);
         } else if (stripType == DateRangeCalendarManager.RANGE_TYPE.LAST_DATE) {
             Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg_right);
-            mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
+            mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getEndRangeStripColor(), FILTER_MODE));
             container.strip.setBackground(mDrawable);
-            layoutParams.setMargins(0, 0, 20, 0);
         } else {
             container.strip.setBackgroundColor(Color.TRANSPARENT);
-            layoutParams.setMargins(0, 0, 0, 0);
         }
         container.strip.setLayoutParams(layoutParams);
-        Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.green_circle);
-        mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getSelectedDateCircleColor(), FILTER_MODE));
-        container.tvDate.setBackground(mDrawable);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
-        container.tvDate.setTextColor(calendarStyleAttr.getSelectedDateColor());
         container.rootView.setVisibility(VISIBLE);
         container.rootView.setOnClickListener(dayClickListener);
+
+        Drawable mDrawable = null;
+        switch (stripType) {
+            case DateRangeCalendarManager.RANGE_TYPE.LAST_DATE:
+                mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg_right);
+                break;
+            case DateRangeCalendarManager.RANGE_TYPE.MIDDLE_DATE:
+                mDrawable = ContextCompat.getDrawable(getContext(), 0);
+                break;
+            case DateRangeCalendarManager.RANGE_TYPE.NOT_IN_RANGE:
+                mDrawable = ContextCompat.getDrawable(getContext(), 0);
+                break;
+            case DateRangeCalendarManager.RANGE_TYPE.START_DATE:
+                mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg_left);
+                break;
+        }
+        mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getSelectedDateCircleColor(), FILTER_MODE));
+        container.tvDate.setBackground(mDrawable);
+        layoutParams.setMargins(0, 0, 0, 0);
+        container.tvDate.setLayoutParams(layoutParams);
+        container.tvDate.setTextColor(calendarStyleAttr.getSelectedDateColor());
     }
 
     /**
@@ -377,7 +381,7 @@ class DateRangeMonthView extends LinearLayout {
         mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
         container.strip.setBackground(mDrawable);
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
-        container.tvDate.setTextColor(calendarStyleAttr.getRangeDateColor());
+        container.tvDate.setTextColor(calendarStyleAttr.getSelectedDateColor());
         container.rootView.setVisibility(VISIBLE);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) container.strip.getLayoutParams();
         layoutParams.setMargins(0, 0, 0, 0);
