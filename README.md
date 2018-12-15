@@ -36,7 +36,7 @@ For Gradle:
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:1.1.3'
+    compile 'com.archit.calendar:awesome-calendar:1.1.4'
 }
 ```
 
@@ -46,7 +46,7 @@ For Maven:
 <dependency>
   <groupId>com.archit.calendar</groupId>
   <artifactId>awesome-calendar</artifactId>
-  <version>1.1.3</version>
+  <version>1.1.4</version>
   <type>pom</type>
 </dependency>
 ```
@@ -138,7 +138,13 @@ calendar.setFonts(typeface);
 calendar.setWeekOffset(1);
 `````
 
-**Set calendar visible months**
+**Set current visible month on calendar**
+````java
+Calendar current = Calendar.getInstance();
+calendar.setCurrentMonth(current);
+````
+
+**Set calendar months range**
 ````Java
 Calendar startMonth = Calendar.getInstance();
 startMonth.add(Calendar.MONTH, -2);
