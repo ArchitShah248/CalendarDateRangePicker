@@ -48,6 +48,7 @@ public class DateRangeCalendarView extends RelativeLayout {
     private TextView tvClear;
     private Button btConfirm;
     private RelativeLayout containerLayout;
+    private boolean enableRange = true;
 
     private final static int TOTAL_ALLOWED_MONTHS = 30;
 
@@ -97,7 +98,7 @@ public class DateRangeCalendarView extends RelativeLayout {
             today.add(Calendar.MONTH, 1);
         }
 
-        adapterEventCalendarMonths = new AdapterEventCalendarMonths(context, dataList, calendarStyleAttr);
+        adapterEventCalendarMonths = new AdapterEventCalendarMonths(context, dataList, calendarStyleAttr, enableRange);
         vpCalendar.setAdapter(adapterEventCalendarMonths);
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(TOTAL_ALLOWED_MONTHS);
@@ -321,7 +322,12 @@ public class DateRangeCalendarView extends RelativeLayout {
         } else if (endDate != null && endDate.before(startDate)) {
             throw new RuntimeException("Start date can not be after end date.");
         }
-        adapterEventCalendarMonths.setSelectedDate(startDate, endDate);
+        if (isEnableRange()) {
+            adapterEventCalendarMonths.setSelectedDate(startDate, endDate);
+        } else {
+            adapterEventCalendarMonths.setSelectedDate(startDate, startDate);
+        }
+
     }
 
     /**
@@ -396,7 +402,7 @@ public class DateRangeCalendarView extends RelativeLayout {
         }
         while (startMonth.compareTo(endMonth) != 0);
 
-        adapterEventCalendarMonths = new AdapterEventCalendarMonths(getContext(), dataList, calendarStyleAttr);
+        adapterEventCalendarMonths = new AdapterEventCalendarMonths(getContext(), dataList, calendarStyleAttr, enableRange);
         vpCalendar.setAdapter(adapterEventCalendarMonths);
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(0);
@@ -430,5 +436,13 @@ public class DateRangeCalendarView extends RelativeLayout {
 
     public void setSubtitle(String text) {
         tvSubtitle.setText(text);
+    }
+
+    public boolean isEnableRange() {
+        return enableRange;
+    }
+
+    public void setEnableRange(boolean enableRange) {
+        this.enableRange = enableRange;
     }
 }

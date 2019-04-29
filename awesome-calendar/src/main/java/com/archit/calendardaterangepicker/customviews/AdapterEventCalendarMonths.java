@@ -23,13 +23,15 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
     private DateRangeCalendarView.CalendarListener calendarListener;
     private DateRangeCalendarManager dateRangeCalendarManager;
     private Handler mHandler;
+    private boolean enableRange = true;
 
-    public AdapterEventCalendarMonths(Context mContext, List<Calendar> list, CalendarStyleAttr calendarStyleAttr) {
+    public AdapterEventCalendarMonths(Context mContext, List<Calendar> list, CalendarStyleAttr calendarStyleAttr, boolean enableRange) {
         this.mContext = mContext;
         dataList = list;
         this.calendarStyleAttr = calendarStyleAttr;
         dateRangeCalendarManager = new DateRangeCalendarManager();
         mHandler = new Handler();
+        this.enableRange = enableRange;
     }
 
     @Override
@@ -107,7 +109,13 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
                 }
             }, 50);
             if (calendarListener != null) {
-                calendarListener.onDateRangeSelected(startDate, endDate);
+                if (enableRange) {
+                    calendarListener.onDateRangeSelected(startDate, endDate);
+                } else {
+                    calendarListener.onDateRangeSelected(endDate, endDate);
+                    dateRangeCalendarManager.setMinSelectedDate(endDate);
+                    notifyDataSetChanged();
+                }
             }
         }
     };

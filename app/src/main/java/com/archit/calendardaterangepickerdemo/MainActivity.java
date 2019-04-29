@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         calendar = findViewById(R.id.calendar);
         calendar.setClearEnabled(false);
         calendar.setConfirmEnabled(false);
+        calendar.setEnableRange(true);
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
 //        Typeface typeface = Typeface.createFromAsset(getAssets(), "LobsterTwo-Regular.ttf");
@@ -74,8 +75,11 @@ public class MainActivity extends AppCompatActivity {
         Calendar endSelectionDate = (Calendar) startSelectionDate.clone();
         endSelectionDate.add(Calendar.DATE, 40);
 
-        calendar.setSelectedDateRange(startSelectionDate, endSelectionDate);
-
+        if (calendar.isEnableRange()) {
+            calendar.setSelectedDateRange(startSelectionDate, endSelectionDate);
+        } else {
+            calendar.setSelectedDateRange(startSelectionDate, startSelectionDate);
+        }
 
     }
 
