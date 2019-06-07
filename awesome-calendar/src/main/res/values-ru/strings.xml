@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">AwesomeCalendar</string>
-
     <string name="cdrp_mon">Пн</string>
     <string name="cdrp_tue">Вт</string>
     <string name="cdrp_wed">Ср</string>
