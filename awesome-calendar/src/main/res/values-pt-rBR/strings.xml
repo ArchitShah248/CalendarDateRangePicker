@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">AwesomeCalendar</string>
-
     <string name="cdrp_mon">Seg</string>
     <string name="cdrp_tue">Ter</string>
     <string name="cdrp_wed">Qua</string>
