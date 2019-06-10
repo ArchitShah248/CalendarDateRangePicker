@@ -1,0 +1,25 @@
+<resources>
+    <string name="cdrp_mon">Пн</string>
+    <string name="cdrp_tue">Вт</string>
+    <string name="cdrp_wed">Ср</string>
+    <string name="cdrp_thu">Чт</string>
+    <string name="cdrp_fri">Пт</string>
+    <string name="cdrp_sat">Сб</string>
+    <string name="cdrp_sun">Вс</string>
+
+    <string-array name="week_sun_sat">
+        <item>@string/cdrp_sun</item>
+        <item>@string/cdrp_mon</item>
+        <item>@string/cdrp_tue</item>
+        <item>@string/cdrp_wed</item>
+        <item>@string/cdrp_thu</item>
+        <item>@string/cdrp_fri</item>
+        <item>@string/cdrp_sat</item>
+    </string-array>
+
+    <string name="cancel">Отмена</string>
+    <string name="done">Ок</string>
+    <string name="title_time_picker">Выбор времени</string>
+    <string name="select_time">Выберите время</string>
+
+</resources>

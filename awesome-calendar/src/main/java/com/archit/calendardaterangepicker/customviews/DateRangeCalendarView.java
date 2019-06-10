@@ -334,12 +334,16 @@ public class DateRangeCalendarView extends LinearLayout {
      * @param calendar Month to be set as current
      */
     public void setCurrentMonth(Calendar calendar) {
+
         if (calendar != null && monthDataList != null) {
             for (int i = 0; i < monthDataList.size(); i++) {
                 Calendar month = monthDataList.get(i);
-                if (month.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
-                    vpCalendar.setCurrentItem(i);
-                    break;
+                if (month.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)) {
+
+                    if (month.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+                        vpCalendar.setCurrentItem(i);
+                        break;
+                    }
                 }
             }
         }
