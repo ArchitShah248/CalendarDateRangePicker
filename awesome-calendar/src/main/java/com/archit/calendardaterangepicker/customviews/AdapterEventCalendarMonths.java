@@ -166,4 +166,8 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
     public boolean isEditable() {
         return calendarStyleAttr.isEditable();
     }
+
+    public boolean isSingleDate(){
+        return calendarStyleAttr.isSingleDate();
+    }
 }

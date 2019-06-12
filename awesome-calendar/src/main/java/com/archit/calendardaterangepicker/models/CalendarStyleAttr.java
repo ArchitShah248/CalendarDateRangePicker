@@ -26,6 +26,7 @@ public class CalendarStyleAttr {
     private int weekOffset = 0;
     private boolean enabledPastDates = false;
     private boolean isEditable = true;
+    private boolean isSingleDate = false;
 
     public CalendarStyleAttr(Context context) {
         setDefAttributes(context);
@@ -100,6 +101,7 @@ public class CalendarStyleAttr {
                 disableDateColor = ta.getColor(R.styleable.DateRangeMonthView_disable_date_color, disableDateColor);
                 setWeekOffset(ta.getColor(R.styleable.DateRangeMonthView_week_offset, 0));
 
+                isSingleDate = ta.getBoolean(R.styleable.DateRangeMonthView_single_date, false);
 
             } finally {
                 ta.recycle();
@@ -250,5 +252,13 @@ public class CalendarStyleAttr {
 
     public void setEditable(boolean editable) {
         isEditable = editable;
+    }
+
+    public boolean isSingleDate() {
+        return isSingleDate;
+    }
+
+    public void setSingleDate(boolean singleDate) {
+        isSingleDate = singleDate;
     }
 }

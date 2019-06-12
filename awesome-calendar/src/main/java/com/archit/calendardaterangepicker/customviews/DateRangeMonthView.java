@@ -119,7 +119,7 @@ class DateRangeMonthView extends LinearLayout {
                 Calendar minSelectedDate = dateRangeCalendarManager.getMinSelectedDate();
                 Calendar maxSelectedDate = dateRangeCalendarManager.getMaxSelectedDate();
 
-                if (minSelectedDate != null && maxSelectedDate == null) {
+                if (minSelectedDate != null && maxSelectedDate == null && !calendarStyleAttr.isSingleDate()) {
                     maxSelectedDate = selectedCal;
 
                     int startDateKey = DayContainer.GetContainerKey(minSelectedDate);
