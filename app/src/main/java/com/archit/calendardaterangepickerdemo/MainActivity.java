@@ -3,6 +3,7 @@ package com.archit.calendardaterangepickerdemo;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private DateRangeCalendarView calendar;
 
     @Override
@@ -66,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar current = Calendar.getInstance();
         calendar.setCurrentMonth(current);
-
     }
 
 

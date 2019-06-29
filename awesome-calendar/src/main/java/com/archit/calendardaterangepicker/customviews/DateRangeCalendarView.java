@@ -312,11 +312,11 @@ public class DateRangeCalendarView extends LinearLayout {
         }
         monthDataList.clear();
 
-        do {
+        while (!isDateSame(startMonth, endMonth)) {
             monthDataList.add((Calendar) startMonth.clone());
             startMonth.add(Calendar.MONTH, 1);
         }
-        while (startMonth.compareTo(endMonth) != 0);
+        monthDataList.add((Calendar) startMonth.clone());
 
         adapterEventCalendarMonths = new AdapterEventCalendarMonths(getContext(), monthDataList, calendarStyleAttr);
         vpCalendar.setAdapter(adapterEventCalendarMonths);
@@ -347,5 +347,11 @@ public class DateRangeCalendarView extends LinearLayout {
                 }
             }
         }
+    }
+
+    private boolean isDateSame(@NonNull Calendar one, @NonNull Calendar second) {
+        return one.get(Calendar.YEAR) == second.get(Calendar.YEAR)
+                && one.get(Calendar.MONTH) == second.get(Calendar.MONTH)
+                && one.get(Calendar.DATE) == second.get(Calendar.DATE);
     }
 }
