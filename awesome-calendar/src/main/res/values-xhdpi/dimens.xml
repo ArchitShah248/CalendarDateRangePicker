@@ -2,23 +2,26 @@
 <resources>
 
     <!-- dateTitleLayout -->
-    <dimen name="text_size_title">22sp</dimen>
-    <dimen name="dateTitlePaddingBottom">5dp</dimen>
+    <dimen name="text_size_title">16sp</dimen>
+    <dimen name="dateTitlePaddingBottom">0dp</dimen>
     <!-- weekLayout -->
     <dimen name="weekDaysPaddingBottom">0dp</dimen>
-    <dimen name="text_size_week">15sp</dimen>
+    <dimen name="text_size_week">13sp</dimen>
     <!-- weekRowLayout -->
-    <dimen name="weekRowMinHeight">44dp</dimen>
-    <dimen name="text_size_date">18sp</dimen>
-    <dimen name="dayOfMonthBoxSize">44dp</dimen>
-    <dimen name="dayOfMonthSize">34dp</dimen>
+    <dimen name="weekRowMinHeight">15dp</dimen>
+    <dimen name="text_size_date">12sp</dimen>
+    <dimen name="dayOfMonthBoxSize">40dp</dimen>
+    <dimen name="dayOfMonthSize">25dp</dimen>
     <dimen name="dayOfMonthMinWidth">50dp</dimen>
     <dimen name="dayOfMonthMinHeight">0dp</dimen>
     <dimen name="dayOfMonthPaddingBottom">0dp</dimen>
     <dimen name="dayOfMonthImageSize">4dp</dimen>
     <dimen name="dayOfMonthImageMarginTop">32dp</dimen>
 
-    <dimen name="strip_height">28dp</dimen>
+    <dimen name="strip_height">25dp</dimen>
+    <dimen name="date_box_height">30dp</dimen>
+
+    <dimen name="calender_height">290dp</dimen>
 
 
 </resources>
