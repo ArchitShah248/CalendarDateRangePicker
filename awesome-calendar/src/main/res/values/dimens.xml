@@ -19,6 +19,8 @@
     <dimen name="dayOfMonthImageMarginTop">32dp</dimen>
 
     <dimen name="strip_height">28dp</dimen>
+    <dimen name="date_box_height">37dp</dimen>
 
+    <dimen name="calender_height">320dp</dimen>
 
 </resources>
