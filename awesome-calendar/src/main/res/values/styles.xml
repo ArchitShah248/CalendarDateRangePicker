@@ -42,7 +42,7 @@
 
     <style name="ContainerDayOfWeek">
         <item name="android:layout_width">@dimen/dayOfMonthBoxSize</item>
-        <item name="android:layout_height">@dimen/dayOfMonthBoxSize</item>
+        <item name="android:layout_height">@dimen/date_box_height</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
@@ -54,5 +54,4 @@
 
 
     </style>
-
 </resources>
