@@ -19,6 +19,7 @@
         <attr name="week_offset" format="integer" />
         <attr name="enable_past_date" format="boolean" />
         <attr name="editable" format="boolean" />
+        <attr name="single_date" format="boolean" />
     </declare-styleable>
 
 </resources>
