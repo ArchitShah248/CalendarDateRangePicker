@@ -26,7 +26,7 @@ public class CalendarStyleAttr {
     private int weekOffset = 0;
     private boolean enabledPastDates = false;
     private boolean isEditable = true;
-
+    private boolean singleDateSelection = false;
     public CalendarStyleAttr(Context context) {
         setDefAttributes(context);
     }
@@ -89,7 +89,8 @@ public class CalendarStyleAttr {
                 shouldEnabledTime = ta.getBoolean(R.styleable.DateRangeMonthView_enable_time_selection, false);
                 enabledPastDates = ta.getBoolean(R.styleable.DateRangeMonthView_enable_past_date,false);
                 isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_editable,true);
-
+                singleDateSelection = ta.getBoolean(R.styleable.DateRangeMonthView_single_date,false);
+                
                 textSizeTitle = ta.getDimension(R.styleable.DateRangeMonthView_text_size_title, textSizeTitle);
                 textSizeWeek = ta.getDimension(R.styleable.DateRangeMonthView_text_size_week, textSizeWeek);
                 textSizeDate = ta.getDimension(R.styleable.DateRangeMonthView_text_size_date, textSizeDate);
@@ -250,5 +251,13 @@ public class CalendarStyleAttr {
 
     public void setEditable(boolean editable) {
         isEditable = editable;
+    }
+    
+    public boolean isSingleDateSelection() {
+        return singleDateSelection;
+    }
+
+    public void setSingleDateSelection(boolean editable) {
+        singleDateSelection = editable;
     }
 }
