@@ -106,6 +106,11 @@ class DateRangeMonthView extends LinearLayout {
         public void onClick(View view) {
 
             if (calendarStyleAttr.isEditable()) {
+                
+                if(calendarStyleAttr.isSingleDateSelection()){
+                    resetAllSelectedViews();
+                }
+                
                 int key = (int) view.getTag();
                 final Calendar selectedCal = Calendar.getInstance();
                 Date date = new Date();
@@ -172,10 +177,15 @@ class DateRangeMonthView extends LinearLayout {
                     awesomeTimePickerDialog.showDialog();
                 } else {
                     Log.i(LOG_TAG, "Time: " + selectedCal.getTime().toString());
-                    if (maxSelectedDate != null) {
-                        calendarListener.onDateRangeSelected(minSelectedDate, maxSelectedDate);
-                    } else {
+                    if(calendarStyleAttr.isSingleDateSelection()){
                         calendarListener.onFirstDateSelected(minSelectedDate);
+                        //Toast.makeText(getContext()," "+selectedCal.get(Calendar.DAY_OF_MONTH),Toast.LENGTH_SHORT).show();
+                    }else{
+                        if (maxSelectedDate != null) {
+                            calendarListener.onDateRangeSelected(minSelectedDate, maxSelectedDate);
+                        } else {
+                            calendarListener.onFirstDateSelected(minSelectedDate);
+                        }
                     }
                 }
             }
