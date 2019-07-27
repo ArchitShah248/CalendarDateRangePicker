@@ -26,6 +26,7 @@
             custom:range_color="@color/range_bg_color_app"
             custom:selected_date_circle_color="@color/selected_date_circle_color_app"
             custom:title_color="@color/calendar_header_title"
+            custom:enable_future_date="false"
             custom:editable="true"
             custom:week_offset="0">
 

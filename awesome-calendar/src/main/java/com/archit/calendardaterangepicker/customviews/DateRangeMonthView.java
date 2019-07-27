@@ -268,6 +268,10 @@ class DateRangeMonthView extends LinearLayout {
                 && !calendarStyleAttr.isEnabledPastDates()) {
             disableDayContainer(container);
             container.tvDate.setText(String.valueOf(date));
+        } else if (today.before(calendar) && (today.get(Calendar.DAY_OF_YEAR) != calendar.get(Calendar.DAY_OF_YEAR))
+                && !calendarStyleAttr.isEnabledFutureDates()) {
+            disableDayContainer(container);
+            container.tvDate.setText(String.valueOf(date));
         } else {
             @DateRangeCalendarManager.RANGE_TYPE
             int type = dateRangeCalendarManager.checkDateRange(calendar);
