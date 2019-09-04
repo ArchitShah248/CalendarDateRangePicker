@@ -256,7 +256,7 @@ class DateRangeMonthView extends LinearLayout {
      * @param container - Date container
      * @param calendar  - Calendar obj of specific date of the month.
      */
-    private void drawDayContainer(DayContainer container, Calendar calendar) {
+   rivate void drawDayContainer(DayContainer container, Calendar calendar) {
 
         Calendar today = Calendar.getInstance();
 
@@ -264,27 +264,26 @@ class DateRangeMonthView extends LinearLayout {
 
         if (currentCalendarMonth.get(Calendar.MONTH) != calendar.get(Calendar.MONTH)) {
             hideDayContainer(container);
-        } else if (today.after(calendar) && (today.get(Calendar.DAY_OF_YEAR) != calendar.get(Calendar.DAY_OF_YEAR))
-                && !calendarStyleAttr.isEnabledPastDates()) {
-            disableDayContainer(container);
-            container.tvDate.setText(String.valueOf(date));
         } else {
+
             @DateRangeCalendarManager.RANGE_TYPE
             int type = dateRangeCalendarManager.checkDateRange(calendar);
             if (type == DateRangeCalendarManager.RANGE_TYPE.START_DATE || type == DateRangeCalendarManager.RANGE_TYPE.LAST_DATE) {
                 makeAsSelectedDate(container, type);
             } else if (type == DateRangeCalendarManager.RANGE_TYPE.MIDDLE_DATE) {
                 makeAsRangeDate(container);
-            } else {
+            }else if (today.after(calendar) && (today.get(Calendar.DAY_OF_YEAR) != calendar.get(Calendar.DAY_OF_YEAR))) {
+                disableDayContainer(container);
+                container.tvDate.setText(String.valueOf(date));
+            }  else {
                 enabledDayContainer(container);
             }
 
             container.tvDate.setText(String.valueOf(date));
-            container.tvDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, calendarStyleAttr.getTextSizeDate());
         }
 
         container.rootView.setTag(DayContainer.GetContainerKey(calendar));
-    }
+}
 
     /**
      * To hide date if date is from previous month.
@@ -311,8 +310,8 @@ class DateRangeMonthView extends LinearLayout {
         container.rootView.setBackgroundColor(Color.TRANSPARENT);
         container.tvDate.setTextColor(calendarStyleAttr.getDisableDateColor());
         container.rootView.setVisibility(VISIBLE);
-        container.rootView.setOnClickListener(null);
-    }
+        container.rootView.setOnClickListener(dayClickListener);
+}
 
     /**
      * To enable date by enabling click listeners.
