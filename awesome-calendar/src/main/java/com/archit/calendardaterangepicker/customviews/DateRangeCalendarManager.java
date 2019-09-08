@@ -35,11 +35,11 @@ class DateRangeCalendarManager {
     public DateRangeCalendarManager() {
     }
 
-    public void setMinSelectedDate(Calendar minSelectedDate) {
+    public void setMinSelectedDate(final Calendar minSelectedDate) {
         this.minSelectedDate = minSelectedDate;
     }
 
-    public void setMaxSelectedDate(Calendar maxSelectedDate) {
+    public void setMaxSelectedDate(final Calendar maxSelectedDate) {
         this.maxSelectedDate = maxSelectedDate;
     }
 
@@ -57,12 +57,12 @@ class DateRangeCalendarManager {
      * @return Date type
      */
     @RANGE_TYPE
-    public int checkDateRange(Calendar selectedDate) {
+    public int checkDateRange(final Calendar selectedDate) {
 
-        String dateStr = SIMPLE_DATE_FORMAT.format(selectedDate.getTime());
+        final String dateStr = SIMPLE_DATE_FORMAT.format(selectedDate.getTime());
 
         if (minSelectedDate != null && maxSelectedDate == null) {
-            String minDateStr = SIMPLE_DATE_FORMAT.format(minSelectedDate.getTime());
+            final String minDateStr = SIMPLE_DATE_FORMAT.format(minSelectedDate.getTime());
             if (dateStr.equalsIgnoreCase(minDateStr)) {
                 return START_DATE;
             } else {
@@ -70,13 +70,13 @@ class DateRangeCalendarManager {
             }
         } else if (minSelectedDate != null) {
             //Min date and Max date are selected
-            long selectedDateVal = Long.valueOf(dateStr);
+            final long selectedDateVal = Long.valueOf(dateStr);
 
-            String minDateStr = SIMPLE_DATE_FORMAT.format(minSelectedDate.getTime());
-            String maxDateStr = SIMPLE_DATE_FORMAT.format(maxSelectedDate.getTime());
+            final String minDateStr = SIMPLE_DATE_FORMAT.format(minSelectedDate.getTime());
+            final String maxDateStr = SIMPLE_DATE_FORMAT.format(maxSelectedDate.getTime());
 
-            long minDateVal = Long.valueOf(minDateStr);
-            long maxDateVal = Long.valueOf(maxDateStr);
+            final long minDateVal = Long.valueOf(minDateStr);
+            final long maxDateVal = Long.valueOf(maxDateStr);
 
             if (selectedDateVal == minDateVal) {
                 return START_DATE;

@@ -4,19 +4,18 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.hardware.camera2.TotalCaptureResult;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.archit.calendardaterangepicker.R;
 
-public class CalendarStyleAttr {
+public class CalendarStyleAttrImpl implements CalendarStyleAttributes {
 
     private Typeface fonts;
     private Drawable headerBg;
-
     private int titleColor;
-
     private int weekColor;
     private int rangeStripColor;
     private int selectedDateCircleColor;
@@ -27,11 +26,11 @@ public class CalendarStyleAttr {
     private boolean enabledPastDates = false;
     private boolean isEditable = true;
 
-    public CalendarStyleAttr(Context context) {
+    private CalendarStyleAttrImpl(final Context context) {
         setDefAttributes(context);
     }
 
-    public CalendarStyleAttr(Context context, AttributeSet attributeSet) {
+    public CalendarStyleAttrImpl(final Context context, final AttributeSet attributeSet) {
         setDefAttributes(context);
         setAttributes(context, attributeSet);
     }
@@ -39,13 +38,12 @@ public class CalendarStyleAttr {
     /**
      * To parse attributes from xml layout to configure calendar views.
      */
-    public static CalendarStyleAttr getDefAttributes(Context context) {
+    public static CalendarStyleAttrImpl getDefAttributes(@NonNull final Context context) {
 
-        CalendarStyleAttr calendarStyleAttr = new CalendarStyleAttr(context);
+        final CalendarStyleAttrImpl calendarStyleAttr = new CalendarStyleAttrImpl(context);
         calendarStyleAttr.setTextSizeTitle(context.getResources().getDimension(R.dimen.text_size_title));
         calendarStyleAttr.setTextSizeWeek(context.getResources().getDimension(R.dimen.text_size_week));
         calendarStyleAttr.setTextSizeDate(context.getResources().getDimension(R.dimen.text_size_date));
-
         calendarStyleAttr.setWeekColor(ContextCompat.getColor(context, R.color.week_color));
         calendarStyleAttr.setRangeStripColor(ContextCompat.getColor(context, R.color.range_bg_color));
         calendarStyleAttr.setSelectedDateCircleColor(ContextCompat.getColor(context, R.color.selected_date_circle_color));
@@ -53,14 +51,13 @@ public class CalendarStyleAttr {
         calendarStyleAttr.setDefaultDateColor(ContextCompat.getColor(context, R.color.default_date_color));
         calendarStyleAttr.setRangeDateColor(ContextCompat.getColor(context, R.color.range_date_color));
         calendarStyleAttr.setDisableDateColor(ContextCompat.getColor(context, R.color.disable_date_color));
-
         return calendarStyleAttr;
     }
 
     /**
      * To parse attributes from xml layout to configure calendar views.
      */
-    public void setDefAttributes(Context context) {
+    private void setDefAttributes(@NonNull final Context context) {
 
         setTextSizeTitle(context.getResources().getDimension(R.dimen.text_size_title));
         setTextSizeWeek(context.getResources().getDimension(R.dimen.text_size_week));
@@ -74,12 +71,11 @@ public class CalendarStyleAttr {
         setDefaultDateColor(ContextCompat.getColor(context, R.color.default_date_color));
         setRangeDateColor(ContextCompat.getColor(context, R.color.range_date_color));
         setDisableDateColor(ContextCompat.getColor(context, R.color.disable_date_color));
-
     }
 
-    public void setAttributes(Context context, AttributeSet attributeSet) {
+    private void setAttributes(@NonNull final Context context, @Nullable final AttributeSet attributeSet) {
         if (attributeSet != null) {
-            TypedArray ta = context.obtainStyledAttributes(attributeSet, R.styleable.DateRangeMonthView, 0, 0);
+            final TypedArray ta = context.obtainStyledAttributes(attributeSet, R.styleable.DateRangeMonthView, 0, 0);
             try {
                 titleColor = ta.getColor(R.styleable.DateRangeMonthView_title_color, titleColor);
                 headerBg = ta.getDrawable(R.styleable.DateRangeMonthView_header_bg);
@@ -87,8 +83,8 @@ public class CalendarStyleAttr {
                 rangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_range_color, rangeStripColor);
                 selectedDateCircleColor = ta.getColor(R.styleable.DateRangeMonthView_selected_date_circle_color, selectedDateCircleColor);
                 shouldEnabledTime = ta.getBoolean(R.styleable.DateRangeMonthView_enable_time_selection, false);
-                enabledPastDates = ta.getBoolean(R.styleable.DateRangeMonthView_enable_past_date,false);
-                isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_editable,true);
+                enabledPastDates = ta.getBoolean(R.styleable.DateRangeMonthView_enable_past_date, false);
+                isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_editable, true);
 
                 textSizeTitle = ta.getDimension(R.styleable.DateRangeMonthView_text_size_title, textSizeTitle);
                 textSizeWeek = ta.getDimension(R.styleable.DateRangeMonthView_text_size_week, textSizeWeek);
@@ -107,127 +103,145 @@ public class CalendarStyleAttr {
         }
     }
 
+    @Override
     public Typeface getFonts() {
         return fonts;
     }
 
-    public void setFonts(Typeface fonts) {
+    @Override
+    public void setFonts(@NonNull final Typeface fonts) {
         this.fonts = fonts;
     }
 
+    @Override
     public int getTitleColor() {
         return titleColor;
     }
 
-    public void setTitleColor(int titleColor) {
+    private void setTitleColor(final int titleColor) {
         this.titleColor = titleColor;
     }
 
+    @NonNull
+    @Override
     public Drawable getHeaderBg() {
         return headerBg;
     }
 
-    public void setHeaderBg(Drawable headerBg) {
+    public void setHeaderBg(@NonNull final Drawable headerBg) {
         this.headerBg = headerBg;
     }
 
+    @Override
     public int getWeekColor() {
         return weekColor;
     }
 
-    public void setWeekColor(int weekColor) {
+    private void setWeekColor(final int weekColor) {
         this.weekColor = weekColor;
     }
 
+    @Override
     public int getRangeStripColor() {
         return rangeStripColor;
     }
 
-    public void setRangeStripColor(int rangeStripColor) {
+    private void setRangeStripColor(final int rangeStripColor) {
         this.rangeStripColor = rangeStripColor;
     }
 
+    @Override
     public int getSelectedDateCircleColor() {
         return selectedDateCircleColor;
     }
 
-    public void setSelectedDateCircleColor(int selectedDateCircleColor) {
+    private void setSelectedDateCircleColor(final int selectedDateCircleColor) {
         this.selectedDateCircleColor = selectedDateCircleColor;
     }
 
+    @Override
     public int getSelectedDateColor() {
         return selectedDateColor;
     }
 
-    public void setSelectedDateColor(int selectedDateColor) {
+    private void setSelectedDateColor(final int selectedDateColor) {
         this.selectedDateColor = selectedDateColor;
     }
 
+    @Override
     public int getDefaultDateColor() {
         return defaultDateColor;
     }
 
-    public void setDefaultDateColor(int defaultDateColor) {
+    private void setDefaultDateColor(final int defaultDateColor) {
         this.defaultDateColor = defaultDateColor;
     }
 
+    @Override
     public int getDisableDateColor() {
         return disableDateColor;
     }
 
-    public void setDisableDateColor(int disableDateColor) {
+    private void setDisableDateColor(final int disableDateColor) {
         this.disableDateColor = disableDateColor;
     }
 
+    @Override
     public int getRangeDateColor() {
         return rangeDateColor;
     }
 
-    public void setRangeDateColor(int rangeDateColor) {
+    private void setRangeDateColor(final int rangeDateColor) {
         this.rangeDateColor = rangeDateColor;
     }
 
+    @Override
     public float getTextSizeTitle() {
         return textSizeTitle;
     }
 
-    public void setTextSizeTitle(float textSizeTitle) {
+    private void setTextSizeTitle(final float textSizeTitle) {
         this.textSizeTitle = textSizeTitle;
     }
 
+    @Override
     public float getTextSizeWeek() {
         return textSizeWeek;
     }
 
-    public void setTextSizeWeek(float textSizeWeek) {
+    private void setTextSizeWeek(final float textSizeWeek) {
         this.textSizeWeek = textSizeWeek;
     }
 
+    @Override
     public float getTextSizeDate() {
         return textSizeDate;
     }
 
-    public void setTextSizeDate(float textSizeDate) {
+    private void setTextSizeDate(final float textSizeDate) {
         this.textSizeDate = textSizeDate;
     }
 
+    @Override
     public boolean isShouldEnabledTime() {
         return shouldEnabledTime;
     }
 
-    public void setShouldEnabledTime(boolean shouldEnabledTime) {
+    public void setShouldEnabledTime(final boolean shouldEnabledTime) {
         this.shouldEnabledTime = shouldEnabledTime;
     }
 
+    @Override
     public int getWeekOffset() {
         return weekOffset;
     }
 
+    @Override
     public boolean isEnabledPastDates() {
         return enabledPastDates;
     }
 
-    public void setEnabledPastDates(boolean enabledPastDates) {
+    public void setEnabledPastDates(final boolean enabledPastDates) {
         this.enabledPastDates = enabledPastDates;
     }
 
@@ -236,7 +250,8 @@ public class CalendarStyleAttr {
      *
      * @param weekOffset
      */
-    public void setWeekOffset(int weekOffset) {
+    @Override
+    public void setWeekOffset(final int weekOffset) {
         if (weekOffset < 0 || weekOffset > 6) {
             throw new RuntimeException("Week offset can only be between 0 to 6. " +
                     "0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat");
@@ -244,11 +259,13 @@ public class CalendarStyleAttr {
         this.weekOffset = weekOffset;
     }
 
+    @Override
     public boolean isEditable() {
         return isEditable;
     }
 
-    public void setEditable(boolean editable) {
+    @Override
+    public void setEditable(final boolean editable) {
         isEditable = editable;
     }
 }

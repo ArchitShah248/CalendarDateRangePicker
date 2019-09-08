@@ -21,23 +21,20 @@ public class DayContainer {
 
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
 
-    public DayContainer(RelativeLayout rootView) {
+    public DayContainer(final RelativeLayout rootView) {
         this.rootView = rootView;
         strip = rootView.getChildAt(0);
         tvDate = (CustomTextView) rootView.getChildAt(1);
     }
 
-    public static int GetContainerKey(Calendar cal) {
+    public static int GetContainerKey(final Calendar cal) {
 //            Calendar calendar = (Calendar) cal.clone();
 //            calendar.set(Calendar.HOUR, 0);
 //            calendar.set(Calendar.MINUTE, 0);
 //            calendar.set(Calendar.SECOND, 0);
 //            String key = String.valueOf(cal.getTime().getTime());
 
-        String str = simpleDateFormat.format(cal.getTime());
-        int key = Integer.valueOf(str);
-        return key;
+        final String str = simpleDateFormat.format(cal.getTime());
+        return Integer.valueOf(str);
     }
-
-
 }

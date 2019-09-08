@@ -9,22 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.archit.calendardaterangepicker.R;
-import com.archit.calendardaterangepicker.models.CalendarStyleAttr;
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class AdapterEventCalendarMonths extends PagerAdapter {
 
     private Context mContext;
-    private List<Calendar> dataList = new ArrayList<>();
-    private CalendarStyleAttr calendarStyleAttr;
+    private List<Calendar> dataList;
+    private CalendarStyleAttributes calendarStyleAttr;
     private DateRangeCalendarView.CalendarListener calendarListener;
     private DateRangeCalendarManager dateRangeCalendarManager;
     private Handler mHandler;
 
-    public AdapterEventCalendarMonths(Context mContext, List<Calendar> list, CalendarStyleAttr calendarStyleAttr) {
+    AdapterEventCalendarMonths(@NonNull final Context mContext, @NonNull final List<Calendar> list, @NonNull final CalendarStyleAttributes calendarStyleAttr) {
         this.mContext = mContext;
         dataList = list;
         this.calendarStyleAttr = calendarStyleAttr;
@@ -38,19 +37,19 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
     }
 
     @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+    public boolean isViewFromObject(@NonNull final View view, @NonNull final Object object) {
         return view == object;
     }
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
 
-        Calendar modelObject = dataList.get(position);
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.layout_pager_month, container, false);
+        final Calendar modelObject = dataList.get(position);
+        final LayoutInflater inflater = LayoutInflater.from(mContext);
+        final ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.layout_pager_month, container, false);
 
-        DateRangeMonthView dateRangeMonthView = layout.findViewById(R.id.cvEventCalendarView);
+        final DateRangeMonthView dateRangeMonthView = layout.findViewById(R.id.cvEventCalendarView);
         dateRangeMonthView.drawCalendarForMonth(calendarStyleAttr, getCurrentMonth(modelObject), dateRangeCalendarManager);
         dateRangeMonthView.setCalendarListener(calendarAdapterListener);
 
@@ -64,26 +63,26 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
      * @param calendar - Calendar
      * @return - Modified calendar obj of month of 1st date.
      */
-    private Calendar getCurrentMonth(Calendar calendar) {
-        Calendar current = (Calendar) calendar.clone();
+    private Calendar getCurrentMonth(final @NonNull Calendar calendar) {
+        final Calendar current = (Calendar) calendar.clone();
         current.set(Calendar.DAY_OF_MONTH, 1);
         return current;
     }
 
     @Override
-    public void destroyItem(@NonNull ViewGroup collection, int position, @NonNull Object view) {
+    public void destroyItem(@NonNull final ViewGroup collection, final int position, @NonNull final Object view) {
         collection.removeView((View) view);
     }
 
     @Override
-    public int getItemPosition(Object object) {
+    public int getItemPosition(@NonNull final Object object) {
         return POSITION_NONE;
     }
 
 
     private DateRangeCalendarView.CalendarListener calendarAdapterListener = new DateRangeCalendarView.CalendarListener() {
         @Override
-        public void onFirstDateSelected(Calendar startDate) {
+        public void onFirstDateSelected(@NonNull final Calendar startDate) {
 
             mHandler.postDelayed(new Runnable() {
                 @Override
@@ -92,14 +91,13 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
                 }
             }, 50);
 
-
             if (calendarListener != null) {
                 calendarListener.onFirstDateSelected(startDate);
             }
         }
 
         @Override
-        public void onDateRangeSelected(Calendar startDate, Calendar endDate) {
+        public void onDateRangeSelected(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -112,14 +110,14 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
         }
     };
 
-    public void setCalendarListener(DateRangeCalendarView.CalendarListener calendarListener) {
+    void setCalendarListener(final DateRangeCalendarView.CalendarListener calendarListener) {
         this.calendarListener = calendarListener;
     }
 
     /**
      * To redraw calendar.
      */
-    public void invalidateCalendar() {
+    void invalidateCalendar() {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -131,31 +129,30 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
     /**
      * To remove all selection and redraw current calendar
      */
-    public void resetAllSelectedViews() {
+    void resetAllSelectedViews() {
         dateRangeCalendarManager.setMinSelectedDate(null);
         dateRangeCalendarManager.setMaxSelectedDate(null);
         notifyDataSetChanged();
     }
 
-
-    public void setSelectedDate(Calendar minSelectedDate, Calendar maxSelectedDate) {
+    void setSelectedDate(final Calendar minSelectedDate, final Calendar maxSelectedDate) {
         dateRangeCalendarManager.setMinSelectedDate(minSelectedDate);
         dateRangeCalendarManager.setMaxSelectedDate(maxSelectedDate);
         notifyDataSetChanged();
     }
 
-    public Calendar getMinSelectedDate() {
+    Calendar getMinSelectedDate() {
         return dateRangeCalendarManager.getMinSelectedDate();
     }
 
-    public Calendar getMaxSelectedDate() {
+    Calendar getMaxSelectedDate() {
         return dateRangeCalendarManager.getMaxSelectedDate();
     }
 
     /**
      * To set editable mode. Set true if you want user to select date range else false. Default value will be true.
      */
-    public void setEditable(boolean isEditable) {
+    void setEditable(final boolean isEditable) {
         calendarStyleAttr.setEditable(isEditable);
         notifyDataSetChanged();
     }
@@ -163,7 +160,7 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
     /**
      * To get editable mode.
      */
-    public boolean isEditable() {
+    boolean isEditable() {
         return calendarStyleAttr.isEditable();
     }
 }

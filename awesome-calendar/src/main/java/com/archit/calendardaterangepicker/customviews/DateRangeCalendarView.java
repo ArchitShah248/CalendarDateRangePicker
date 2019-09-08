@@ -15,7 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.archit.calendardaterangepicker.R;
-import com.archit.calendardaterangepicker.models.CalendarStyleAttr;
+import com.archit.calendardaterangepicker.models.CalendarStyleAttrImpl;
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -23,78 +24,60 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class DateRangeCalendarView extends LinearLayout {
-
-    public interface CalendarListener {
-        void onFirstDateSelected(Calendar startDate);
-
-        void onDateRangeSelected(Calendar startDate, Calendar endDate);
-    }
+public class DateRangeCalendarView extends LinearLayout implements DateRangeCalendarViewApi{
 
     private CustomTextView tvYearTitle;
     private AppCompatImageView imgVNavLeft, imgVNavRight;
     private List<Calendar> monthDataList = new ArrayList<>();
-
     private AdapterEventCalendarMonths adapterEventCalendarMonths;
     private Locale locale;
-
     private ViewPager vpCalendar;
-    private CalendarStyleAttr calendarStyleAttr;
+    private CalendarStyleAttributes calendarStyleAttr;
     private CalendarListener mCalendarListener;
-
 
     private final static int TOTAL_ALLOWED_MONTHS = 30;
 
-    public DateRangeCalendarView(Context context) {
+    public DateRangeCalendarView(final Context context) {
         super(context);
         initViews(context, null);
     }
 
-    public DateRangeCalendarView(Context context, @Nullable AttributeSet attrs) {
+    public DateRangeCalendarView(final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         initViews(context, attrs);
     }
 
-    public DateRangeCalendarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public DateRangeCalendarView(final Context context, @Nullable final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initViews(context, attrs);
     }
 
-    private void initViews(Context context, AttributeSet attrs) {
-
+    private void initViews(final Context context, final AttributeSet attrs) {
         locale = context.getResources().getConfiguration().locale;
-        calendarStyleAttr = new CalendarStyleAttr(context, attrs);
-
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        calendarStyleAttr = new CalendarStyleAttrImpl(context, attrs);
+        final LayoutInflater layoutInflater = LayoutInflater.from(context);
         layoutInflater.inflate(R.layout.layout_calendar_container, this, true);
-
-        RelativeLayout rlHeaderCalendar = findViewById(R.id.rlHeaderCalendar);
+        final RelativeLayout rlHeaderCalendar = findViewById(R.id.rlHeaderCalendar);
         rlHeaderCalendar.setBackground(calendarStyleAttr.getHeaderBg());
-
         tvYearTitle = findViewById(R.id.tvYearTitle);
         tvYearTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, calendarStyleAttr.getTextSizeTitle());
-
         imgVNavLeft = findViewById(R.id.imgVNavLeft);
         imgVNavRight = findViewById(R.id.imgVNavRight);
-
         vpCalendar = findViewById(R.id.vpCalendar);
 
-
         monthDataList.clear();
-        Calendar today = (Calendar) Calendar.getInstance().clone();
+        final Calendar today = (Calendar) Calendar.getInstance().clone();
         today.add(Calendar.MONTH, -TOTAL_ALLOWED_MONTHS);
 
         for (int i = 0; i < TOTAL_ALLOWED_MONTHS * 2; i++) {
             monthDataList.add((Calendar) today.clone());
             today.add(Calendar.MONTH, 1);
         }
-
         adapterEventCalendarMonths = new AdapterEventCalendarMonths(context, monthDataList, calendarStyleAttr);
         vpCalendar.setAdapter(adapterEventCalendarMonths);
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(TOTAL_ALLOWED_MONTHS);
         setCalendarYearTitle(TOTAL_ALLOWED_MONTHS);
-
         setListeners();
     }
 
@@ -102,26 +85,23 @@ public class DateRangeCalendarView extends LinearLayout {
 
         vpCalendar.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
 
             }
-
             @Override
-            public void onPageSelected(int position) {
+            public void onPageSelected(final int position) {
                 setCalendarYearTitle(position);
                 setNavigationHeader(position);
             }
-
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onPageScrollStateChanged(final int state) {
 
             }
         });
-
         imgVNavLeft.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
-                int newPosition = vpCalendar.getCurrentItem() - 1;
+            public void onClick(final View view) {
+                final int newPosition = vpCalendar.getCurrentItem() - 1;
                 if (newPosition > -1) {
                     vpCalendar.setCurrentItem(newPosition);
                 }
@@ -129,8 +109,8 @@ public class DateRangeCalendarView extends LinearLayout {
         });
         imgVNavRight.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
-                int newPosition = vpCalendar.getCurrentItem() + 1;
+            public void onClick(final View view) {
+                final int newPosition = vpCalendar.getCurrentItem() + 1;
                 if (newPosition < monthDataList.size()) {
                     vpCalendar.setCurrentItem(newPosition);
                 }
@@ -144,7 +124,7 @@ public class DateRangeCalendarView extends LinearLayout {
      *
      * @param position New page position
      */
-    private void setNavigationHeader(int position) {
+    private void setNavigationHeader(final int position) {
         imgVNavRight.setVisibility(VISIBLE);
         imgVNavLeft.setVisibility(VISIBLE);
         if (monthDataList.size() == 1) {
@@ -162,17 +142,15 @@ public class DateRangeCalendarView extends LinearLayout {
      *
      * @param position data list position for getting date
      */
-    private void setCalendarYearTitle(int position) {
-
-        Calendar currentCalendarMonth = monthDataList.get(position);
+    private void setCalendarYearTitle(final int position) {
+        final Calendar currentCalendarMonth = monthDataList.get(position);
         String dateText = new DateFormatSymbols(locale).getMonths()[currentCalendarMonth.get(Calendar.MONTH)];
         dateText = dateText.substring(0, 1).toUpperCase() + dateText.subSequence(1, dateText.length());
 
-        String yearTitle = dateText + " " + currentCalendarMonth.get(Calendar.YEAR);
+        final String yearTitle = dateText + " " + currentCalendarMonth.get(Calendar.YEAR);
 
         tvYearTitle.setText(yearTitle);
         tvYearTitle.setTextColor(calendarStyleAttr.getTitleColor());
-
     }
 
     /**
@@ -180,7 +158,8 @@ public class DateRangeCalendarView extends LinearLayout {
      *
      * @param calendarListener Listener
      */
-    public void setCalendarListener(final CalendarListener calendarListener) {
+    @Override
+    public void setCalendarListener(@NonNull final CalendarListener calendarListener) {
         mCalendarListener = calendarListener;
         adapterEventCalendarMonths.setCalendarListener(mCalendarListener);
     }
@@ -190,7 +169,8 @@ public class DateRangeCalendarView extends LinearLayout {
      *
      * @param fonts - Typeface that you want to apply
      */
-    public void setFonts(Typeface fonts) {
+    @Override
+    public void setFonts(@NonNull final Typeface fonts) {
         tvYearTitle.setTypeface(fonts);
         calendarStyleAttr.setFonts(fonts);
         adapterEventCalendarMonths.invalidateCalendar();
@@ -199,6 +179,7 @@ public class DateRangeCalendarView extends LinearLayout {
     /**
      * To remove all selection and redraw current calendar
      */
+    @Override
     public void resetAllSelectedViews() {
         adapterEventCalendarMonths.resetAllSelectedViews();
     }
@@ -208,7 +189,8 @@ public class DateRangeCalendarView extends LinearLayout {
      *
      * @param offset 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat
      */
-    public void setWeekOffset(int offset) {
+    @Override
+    public void setWeekOffset(final int offset) {
         calendarStyleAttr.setWeekOffset(offset);
         adapterEventCalendarMonths.invalidateCalendar();
     }
@@ -216,14 +198,16 @@ public class DateRangeCalendarView extends LinearLayout {
     /**
      * To set left navigation ImageView drawable
      */
-    public void setNavLeftImage(@NonNull Drawable leftDrawable) {
+    @Override
+    public void setNavLeftImage(@NonNull final Drawable leftDrawable) {
         imgVNavLeft.setImageDrawable(leftDrawable);
     }
 
     /**
      * To set right navigation ImageView drawable
      */
-    public void setNavRightImage(@NonNull Drawable rightDrawable) {
+    @Override
+    public void setNavRightImage(@NonNull final Drawable rightDrawable) {
         imgVNavRight.setImageDrawable(rightDrawable);
     }
 
@@ -237,7 +221,8 @@ public class DateRangeCalendarView extends LinearLayout {
      * @param startDate Start date
      * @param endDate   End date
      */
-    public void setSelectedDateRange(@Nullable Calendar startDate, @Nullable Calendar endDate) {
+    @Override
+    public void setSelectedDateRange(@Nullable final Calendar startDate, @Nullable final Calendar endDate) {
         if (startDate == null && endDate != null) {
             throw new RuntimeException("Start date can not be null if you are setting end date.");
         } else if (endDate != null && endDate.before(startDate)) {
@@ -249,35 +234,38 @@ public class DateRangeCalendarView extends LinearLayout {
     /**
      * To get start date.
      */
+    @NonNull
+    @Override
     public Calendar getStartDate() {
         return adapterEventCalendarMonths.getMinSelectedDate();
     }
 
-
     /**
      * To get end date.
      */
+    @NonNull
+    @Override
     public Calendar getEndDate() {
         return adapterEventCalendarMonths.getMaxSelectedDate();
     }
-
 
     /**
      * To set editable mode. Default value will be true.
      *
      * @param isEditable true if you want user to select date range else false
      */
-    public void setEditable(boolean isEditable) {
+    @Override
+    public void setEditable(final boolean isEditable) {
         adapterEventCalendarMonths.setEditable(isEditable);
     }
 
     /**
      * To get editable mode.
      */
+    @Override
     public boolean isEditable() {
         return adapterEventCalendarMonths.isEditable();
     }
-
 
     /**
      * To provide month range to be shown to user. If start month is greater than end month than it will give {@link IllegalArgumentException}.<br>
@@ -286,21 +274,15 @@ public class DateRangeCalendarView extends LinearLayout {
      * @param startMonth Start month of the calendar
      * @param endMonth   End month of the calendar
      */
-    public void setVisibleMonthRange(Calendar startMonth, Calendar endMonth) {
+    @Override
+    public void setVisibleMonthRange(@NonNull final Calendar startMonth, @NonNull final Calendar endMonth) {
 
-        if (startMonth == null) {
-            throw new IllegalArgumentException("Start month can not be null.");
-        }
         startMonth.set(Calendar.DATE, 1);
         startMonth.set(Calendar.HOUR, 0);
         startMonth.set(Calendar.MINUTE, 0);
         startMonth.set(Calendar.SECOND, 0);
         startMonth.set(Calendar.MILLISECOND, 0);
 
-
-        if (endMonth == null) {
-            throw new IllegalArgumentException("End month can not be null.");
-        }
         endMonth.set(Calendar.DATE, 1);
         endMonth.set(Calendar.HOUR, 0);
         endMonth.set(Calendar.MINUTE, 0);
@@ -325,7 +307,6 @@ public class DateRangeCalendarView extends LinearLayout {
         setCalendarYearTitle(0);
         setNavigationHeader(0);
         adapterEventCalendarMonths.setCalendarListener(mCalendarListener);
-
     }
 
     /**
@@ -333,13 +314,12 @@ public class DateRangeCalendarView extends LinearLayout {
      *
      * @param calendar Month to be set as current
      */
-    public void setCurrentMonth(Calendar calendar) {
-
-        if (calendar != null && monthDataList != null) {
+    @Override
+    public void setCurrentMonth(@NonNull final Calendar calendar) {
+        if (monthDataList != null) {
             for (int i = 0; i < monthDataList.size(); i++) {
-                Calendar month = monthDataList.get(i);
+                final Calendar month = monthDataList.get(i);
                 if (month.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)) {
-
                     if (month.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
                         vpCalendar.setCurrentItem(i);
                         break;
@@ -349,7 +329,7 @@ public class DateRangeCalendarView extends LinearLayout {
         }
     }
 
-    private boolean isDateSame(@NonNull Calendar one, @NonNull Calendar second) {
+    private boolean isDateSame(@NonNull final Calendar one, @NonNull final Calendar second) {
         return one.get(Calendar.YEAR) == second.get(Calendar.YEAR)
                 && one.get(Calendar.MONTH) == second.get(Calendar.MONTH)
                 && one.get(Calendar.DATE) == second.get(Calendar.DATE);

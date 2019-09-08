@@ -2,6 +2,7 @@ package com.archit.calendardaterangepickerdemo;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
         calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
             @Override
-            public void onFirstDateSelected(Calendar startDate) {
+            public void onFirstDateSelected(@NonNull Calendar startDate) {
                 Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onDateRangeSelected(Calendar startDate, Calendar endDate) {
+            public void onDateRangeSelected(@NonNull Calendar startDate, @NonNull Calendar endDate) {
                 Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString() + " End date: " + endDate.getTime().toString(), Toast.LENGTH_SHORT).show();
             }
 
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 calendar.resetAllSelectedViews();
             }
         });
-
 
 //        calendar.setNavLeftImage(ContextCompat.getDrawable(this,R.drawable.ic_left));
 //        calendar.setNavRightImage(ContextCompat.getDrawable(this,R.drawable.ic_right));
