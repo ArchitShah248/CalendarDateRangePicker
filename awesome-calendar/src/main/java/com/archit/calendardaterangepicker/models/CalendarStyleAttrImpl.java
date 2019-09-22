@@ -23,7 +23,6 @@ public class CalendarStyleAttrImpl implements CalendarStyleAttributes {
     private float textSizeTitle, textSizeWeek, textSizeDate;
     private boolean shouldEnabledTime = false;
     private int weekOffset = 0;
-    private boolean enabledPastDates = false;
     private boolean isEditable = true;
 
     private CalendarStyleAttrImpl(final Context context) {
@@ -83,7 +82,6 @@ public class CalendarStyleAttrImpl implements CalendarStyleAttributes {
                 rangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_range_color, rangeStripColor);
                 selectedDateCircleColor = ta.getColor(R.styleable.DateRangeMonthView_selected_date_circle_color, selectedDateCircleColor);
                 shouldEnabledTime = ta.getBoolean(R.styleable.DateRangeMonthView_enable_time_selection, false);
-                enabledPastDates = ta.getBoolean(R.styleable.DateRangeMonthView_enable_past_date, false);
                 isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_editable, true);
 
                 textSizeTitle = ta.getDimension(R.styleable.DateRangeMonthView_text_size_title, textSizeTitle);
@@ -236,15 +234,6 @@ public class CalendarStyleAttrImpl implements CalendarStyleAttributes {
         return weekOffset;
     }
 
-    @Override
-    public boolean isEnabledPastDates() {
-        return enabledPastDates;
-    }
-
-    public void setEnabledPastDates(final boolean enabledPastDates) {
-        this.enabledPastDates = enabledPastDates;
-    }
-
     /**
      * To set week offset
      *
@@ -253,7 +242,7 @@ public class CalendarStyleAttrImpl implements CalendarStyleAttributes {
     @Override
     public void setWeekOffset(final int weekOffset) {
         if (weekOffset < 0 || weekOffset > 6) {
-            throw new RuntimeException("Week offset can only be between 0 to 6. " +
+            throw new IllegalArgumentException("Week offset can only be between 0 to 6. " +
                     "0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat");
         }
         this.weekOffset = weekOffset;

@@ -52,23 +52,28 @@ public class MainActivity extends AppCompatActivity {
 //        calendar.setNavLeftImage(ContextCompat.getDrawable(this,R.drawable.ic_left));
 //        calendar.setNavRightImage(ContextCompat.getDrawable(this,R.drawable.ic_right));
 
-        Calendar now = Calendar.getInstance();
-        now.add(Calendar.MONTH, -2);
-        Calendar later = (Calendar) now.clone();
-        later.add(Calendar.MONTH, 5);
+        final Calendar startMonth = Calendar.getInstance();
+        startMonth.add(Calendar.MONTH, -2);
+        final Calendar endMonth = (Calendar) startMonth.clone();
+        endMonth.add(Calendar.MONTH, 5);
+        Log.d(TAG, "Start month: " + startMonth.getTime().toString() + " :: End month: " + endMonth.getTime().toString());
+        calendar.setVisibleMonthRange(startMonth, endMonth);
 
-        calendar.setVisibleMonthRange(now,later);
+        final Calendar startDateSelectable = (Calendar) startMonth.clone();
+        startDateSelectable.add(Calendar.DATE,20);
+        final Calendar endDateSelectable = (Calendar) endMonth.clone();
+        endDateSelectable.add(Calendar.DATE, -20);
+        Log.d(TAG, "startDateSelectable: " + startDateSelectable.getTime().toString() + " :: endDateSelectable: " + endDateSelectable.getTime().toString());
+        calendar.setSelectableDateRange(startDateSelectable, endDateSelectable);
 
-        Calendar startSelectionDate = Calendar.getInstance();
-        startSelectionDate.add(Calendar.MONTH, -1);
-        Calendar endSelectionDate = (Calendar) startSelectionDate.clone();
-        endSelectionDate.add(Calendar.DATE, 40);
+        final Calendar startSelectedDate = (Calendar) startDateSelectable.clone();
+        startSelectedDate.add(Calendar.DATE, 10);
+        final Calendar endSelectedDate = (Calendar) endDateSelectable.clone();
+        endSelectedDate.add(Calendar.DATE, -10);
+        Log.d(TAG, "startSelectedDate: " + startSelectedDate.getTime().toString() + " :: endSelectedDate: " + endSelectedDate.getTime().toString());
+        calendar.setSelectedDateRange(startSelectedDate, endSelectedDate);
 
-        calendar.setSelectedDateRange(startSelectionDate, endSelectionDate);
-
-        Calendar current = Calendar.getInstance();
+        final Calendar current = Calendar.getInstance();
         calendar.setCurrentMonth(current);
     }
-
-
 }

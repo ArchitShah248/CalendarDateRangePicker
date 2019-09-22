@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import java.util.Calendar;
 
-public interface DateRangeCalendarViewApi {
+interface DateRangeCalendarViewApi {
 
     interface CalendarListener {
         void onFirstDateSelected(@NonNull final Calendar startDate);
@@ -19,36 +19,36 @@ public interface DateRangeCalendarViewApi {
      *
      * @param calendarListener Listener
      */
-    public void setCalendarListener(@NonNull CalendarListener calendarListener);
+    void setCalendarListener(@NonNull CalendarListener calendarListener);
 
     /**
      * To apply custom fonts to all the text views
      *
      * @param fonts - Typeface that you want to apply
      */
-    public void setFonts(@NonNull Typeface fonts);
+    void setFonts(@NonNull Typeface fonts);
 
     /**
      * To remove all selection and redraw current calendar
      */
-    public void resetAllSelectedViews();
+    void resetAllSelectedViews();
 
     /**
      * To set week offset. To start week from any of the day. Default is 0 (Sunday).
      *
      * @param offset 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat
      */
-    public void setWeekOffset(int offset);
+    void setWeekOffset(int offset);
 
     /**
      * To set left navigation ImageView drawable
      */
-    public void setNavLeftImage(@NonNull Drawable leftDrawable);
+    void setNavLeftImage(@NonNull Drawable leftDrawable);
 
     /**
      * To set right navigation ImageView drawable
      */
-    public void setNavRightImage(@NonNull Drawable rightDrawable);
+    void setNavRightImage(@NonNull Drawable rightDrawable);
 
     /**
      * Sets start and end date.<br>
@@ -66,25 +66,25 @@ public interface DateRangeCalendarViewApi {
      * To get start date.
      */
     @NonNull
-    public Calendar getStartDate();
+    Calendar getStartDate();
 
     /**
      * To get end date.
      */
     @NonNull
-    public Calendar getEndDate();
+    Calendar getEndDate();
 
     /**
      * To set editable mode. Default value will be true.
      *
      * @param isEditable true if you want user to select date range else false
      */
-    public void setEditable(boolean isEditable);
+    void setEditable(boolean isEditable);
 
     /**
      * To get editable mode.
      */
-    public boolean isEditable();
+    boolean isEditable();
 
     /**
      * To provide month range to be shown to user. If start month is greater than end month than it will give {@link IllegalArgumentException}.<br>
@@ -93,12 +93,20 @@ public interface DateRangeCalendarViewApi {
      * @param startMonth Start month of the calendar
      * @param endMonth   End month of the calendar
      */
-    public void setVisibleMonthRange(@NonNull Calendar startMonth, @NonNull Calendar endMonth);
+    void setVisibleMonthRange(@NonNull Calendar startMonth, @NonNull Calendar endMonth);
 
     /**
      * To set current visible month.
      *
      * @param calendar Month to be set as current
      */
-    public void setCurrentMonth(@NonNull Calendar calendar);
+    void setCurrentMonth(@NonNull Calendar calendar);
+
+    /**
+     * Sets selectable dates from start date to end date.
+     *
+     * @param startDate Start date
+     * @param endDate   End date
+     */
+    void setSelectableDateRange(@NonNull Calendar startDate, @NonNull Calendar endDate);
 }

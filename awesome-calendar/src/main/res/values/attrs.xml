@@ -17,7 +17,6 @@
         <attr name="header_bg" format="integer" />
         <attr name="calendar_tag" format="string" />
         <attr name="week_offset" format="integer" />
-        <attr name="enable_past_date" format="boolean" />
         <attr name="editable" format="boolean" />
     </declare-styleable>
 

@@ -24,7 +24,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class DateRangeCalendarView extends LinearLayout implements DateRangeCalendarViewApi{
+public class DateRangeCalendarView extends LinearLayout implements DateRangeCalendarViewApi {
 
     private CustomTextView tvYearTitle;
     private AppCompatImageView imgVNavLeft, imgVNavRight;
@@ -88,11 +88,13 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
             public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(final int position) {
                 setCalendarYearTitle(position);
                 setNavigationHeader(position);
             }
+
             @Override
             public void onPageScrollStateChanged(final int state) {
 
@@ -224,9 +226,9 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
     @Override
     public void setSelectedDateRange(@Nullable final Calendar startDate, @Nullable final Calendar endDate) {
         if (startDate == null && endDate != null) {
-            throw new RuntimeException("Start date can not be null if you are setting end date.");
+            throw new IllegalArgumentException("Start date can not be null if you are setting end date.");
         } else if (endDate != null && endDate.before(startDate)) {
-            throw new RuntimeException("Start date can not be after end date.");
+            throw new IllegalArgumentException("Start date can not be after end date.");
         }
         adapterEventCalendarMonths.setSelectedDate(startDate, endDate);
     }
@@ -269,7 +271,10 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
 
     /**
      * To provide month range to be shown to user. If start month is greater than end month than it will give {@link IllegalArgumentException}.<br>
-     * <b>Note:</b> Do not call this method after calling date selection method (@method setSelectedDateRange) as it will reset date selection.
+     * By default it will also make selectable date range as per visible month's dates. If you want to customize the selectable date range then
+     * use {@link #setSelectableDateRange(Calendar, Calendar)}.<br><br>
+     * <b>Note:</b> Do not call this method after calling date selection method {@link #setSelectableDateRange(Calendar, Calendar)}
+     * / {@link #setSelectedDateRange(Calendar, Calendar)} as it will reset date selection.
      *
      * @param startMonth Start month of the calendar
      * @param endMonth   End month of the calendar
@@ -277,28 +282,25 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
     @Override
     public void setVisibleMonthRange(@NonNull final Calendar startMonth, @NonNull final Calendar endMonth) {
 
-        startMonth.set(Calendar.DATE, 1);
-        startMonth.set(Calendar.HOUR, 0);
-        startMonth.set(Calendar.MINUTE, 0);
-        startMonth.set(Calendar.SECOND, 0);
-        startMonth.set(Calendar.MILLISECOND, 0);
+        final Calendar startMonthDate = (Calendar) startMonth.clone();
+        final Calendar endMonthDate = (Calendar) endMonth.clone();
 
-        endMonth.set(Calendar.DATE, 1);
-        endMonth.set(Calendar.HOUR, 0);
-        endMonth.set(Calendar.MINUTE, 0);
-        endMonth.set(Calendar.SECOND, 0);
-        endMonth.set(Calendar.MILLISECOND, 0);
+        startMonthDate.set(Calendar.DATE, 1);
+        CalendarRangeUtils.resetTime(startMonthDate);
 
-        if (startMonth.after(endMonth)) {
-            throw new IllegalArgumentException("Start month can not be greater than end month.");
+        endMonthDate.set(Calendar.DATE, 1);
+        CalendarRangeUtils.resetTime(endMonthDate);
+
+        if (startMonthDate.after(endMonthDate)) {
+            throw new IllegalArgumentException("Start month1(" + startMonthDate.getTime().toString() + ") can not be later than end month(" + endMonth.getTime().toString() + ").");
         }
         monthDataList.clear();
 
-        while (!isDateSame(startMonth, endMonth)) {
-            monthDataList.add((Calendar) startMonth.clone());
-            startMonth.add(Calendar.MONTH, 1);
+        while (!isDateSame(startMonthDate, endMonthDate)) {
+            monthDataList.add((Calendar) startMonthDate.clone());
+            startMonthDate.add(Calendar.MONTH, 1);
         }
-        monthDataList.add((Calendar) startMonth.clone());
+        monthDataList.add((Calendar) startMonthDate.clone());
 
         adapterEventCalendarMonths = new AdapterEventCalendarMonths(getContext(), monthDataList, calendarStyleAttr);
         vpCalendar.setAdapter(adapterEventCalendarMonths);
@@ -327,6 +329,14 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
                 }
             }
         }
+    }
+
+    @Override
+    public void setSelectableDateRange(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
+        if (endDate.before(startDate)) {
+            throw new IllegalArgumentException("Start date(" + startDate.getTime().toString() + ") can not be after end date(" + endDate.getTime().toString() + ").");
+        }
+        adapterEventCalendarMonths.setSelectableDateRange(startDate, endDate);
     }
 
     private boolean isDateSame(@NonNull final Calendar one, @NonNull final Calendar second) {

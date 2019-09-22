@@ -14,7 +14,7 @@ import com.archit.calendardaterangepicker.models.CalendarStyleAttributes;
 import java.util.Calendar;
 import java.util.List;
 
-public class AdapterEventCalendarMonths extends PagerAdapter {
+class AdapterEventCalendarMonths extends PagerAdapter {
 
     private Context mContext;
     private List<Calendar> dataList;
@@ -27,7 +27,13 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
         this.mContext = mContext;
         dataList = list;
         this.calendarStyleAttr = calendarStyleAttr;
-        dateRangeCalendarManager = new DateRangeCalendarManager();
+        // Get start month and set start date of that month
+        final Calendar startSelectableDate = (Calendar) list.get(0).clone();
+        startSelectableDate.set(Calendar.DAY_OF_MONTH, 1);
+        // Get end month and set end date of that month
+        final Calendar endSelectableDate = (Calendar) list.get(list.size() - 1).clone();
+        endSelectableDate.set(Calendar.DAY_OF_MONTH, endSelectableDate.getActualMaximum(Calendar.DAY_OF_MONTH));
+        dateRangeCalendarManager = new DateRangeCalendarManager(startSelectableDate, endSelectableDate);
         mHandler = new Handler();
     }
 
@@ -162,5 +168,10 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
      */
     boolean isEditable() {
         return calendarStyleAttr.isEditable();
+    }
+
+    void setSelectableDateRange(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
+        dateRangeCalendarManager.setSelectableDateRange(startDate, endDate);
+        notifyDataSetChanged();
     }
 }

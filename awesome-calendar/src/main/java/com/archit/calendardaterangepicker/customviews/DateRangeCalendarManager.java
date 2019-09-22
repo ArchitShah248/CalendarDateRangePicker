@@ -1,13 +1,13 @@
 package com.archit.calendardaterangepicker.customviews;
 
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.RANGE_TYPE.LAST_DATE;
@@ -18,10 +18,9 @@ import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarMa
 class DateRangeCalendarManager {
 
     private Calendar minSelectedDate, maxSelectedDate;
-    private List<Calendar> calendarMonths = new ArrayList<>();
+    private Calendar mStartSelectableDate, mEndSelectableDate;
     private final static String DATE_FORMAT = "yyyyMMdd";
-    public static SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
-
+    static SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({NOT_IN_RANGE, START_DATE, MIDDLE_DATE, LAST_DATE})
@@ -32,23 +31,31 @@ class DateRangeCalendarManager {
         int LAST_DATE = 3;
     }
 
-    public DateRangeCalendarManager() {
+    DateRangeCalendarManager(@NonNull final Calendar startSelectableDate, @NonNull final Calendar endSelectableDate) {
+        setSelectableDateRange(startSelectableDate, endSelectableDate);
     }
 
-    public void setMinSelectedDate(final Calendar minSelectedDate) {
-        this.minSelectedDate = minSelectedDate;
+    void setMinSelectedDate(@Nullable final Calendar minSelectedDate) {
+        this.minSelectedDate = (Calendar) (minSelectedDate != null ? minSelectedDate.clone() : null);
     }
 
-    public void setMaxSelectedDate(final Calendar maxSelectedDate) {
-        this.maxSelectedDate = maxSelectedDate;
+    void setMaxSelectedDate(@Nullable final Calendar maxSelectedDate) {
+        this.maxSelectedDate = (Calendar) (maxSelectedDate != null ? maxSelectedDate.clone() : null);
     }
 
-    public Calendar getMaxSelectedDate() {
+    Calendar getMaxSelectedDate() {
         return maxSelectedDate;
     }
 
-    public Calendar getMinSelectedDate() {
+    Calendar getMinSelectedDate() {
         return minSelectedDate;
+    }
+
+    void setSelectableDateRange(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
+        mStartSelectableDate = (Calendar) startDate.clone();
+        CalendarRangeUtils.resetTime(mStartSelectableDate);
+        mEndSelectableDate = (Calendar) endDate.clone();
+        CalendarRangeUtils.resetTime(mEndSelectableDate);
     }
 
     /**
@@ -57,7 +64,7 @@ class DateRangeCalendarManager {
      * @return Date type
      */
     @RANGE_TYPE
-    public int checkDateRange(final Calendar selectedDate) {
+    int checkDateRange(@NonNull final Calendar selectedDate) {
 
         final String dateStr = SIMPLE_DATE_FORMAT.format(selectedDate.getTime());
 
@@ -87,10 +94,17 @@ class DateRangeCalendarManager {
             } else {
                 return NOT_IN_RANGE;
             }
-
         } else {
             return NOT_IN_RANGE;
         }
+    }
 
+    boolean isSelectableDate(@NonNull final Calendar date) {
+        // It would work even if date is exactly equal to one of the end cases
+        final boolean isSelectable = !(date.before(mStartSelectableDate) || date.after(mEndSelectableDate));
+        if (!isSelectable && checkDateRange(date) != NOT_IN_RANGE) {
+            throw new IllegalArgumentException("Selected date can not be out of Selectable Date range.");
+        }
+        return isSelectable;
     }
 }

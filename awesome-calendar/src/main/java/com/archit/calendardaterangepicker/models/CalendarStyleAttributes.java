@@ -48,8 +48,6 @@ public interface CalendarStyleAttributes {
 
     int getWeekOffset();
 
-    boolean isEnabledPastDates();
-
     boolean isEditable();
 
     void setEditable(boolean editable);

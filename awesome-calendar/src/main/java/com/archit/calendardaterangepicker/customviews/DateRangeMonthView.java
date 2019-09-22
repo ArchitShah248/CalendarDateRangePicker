@@ -198,9 +198,7 @@ class DateRangeMonthView extends LinearLayout {
 
         currentCalendarMonth = (Calendar) month.clone();
         currentCalendarMonth.set(Calendar.DATE, 1);
-        currentCalendarMonth.set(Calendar.HOUR, 0);
-        currentCalendarMonth.set(Calendar.MINUTE, 0);
-        currentCalendarMonth.set(Calendar.SECOND, 0);
+        CalendarRangeUtils.resetTime(currentCalendarMonth);
 
         final String[] weekTitle = getContext().getResources().getStringArray(R.array.week_sun_sat);
 
@@ -248,8 +246,7 @@ class DateRangeMonthView extends LinearLayout {
 
         if (currentCalendarMonth.get(Calendar.MONTH) != calendar.get(Calendar.MONTH)) {
             hideDayContainer(container);
-        } else if (today.after(calendar) && (today.get(Calendar.DAY_OF_YEAR) != calendar.get(Calendar.DAY_OF_YEAR))
-                && !calendarStyleAttr.isEnabledPastDates()) {
+        } else if (!dateRangeCalendarManager.isSelectableDate(calendar)) {
             disableDayContainer(container);
             container.tvDate.setText(String.valueOf(date));
         } else {
