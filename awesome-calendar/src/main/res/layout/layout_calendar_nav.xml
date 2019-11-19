@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/dateTitlePaddingBottom">
 
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgVNavLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:text="FEBRUARY 2014"
         android:textSize="@dimen/text_size_title" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgVNavRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
