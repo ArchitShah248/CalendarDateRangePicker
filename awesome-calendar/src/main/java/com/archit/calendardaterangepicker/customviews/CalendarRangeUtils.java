@@ -1,6 +1,6 @@
 package com.archit.calendardaterangepicker.customviews;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.Calendar;
 
