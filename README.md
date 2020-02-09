@@ -36,7 +36,7 @@ For Gradle:
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:1.1.5'
+    compile 'com.archit.calendar:awesome-calendar:1.1.6'
 }
 ```
 
@@ -46,7 +46,7 @@ For Maven:
 <dependency>
   <groupId>com.archit.calendar</groupId>
   <artifactId>awesome-calendar</artifactId>
-  <version>1.1.5</version>
+  <version>1.1.6</version>
   <type>pom</type>
 </dependency>
 ```
@@ -86,7 +86,6 @@ For Maven:
 | text_size_date             | Dimension | Date text size                     |
 | header_bg                  | Drawable  | Header background                  |
 | week_offset                | Dimension | To set week start day offset                  |
-| enable_past_date           | Boolean   | Enable/Disable past date's by default its value is false               |
 | editable           | Boolean   | When true user can edit. By default its value is true               |
 
 
@@ -109,6 +108,11 @@ calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
                 Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString() + " End date: " + endDate.getTime().toString(), Toast.LENGTH_SHORT).show();
             }
 });
+````
+
+**Set selectable date range(To enable/disable past or future dates)**
+````Java
+calendar.setSelectableDateRange(startDateSelectable, endDateSelectable);
 ````
 
 **Set selected date range**
@@ -179,14 +183,14 @@ You can add this into your xamarin project from below link<br/>
 
 ### Requirements
 
-- Java 7
+- Java 8
 - Latest version of Android SDK and Android Build Tools
 
 
 License
 -------
 
-    Copyright 2017 Archit Shah
+    Copyright 2020 Archit Shah
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

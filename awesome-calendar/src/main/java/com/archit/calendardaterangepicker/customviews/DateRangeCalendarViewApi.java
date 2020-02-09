@@ -2,6 +2,7 @@ package com.archit.calendardaterangepicker.customviews;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.NonNull;
 
 import java.util.Calendar;
@@ -103,7 +104,8 @@ interface DateRangeCalendarViewApi {
     void setCurrentMonth(@NonNull Calendar calendar);
 
     /**
-     * Sets selectable dates from start date to end date.
+     * Sets selectable dates from start date to end date. By default all the visible dates will
+     * selectable.
      *
      * @param startDate Start date
      * @param endDate   End date
