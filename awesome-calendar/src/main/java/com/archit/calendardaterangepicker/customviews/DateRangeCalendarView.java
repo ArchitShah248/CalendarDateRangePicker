@@ -28,7 +28,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
 
     private CustomTextView tvYearTitle;
     private AppCompatImageView imgVNavLeft, imgVNavRight;
-    private List<Calendar> monthDataList = new ArrayList<>();
+    private final List<Calendar> monthDataList = new ArrayList<>();
     private AdapterEventCalendarMonths adapterEventCalendarMonths;
     private Locale locale;
     private ViewPager vpCalendar;
@@ -318,14 +318,12 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
      */
     @Override
     public void setCurrentMonth(@NonNull final Calendar calendar) {
-        if (monthDataList != null) {
-            for (int i = 0; i < monthDataList.size(); i++) {
-                final Calendar month = monthDataList.get(i);
-                if (month.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)) {
-                    if (month.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
-                        vpCalendar.setCurrentItem(i);
-                        break;
-                    }
+        for (int i = 0; i < monthDataList.size(); i++) {
+            final java.util.Calendar month = monthDataList.get(i);
+            if (month.get(java.util.Calendar.YEAR) == calendar.get(java.util.Calendar.YEAR)) {
+                if (month.get(java.util.Calendar.MONTH) == calendar.get(java.util.Calendar.MONTH)) {
+                    vpCalendar.setCurrentItem(i);
+                    break;
                 }
             }
         }

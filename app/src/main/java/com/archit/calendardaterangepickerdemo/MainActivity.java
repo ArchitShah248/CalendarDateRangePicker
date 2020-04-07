@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.archit.calendardaterangepicker.customviews.CalendarListener;
 import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView;
 
 import java.util.Calendar;
@@ -19,35 +20,29 @@ public class MainActivity extends AppCompatActivity {
     private DateRangeCalendarView calendar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         calendar = findViewById(R.id.calendar);
 
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
-//        Typeface typeface = Typeface.createFromAsset(getAssets(), "LobsterTwo-Regular.ttf");
+        final Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
         calendar.setFonts(typeface);
 
-        calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
+        calendar.setCalendarListener(new CalendarListener() {
             @Override
-            public void onFirstDateSelected(@NonNull Calendar startDate) {
+            public void onFirstDateSelected(@NonNull final Calendar startDate) {
                 Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onDateRangeSelected(@NonNull Calendar startDate, @NonNull Calendar endDate) {
+            public void onDateRangeSelected(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
                 Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString() + " End date: " + endDate.getTime().toString(), Toast.LENGTH_SHORT).show();
             }
 
         });
 
-        findViewById(R.id.btnReset).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calendar.resetAllSelectedViews();
-            }
-        });
+        findViewById(R.id.btnReset).setOnClickListener(v -> calendar.resetAllSelectedViews());
 
 //        calendar.setNavLeftImage(ContextCompat.getDrawable(this,R.drawable.ic_left));
 //        calendar.setNavRightImage(ContextCompat.getDrawable(this,R.drawable.ic_right));

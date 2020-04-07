@@ -8,6 +8,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -40,13 +41,13 @@ class DateRangeMonthView extends LinearLayout {
 
     private CalendarStyleAttributes calendarStyleAttr;
 
-    private DateRangeCalendarView.CalendarListener calendarListener;
+    private CalendarListener calendarListener;
 
     private DateRangeCalendarManager dateRangeCalendarManager;
 
     private final static PorterDuff.Mode FILTER_MODE = PorterDuff.Mode.SRC_IN;
 
-    public void setCalendarListener(final DateRangeCalendarView.CalendarListener calendarListener) {
+    public void setCalendarListener(final CalendarListener calendarListener) {
         this.calendarListener = calendarListener;
     }
 
@@ -66,7 +67,8 @@ class DateRangeMonthView extends LinearLayout {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public DateRangeMonthView(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+    public DateRangeMonthView(final Context context, final AttributeSet attrs, final int defStyleAttr,
+                              final int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initView(context, attrs);
     }
@@ -92,7 +94,7 @@ class DateRangeMonthView extends LinearLayout {
     private void setListeners() {
     }
 
-    private OnClickListener dayClickListener = new OnClickListener() {
+    private final OnClickListener dayClickListener = new OnClickListener() {
         @Override
         public void onClick(final View view) {
 
@@ -240,8 +242,6 @@ class DateRangeMonthView extends LinearLayout {
      */
     private void drawDayContainer(final DayContainer container, final Calendar calendar) {
 
-        final Calendar today = Calendar.getInstance();
-
         final int date = calendar.get(Calendar.DATE);
 
         if (currentCalendarMonth.get(Calendar.MONTH) != calendar.get(Calendar.MONTH)) {
@@ -258,11 +258,9 @@ class DateRangeMonthView extends LinearLayout {
             } else {
                 enabledDayContainer(container);
             }
-
             container.tvDate.setText(String.valueOf(date));
             container.tvDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, calendarStyleAttr.getTextSizeDate());
         }
-
         container.rootView.setTag(DayContainer.GetContainerKey(calendar));
     }
 
@@ -314,7 +312,8 @@ class DateRangeMonthView extends LinearLayout {
      * @param container - Container
      * @param stripType - Right end date, Left end date or middle
      */
-    private void makeAsSelectedDate(final DayContainer container, @DateRangeCalendarManager.RANGE_TYPE final int stripType) {
+    private void makeAsSelectedDate(@NonNull final DayContainer container,
+                                    @DateRangeCalendarManager.RANGE_TYPE final int stripType) {
         final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) container.strip.getLayoutParams();
 
         final Calendar minDate = dateRangeCalendarManager.getMinSelectedDate();
@@ -351,7 +350,7 @@ class DateRangeMonthView extends LinearLayout {
      *
      * @param container - Container
      */
-    private void makeAsRangeDate(final DayContainer container) {
+    private void makeAsRangeDate(@NonNull final DayContainer container) {
         container.tvDate.setBackgroundColor(Color.TRANSPARENT);
         final Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg);
         mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
@@ -365,7 +364,6 @@ class DateRangeMonthView extends LinearLayout {
         container.rootView.setOnClickListener(dayClickListener);
     }
 
-
     /**
      * To remove all selection and redraw current calendar
      */
@@ -375,9 +373,7 @@ class DateRangeMonthView extends LinearLayout {
         dateRangeCalendarManager.setMaxSelectedDate(null);
 
         drawCalendarForMonth(currentCalendarMonth);
-
     }
-
 
     /**
      * To set week title color

@@ -17,7 +17,7 @@ ext {
     gitUrl = 'https://github.com/ArchitShah248/CalendarDateRangePicker.git'
     githubRepository= 'ArchitShah248/CalendarDateRangePicker'
 
-    libraryVersion = '1.1.6'
+    libraryVersion = '1.1.7'
 
     developerId = 'architshah248'
     developerName = 'Archit Shah'
@@ -37,7 +37,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
-        versionName "1.1.6"
+        versionName "1.1.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

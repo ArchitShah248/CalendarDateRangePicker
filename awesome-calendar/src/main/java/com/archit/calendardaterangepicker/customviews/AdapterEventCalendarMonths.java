@@ -16,14 +16,15 @@ import java.util.List;
 
 class AdapterEventCalendarMonths extends PagerAdapter {
 
-    private Context mContext;
-    private List<Calendar> dataList;
-    private CalendarStyleAttributes calendarStyleAttr;
-    private DateRangeCalendarView.CalendarListener calendarListener;
-    private DateRangeCalendarManager dateRangeCalendarManager;
-    private Handler mHandler;
+    private final Context mContext;
+    private final List<Calendar> dataList;
+    private final CalendarStyleAttributes calendarStyleAttr;
+    private CalendarListener calendarListener;
+    private final DateRangeCalendarManager dateRangeCalendarManager;
+    private final Handler mHandler;
 
-    AdapterEventCalendarMonths(@NonNull final Context mContext, @NonNull final List<Calendar> list, @NonNull final CalendarStyleAttributes calendarStyleAttr) {
+    AdapterEventCalendarMonths(@NonNull final Context mContext, @NonNull final List<Calendar> list,
+                               @NonNull final CalendarStyleAttributes calendarStyleAttr) {
         this.mContext = mContext;
         dataList = list;
         this.calendarStyleAttr = calendarStyleAttr;
@@ -86,7 +87,7 @@ class AdapterEventCalendarMonths extends PagerAdapter {
     }
 
 
-    private DateRangeCalendarView.CalendarListener calendarAdapterListener = new DateRangeCalendarView.CalendarListener() {
+    private final CalendarListener calendarAdapterListener = new CalendarListener() {
         @Override
         public void onFirstDateSelected(@NonNull final Calendar startDate) {
 
@@ -116,7 +117,7 @@ class AdapterEventCalendarMonths extends PagerAdapter {
         }
     };
 
-    void setCalendarListener(final DateRangeCalendarView.CalendarListener calendarListener) {
+    void setCalendarListener(final CalendarListener calendarListener) {
         this.calendarListener = calendarListener;
     }
 

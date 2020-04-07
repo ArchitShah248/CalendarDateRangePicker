@@ -20,7 +20,7 @@ public class AwesomeTimePickerDialog extends Dialog {
 
     private CustomTextView tvHeaderTitle, tvDialogDone, tvDialogCancel;
 
-    private String mTitle;
+    private final String mTitle;
     private int hours, minutes;
 
     private TimePicker timePicker;
@@ -31,7 +31,7 @@ public class AwesomeTimePickerDialog extends Dialog {
         void onCancel();
     }
 
-    private TimePickerCallback onTimeChangedListener;
+    private final TimePickerCallback onTimeChangedListener;
 
     public AwesomeTimePickerDialog(Context context, String title, TimePickerCallback timePickerCallback) {
         super(context);
@@ -46,8 +46,8 @@ public class AwesomeTimePickerDialog extends Dialog {
         setListeners();
 
         //Grab the window of the dialog, and change the width
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = this.getWindow();
+        final WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        final Window window = this.getWindow();
         lp.copyFrom(window.getAttributes());
         //This makes the dialog take up the full width
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -59,28 +59,27 @@ public class AwesomeTimePickerDialog extends Dialog {
 
         setContentView(R.layout.dialog_time_picker);
 
-        tvHeaderTitle = (CustomTextView) findViewById(R.id.tvHeaderTitle);
-        tvDialogDone = (CustomTextView) findViewById(R.id.tvHeaderDone);
-        tvDialogCancel = (CustomTextView) findViewById(R.id.tvHeaderCancel);
+        tvHeaderTitle = findViewById(R.id.tvHeaderTitle);
+        tvDialogDone = findViewById(R.id.tvHeaderDone);
+        tvDialogCancel = findViewById(R.id.tvHeaderCancel);
 
-        timePicker = (TimePicker) findViewById(R.id.timePicker);
+        timePicker = findViewById(R.id.timePicker);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
-            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
+            public void onTimeChanged(final TimePicker timePicker, final int i, final int i1) {
                 hours = i;
                 minutes = i1;
             }
         });
 
         tvHeaderTitle.setText(mTitle);
-
     }
 
     private void setListeners() {
 
         tvDialogCancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 if (onTimeChangedListener != null) {
                     onTimeChangedListener.onCancel();
                 }
@@ -90,14 +89,13 @@ public class AwesomeTimePickerDialog extends Dialog {
 
         tvDialogDone.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 if (onTimeChangedListener != null) {
                     onTimeChangedListener.onTimeSelected(hours, minutes);
                 }
                 AwesomeTimePickerDialog.this.dismiss();
             }
         });
-
     }
 
     public void showDialog() {

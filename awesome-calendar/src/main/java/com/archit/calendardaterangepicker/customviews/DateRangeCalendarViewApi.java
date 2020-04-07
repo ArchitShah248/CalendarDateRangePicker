@@ -9,12 +9,6 @@ import java.util.Calendar;
 
 interface DateRangeCalendarViewApi {
 
-    interface CalendarListener {
-        void onFirstDateSelected(@NonNull final Calendar startDate);
-
-        void onDateRangeSelected(@NonNull final Calendar startDate, @NonNull final Calendar endDate);
-    }
-
     /**
      * To set calendar listener
      *
