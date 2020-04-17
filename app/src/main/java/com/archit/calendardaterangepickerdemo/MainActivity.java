@@ -29,18 +29,7 @@ public class MainActivity extends AppCompatActivity {
         final Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
         calendar.setFonts(typeface);
 
-        calendar.setCalendarListener(new CalendarListener() {
-            @Override
-            public void onFirstDateSelected(@NonNull final Calendar startDate) {
-                Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDateRangeSelected(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
-                Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString() + " End date: " + endDate.getTime().toString(), Toast.LENGTH_SHORT).show();
-            }
-
-        });
+        calendar.setCalendarListener(calendarListener);
 
         findViewById(R.id.btnReset).setOnClickListener(v -> calendar.resetAllSelectedViews());
 
@@ -71,4 +60,16 @@ public class MainActivity extends AppCompatActivity {
         final Calendar current = Calendar.getInstance();
         calendar.setCurrentMonth(current);
     }
+
+    private final CalendarListener calendarListener = new CalendarListener() {
+        @Override
+        public void onFirstDateSelected(@NonNull final Calendar startDate) {
+            Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onDateRangeSelected(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
+            Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString() + " End date: " + endDate.getTime().toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
 }

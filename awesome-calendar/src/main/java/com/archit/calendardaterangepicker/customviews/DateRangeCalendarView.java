@@ -292,7 +292,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
         CalendarRangeUtils.resetTime(endMonthDate);
 
         if (startMonthDate.after(endMonthDate)) {
-            throw new IllegalArgumentException("Start month1(" + startMonthDate.getTime().toString() + ") can not be later than end month(" + endMonth.getTime().toString() + ").");
+            throw new IllegalArgumentException("Start month(" + startMonthDate.getTime().toString() + ") can not be later than end month(" + endMonth.getTime().toString() + ").");
         }
         monthDataList.clear();
 
