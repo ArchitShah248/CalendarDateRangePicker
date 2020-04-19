@@ -15,17 +15,17 @@ final class CalendarRangeUtils {
      */
     static void resetTime(@NonNull final Calendar date, @CalendarRangeType final int rangeType) {
         if (rangeType == CalendarRangeType.START_DATE) {
-            date.set(Calendar.HOUR, 0);
+            date.set(Calendar.HOUR_OF_DAY, 0);
             date.set(Calendar.MINUTE, 0);
             date.set(Calendar.SECOND, 0);
             date.set(Calendar.MILLISECOND, 0);
         } else if (rangeType == CalendarRangeType.LAST_DATE) {
-            date.set(Calendar.HOUR, 23);
+            date.set(Calendar.HOUR_OF_DAY, 23);
             date.set(Calendar.MINUTE, 59);
             date.set(Calendar.SECOND, 59);
             date.set(Calendar.MILLISECOND, 999);
         } else {
-            date.set(Calendar.HOUR, 0);
+            date.set(Calendar.HOUR_OF_DAY, 0);
             date.set(Calendar.MINUTE, 0);
             date.set(Calendar.SECOND, 0);
             date.set(Calendar.MILLISECOND, 0);
