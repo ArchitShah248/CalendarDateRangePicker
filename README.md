@@ -36,7 +36,7 @@ For Gradle:
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:1.1.6'
+    compile 'com.archit.calendar:awesome-calendar:1.1.7'
 }
 ```
 
@@ -46,7 +46,7 @@ For Maven:
 <dependency>
   <groupId>com.archit.calendar</groupId>
   <artifactId>awesome-calendar</artifactId>
-  <version>1.1.6</version>
+  <version>1.1.7</version>
   <type>pom</type>
 </dependency>
 ```
@@ -97,7 +97,7 @@ public interface CalendarListener {
 }
 ````
 ````Java
-calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
+calendar.setCalendarListener(new CalendarListener() {
     @Override
             public void onFirstDateSelected(Calendar startDate) {
                 Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString(), Toast.LENGTH_SHORT).show();

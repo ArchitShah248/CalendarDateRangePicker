@@ -30,7 +30,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     implementation project(':awesome-calendar')
-//    implementation 'com.archit.calendar:awesome-calendar:1.1.6'
+//    implementation 'com.archit.calendar:awesome-calendar:1.1.7'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
