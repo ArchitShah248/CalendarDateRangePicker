@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.archit.calendardaterangepicker.R;
+import com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.CalendarRangeType;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttrImpl;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes;
 
@@ -286,10 +287,10 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
         final Calendar endMonthDate = (Calendar) endMonth.clone();
 
         startMonthDate.set(Calendar.DATE, 1);
-        CalendarRangeUtils.resetTime(startMonthDate);
+        CalendarRangeUtils.resetTime(startMonthDate, CalendarRangeType.START_DATE);
 
         endMonthDate.set(Calendar.DATE, 1);
-        CalendarRangeUtils.resetTime(endMonthDate);
+        CalendarRangeUtils.resetTime(endMonthDate, CalendarRangeType.LAST_DATE);
 
         if (startMonthDate.after(endMonthDate)) {
             throw new IllegalArgumentException("Start month(" + startMonthDate.getTime().toString() + ") can not be later than end month(" + endMonth.getTime().toString() + ").");

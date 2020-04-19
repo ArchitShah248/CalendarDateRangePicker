@@ -10,13 +10,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.RANGE_TYPE.LAST_DATE;
-import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.RANGE_TYPE.MIDDLE_DATE;
-import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.RANGE_TYPE.NOT_IN_RANGE;
-import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.RANGE_TYPE.START_DATE;
+import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.CalendarRangeType.LAST_DATE;
+import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.CalendarRangeType.MIDDLE_DATE;
+import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.CalendarRangeType.NOT_IN_RANGE;
+import static com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.CalendarRangeType.START_DATE;
 
 class DateRangeCalendarManager {
 
+    private static final String TAG = DateRangeCalendarManager.class.getSimpleName();
     private Calendar minSelectedDate, maxSelectedDate;
     private Calendar mStartSelectableDate, mEndSelectableDate;
     private final static String DATE_FORMAT = "yyyyMMdd";
@@ -24,7 +25,7 @@ class DateRangeCalendarManager {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({NOT_IN_RANGE, START_DATE, MIDDLE_DATE, LAST_DATE})
-    public @interface RANGE_TYPE {
+    public @interface CalendarRangeType {
         int NOT_IN_RANGE = 0;
         int START_DATE = 1;
         int MIDDLE_DATE = 2;
@@ -53,9 +54,9 @@ class DateRangeCalendarManager {
 
     void setSelectableDateRange(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
         mStartSelectableDate = (Calendar) startDate.clone();
-        CalendarRangeUtils.resetTime(mStartSelectableDate);
+        CalendarRangeUtils.resetTime(mStartSelectableDate, START_DATE);
         mEndSelectableDate = (Calendar) endDate.clone();
-        CalendarRangeUtils.resetTime(mEndSelectableDate);
+        CalendarRangeUtils.resetTime(mEndSelectableDate, LAST_DATE);
     }
 
     /**
@@ -63,7 +64,7 @@ class DateRangeCalendarManager {
      *
      * @return Date type
      */
-    @RANGE_TYPE
+    @CalendarRangeType
     int checkDateRange(@NonNull final Calendar selectedDate) {
 
         final String dateStr = SIMPLE_DATE_FORMAT.format(selectedDate.getTime());
@@ -77,13 +78,13 @@ class DateRangeCalendarManager {
             }
         } else if (minSelectedDate != null) {
             //Min date and Max date are selected
-            final long selectedDateVal = Long.valueOf(dateStr);
+            final long selectedDateVal = Long.parseLong(dateStr);
 
             final String minDateStr = SIMPLE_DATE_FORMAT.format(minSelectedDate.getTime());
             final String maxDateStr = SIMPLE_DATE_FORMAT.format(maxSelectedDate.getTime());
 
-            final long minDateVal = Long.valueOf(minDateStr);
-            final long maxDateVal = Long.valueOf(maxDateStr);
+            final long minDateVal = Long.parseLong(minDateStr);
+            final long maxDateVal = Long.parseLong(maxDateStr);
 
             if (selectedDateVal == minDateVal) {
                 return START_DATE;
@@ -103,7 +104,10 @@ class DateRangeCalendarManager {
         // It would work even if date is exactly equal to one of the end cases
         final boolean isSelectable = !(date.before(mStartSelectableDate) || date.after(mEndSelectableDate));
         if (!isSelectable && checkDateRange(date) != NOT_IN_RANGE) {
-            throw new IllegalArgumentException("Selected date can not be out of Selectable Date range.");
+            throw new IllegalArgumentException("Selected date can not be out of Selectable Date range." +
+                    " Date: " + CalendarRangeUtils.printDate(date) +
+                    " Min: " + CalendarRangeUtils.printDate(minSelectedDate) +
+                    " Max: " + CalendarRangeUtils.printDate(maxSelectedDate));
         }
         return isSelectable;
     }

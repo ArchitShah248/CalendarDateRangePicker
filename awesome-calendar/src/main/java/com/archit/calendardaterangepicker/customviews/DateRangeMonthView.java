@@ -7,9 +7,11 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -19,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.archit.calendardaterangepicker.R;
+import com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.CalendarRangeType;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes;
 import com.archit.calendardaterangepicker.models.DayContainer;
 import com.archit.calendardaterangepicker.timepicker.AwesomeTimePickerDialog;
@@ -200,7 +203,7 @@ class DateRangeMonthView extends LinearLayout {
 
         currentCalendarMonth = (Calendar) month.clone();
         currentCalendarMonth.set(Calendar.DATE, 1);
-        CalendarRangeUtils.resetTime(currentCalendarMonth);
+        CalendarRangeUtils.resetTime(currentCalendarMonth, CalendarRangeType.MIDDLE_DATE);
 
         final String[] weekTitle = getContext().getResources().getStringArray(R.array.week_sun_sat);
 
@@ -213,7 +216,7 @@ class DateRangeMonthView extends LinearLayout {
 
         int startDay = month.get(Calendar.DAY_OF_WEEK) - calendarStyleAttr.getWeekOffset();
 
-        //To ratate week day according to offset
+        //To rotate week day according to offset
         if (startDay < 1) {
             startDay = startDay + 7;
         }
@@ -250,10 +253,10 @@ class DateRangeMonthView extends LinearLayout {
             disableDayContainer(container);
             container.tvDate.setText(String.valueOf(date));
         } else {
-            @DateRangeCalendarManager.RANGE_TYPE final int type = dateRangeCalendarManager.checkDateRange(calendar);
-            if (type == DateRangeCalendarManager.RANGE_TYPE.START_DATE || type == DateRangeCalendarManager.RANGE_TYPE.LAST_DATE) {
+            @CalendarRangeType final int type = dateRangeCalendarManager.checkDateRange(calendar);
+            if (type == CalendarRangeType.START_DATE || type == CalendarRangeType.LAST_DATE) {
                 makeAsSelectedDate(container, type);
-            } else if (type == DateRangeCalendarManager.RANGE_TYPE.MIDDLE_DATE) {
+            } else if (type == CalendarRangeType.MIDDLE_DATE) {
                 makeAsRangeDate(container);
             } else {
                 enabledDayContainer(container);
@@ -313,20 +316,20 @@ class DateRangeMonthView extends LinearLayout {
      * @param stripType - Right end date, Left end date or middle
      */
     private void makeAsSelectedDate(@NonNull final DayContainer container,
-                                    @DateRangeCalendarManager.RANGE_TYPE final int stripType) {
+                                    @CalendarRangeType final int stripType) {
         final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) container.strip.getLayoutParams();
 
         final Calendar minDate = dateRangeCalendarManager.getMinSelectedDate();
         final Calendar maxDate = dateRangeCalendarManager.getMaxSelectedDate();
 
-        if (stripType == DateRangeCalendarManager.RANGE_TYPE.START_DATE && maxDate != null &&
+        if (stripType == CalendarRangeType.START_DATE && maxDate != null &&
                 minDate.compareTo(maxDate) != 0) {
             final Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg_left);
             mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
 
             container.strip.setBackground(mDrawable);
             layoutParams.setMargins(20, 0, 0, 0);
-        } else if (stripType == DateRangeCalendarManager.RANGE_TYPE.LAST_DATE) {
+        } else if (stripType == CalendarRangeType.LAST_DATE) {
             final Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg_right);
             mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
             container.strip.setBackground(mDrawable);
