@@ -3,10 +3,6 @@ package com.archit.calendardaterangepicker.customviews;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -14,27 +10,28 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.viewpager.widget.ViewPager;
+
 import com.archit.calendardaterangepicker.R;
-import com.archit.calendardaterangepicker.customviews.DateRangeCalendarManager.CalendarRangeType;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttrImpl;
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes;
 
 import java.text.DateFormatSymbols;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 public class DateRangeCalendarView extends LinearLayout implements DateRangeCalendarViewApi {
 
     private CustomTextView tvYearTitle;
     private AppCompatImageView imgVNavLeft, imgVNavRight;
-    private final List<Calendar> monthDataList = new ArrayList<>();
     private AdapterEventCalendarMonths adapterEventCalendarMonths;
     private Locale locale;
     private ViewPager vpCalendar;
     private CalendarStyleAttributes calendarStyleAttr;
-    private CalendarListener mCalendarListener;
+    private DateRangeCalendarManagerImpl mDateRangeCalendarManager;
 
     private final static int TOTAL_ALLOWED_MONTHS = 30;
 
@@ -66,15 +63,15 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
         imgVNavRight = findViewById(R.id.imgVNavRight);
         vpCalendar = findViewById(R.id.vpCalendar);
 
-        monthDataList.clear();
-        final Calendar today = (Calendar) Calendar.getInstance().clone();
-        today.add(Calendar.MONTH, -TOTAL_ALLOWED_MONTHS);
+        final Calendar defStartMonth = (Calendar) Calendar.getInstance().clone();
+        defStartMonth.add(Calendar.MONTH, -TOTAL_ALLOWED_MONTHS);
 
-        for (int i = 0; i < TOTAL_ALLOWED_MONTHS * 2; i++) {
-            monthDataList.add((Calendar) today.clone());
-            today.add(Calendar.MONTH, 1);
-        }
-        adapterEventCalendarMonths = new AdapterEventCalendarMonths(context, monthDataList, calendarStyleAttr);
+        final Calendar defEndMonth = (Calendar) Calendar.getInstance().clone();
+        defEndMonth.add(Calendar.MONTH, TOTAL_ALLOWED_MONTHS);
+
+        mDateRangeCalendarManager = new DateRangeCalendarManagerImpl(defStartMonth, defEndMonth);
+
+        adapterEventCalendarMonths = new AdapterEventCalendarMonths(context, mDateRangeCalendarManager, calendarStyleAttr);
         vpCalendar.setAdapter(adapterEventCalendarMonths);
         vpCalendar.setOffscreenPageLimit(0);
         vpCalendar.setCurrentItem(TOTAL_ALLOWED_MONTHS);
@@ -114,7 +111,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
             @Override
             public void onClick(final View view) {
                 final int newPosition = vpCalendar.getCurrentItem() + 1;
-                if (newPosition < monthDataList.size()) {
+                if (newPosition < mDateRangeCalendarManager.getVisibleMonthDataList().size()) {
                     vpCalendar.setCurrentItem(newPosition);
                 }
             }
@@ -130,12 +127,12 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
     private void setNavigationHeader(final int position) {
         imgVNavRight.setVisibility(VISIBLE);
         imgVNavLeft.setVisibility(VISIBLE);
-        if (monthDataList.size() == 1) {
+        if (mDateRangeCalendarManager.getVisibleMonthDataList().size() == 1) {
             imgVNavLeft.setVisibility(INVISIBLE);
             imgVNavRight.setVisibility(INVISIBLE);
         } else if (position == 0) {
             imgVNavLeft.setVisibility(INVISIBLE);
-        } else if (position == monthDataList.size() - 1) {
+        } else if (position == mDateRangeCalendarManager.getVisibleMonthDataList().size() - 1) {
             imgVNavRight.setVisibility(INVISIBLE);
         }
     }
@@ -146,7 +143,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
      * @param position data list position for getting date
      */
     private void setCalendarYearTitle(final int position) {
-        final Calendar currentCalendarMonth = monthDataList.get(position);
+        final Calendar currentCalendarMonth = mDateRangeCalendarManager.getVisibleMonthDataList().get(position);
         String dateText = new DateFormatSymbols(locale).getMonths()[currentCalendarMonth.get(Calendar.MONTH)];
         dateText = dateText.substring(0, 1).toUpperCase() + dateText.subSequence(1, dateText.length());
 
@@ -163,8 +160,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
      */
     @Override
     public void setCalendarListener(@NonNull final CalendarListener calendarListener) {
-        mCalendarListener = calendarListener;
-        adapterEventCalendarMonths.setCalendarListener(mCalendarListener);
+        adapterEventCalendarMonths.setCalendarListener(calendarListener);
     }
 
     /**
@@ -184,6 +180,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
      */
     @Override
     public void resetAllSelectedViews() {
+        mDateRangeCalendarManager.setSelectedDateRange(null, null);
         adapterEventCalendarMonths.resetAllSelectedViews();
     }
 
@@ -226,30 +223,24 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
      */
     @Override
     public void setSelectedDateRange(@Nullable final Calendar startDate, @Nullable final Calendar endDate) {
-        if (startDate == null && endDate != null) {
-            throw new IllegalArgumentException("Start date can not be null if you are setting end date.");
-        } else if (endDate != null && endDate.before(startDate)) {
-            throw new IllegalArgumentException("Start date can not be after end date.");
-        }
-        adapterEventCalendarMonths.setSelectedDate(startDate, endDate);
+        mDateRangeCalendarManager.setSelectedDateRange(startDate, endDate);
+        adapterEventCalendarMonths.notifyDataSetChanged();
     }
 
     /**
      * To get start date.
      */
-    @NonNull
     @Override
     public Calendar getStartDate() {
-        return adapterEventCalendarMonths.getMinSelectedDate();
+        return mDateRangeCalendarManager.getMinSelectedDate();
     }
 
     /**
      * To get end date.
      */
-    @NonNull
     @Override
     public Calendar getEndDate() {
-        return adapterEventCalendarMonths.getMaxSelectedDate();
+        return mDateRangeCalendarManager.getMaxSelectedDate();
     }
 
     /**
@@ -282,34 +273,11 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
      */
     @Override
     public void setVisibleMonthRange(@NonNull final Calendar startMonth, @NonNull final Calendar endMonth) {
-
-        final Calendar startMonthDate = (Calendar) startMonth.clone();
-        final Calendar endMonthDate = (Calendar) endMonth.clone();
-
-        startMonthDate.set(Calendar.DATE, 1);
-        CalendarRangeUtils.resetTime(startMonthDate, CalendarRangeType.START_DATE);
-
-        endMonthDate.set(Calendar.DATE, 1);
-        CalendarRangeUtils.resetTime(endMonthDate, CalendarRangeType.LAST_DATE);
-
-        if (startMonthDate.after(endMonthDate)) {
-            throw new IllegalArgumentException("Start month(" + startMonthDate.getTime().toString() + ") can not be later than end month(" + endMonth.getTime().toString() + ").");
-        }
-        monthDataList.clear();
-
-        while (!isDateSame(startMonthDate, endMonthDate)) {
-            monthDataList.add((Calendar) startMonthDate.clone());
-            startMonthDate.add(Calendar.MONTH, 1);
-        }
-        monthDataList.add((Calendar) startMonthDate.clone());
-
-        adapterEventCalendarMonths = new AdapterEventCalendarMonths(getContext(), monthDataList, calendarStyleAttr);
-        vpCalendar.setAdapter(adapterEventCalendarMonths);
-        vpCalendar.setOffscreenPageLimit(0);
+        mDateRangeCalendarManager.setVisibleMonths(startMonth, endMonth);
+        adapterEventCalendarMonths.notifyDataSetChanged();
         vpCalendar.setCurrentItem(0);
         setCalendarYearTitle(0);
         setNavigationHeader(0);
-        adapterEventCalendarMonths.setCalendarListener(mCalendarListener);
     }
 
     /**
@@ -319,28 +287,12 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
      */
     @Override
     public void setCurrentMonth(@NonNull final Calendar calendar) {
-        for (int i = 0; i < monthDataList.size(); i++) {
-            final java.util.Calendar month = monthDataList.get(i);
-            if (month.get(java.util.Calendar.YEAR) == calendar.get(java.util.Calendar.YEAR)) {
-                if (month.get(java.util.Calendar.MONTH) == calendar.get(java.util.Calendar.MONTH)) {
-                    vpCalendar.setCurrentItem(i);
-                    break;
-                }
-            }
-        }
+        vpCalendar.setCurrentItem(mDateRangeCalendarManager.getMonthIndex(calendar));
     }
 
     @Override
     public void setSelectableDateRange(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
-        if (endDate.before(startDate)) {
-            throw new IllegalArgumentException("Start date(" + startDate.getTime().toString() + ") can not be after end date(" + endDate.getTime().toString() + ").");
-        }
-        adapterEventCalendarMonths.setSelectableDateRange(startDate, endDate);
-    }
-
-    private boolean isDateSame(@NonNull final Calendar one, @NonNull final Calendar second) {
-        return one.get(Calendar.YEAR) == second.get(Calendar.YEAR)
-                && one.get(Calendar.MONTH) == second.get(Calendar.MONTH)
-                && one.get(Calendar.DATE) == second.get(Calendar.DATE);
+        mDateRangeCalendarManager.setSelectableDateRange(startDate, endDate);
+        adapterEventCalendarMonths.notifyDataSetChanged();
     }
 }
