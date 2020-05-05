@@ -42,28 +42,6 @@ interface DateRangeCalendarViewApi {
     fun setNavRightImage(rightDrawable: Drawable)
 
     /**
-     * Sets start and end date.<br></br>
-     * <B>Note:</B><br></br>
-     * You can not set null start date with valid end date.<br></br>
-     * You can not set end date before start date.<br></br>
-     * If you are setting custom month range than do not call this before calling (@method setVisibleMonthRange).<br></br>
-     *
-     * @param startDate Start date
-     * @param endDate   End date
-     */
-    fun setSelectedDateRange(startDate: Calendar, endDate: Calendar)
-
-    /**
-     * To get start date.
-     */
-    val startDate: Calendar?
-
-    /**
-     * To get end date.
-     */
-    val endDate: Calendar?
-
-    /**
      * To get editable mode.
      */
     /**
@@ -97,4 +75,25 @@ interface DateRangeCalendarViewApi {
      * @param endDate   End date
      */
     fun setSelectableDateRange(startDate: Calendar, endDate: Calendar)
+
+    /**
+     * Sets start and end date.<br></br>
+     * <B>Note:</B><br></br>
+     * You can not set end date before start date.<br></br>
+     * If you are setting custom month range than do not call this before calling (@method setVisibleMonthRange).<br></br>
+     *
+     * @param startDate Start date
+     * @param endDate   End date
+     */
+    fun setSelectedDateRange(startDate: Calendar, endDate: Calendar)
+
+    /**
+     * To get start date.
+     */
+    val startDate: Calendar?
+
+    /**
+     * To get end date.
+     */
+    val endDate: Calendar?
 }

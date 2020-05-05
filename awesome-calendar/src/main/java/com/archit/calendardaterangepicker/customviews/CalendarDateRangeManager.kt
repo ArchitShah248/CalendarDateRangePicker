@@ -17,17 +17,23 @@ interface CalendarDateRangeManager {
 
     fun setVisibleMonths(startMonth: Calendar, endMonth: Calendar)
 
+    fun getStartVisibleMonth(): Calendar
+
+    fun getEndVisibleMonth(): Calendar
+
     fun setSelectableDateRange(startDate: Calendar, endDate: Calendar)
 
-    fun setSelectedDateRange(startDate: Calendar?, endDate: Calendar?)
+    fun setSelectedDateRange(startDate: Calendar, endDate: Calendar)
+
+    fun resetSelectedDateRange()
 
     fun getMaxSelectedDate(): Calendar?
 
     fun getMinSelectedDate(): Calendar?
 
-    fun getVisibleMonthDataList() : List<Calendar>
+    fun getVisibleMonthDataList(): List<Calendar>
 
-    fun getMonthIndex(month: Calendar) : Int
+    fun getMonthIndex(month: Calendar): Int
 
     fun isSelectableDate(date: Calendar): Boolean
 

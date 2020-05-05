@@ -372,7 +372,7 @@ class DateRangeMonthView extends LinearLayout {
      * To remove all selection and redraw current calendar
      */
     public void resetAllSelectedViews() {
-        dateRangeCalendarManager.setSelectedDateRange(null, null);
+        dateRangeCalendarManager.resetSelectedDateRange();
         drawCalendarForMonth(currentCalendarMonth);
     }
 

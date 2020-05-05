@@ -3,7 +3,9 @@ package com.test.awesomecalendar
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.CalendarRangeType
 import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils
+import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.printDate
 import com.archit.calendardaterangepicker.customviews.DateRangeCalendarManagerImpl
+import com.archit.calendardaterangepicker.customviews.InvalidDateException
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -11,17 +13,18 @@ import java.util.Calendar
 
 class CalendarDateRangeTest {
 
-    lateinit var mCalendarManagerImpl: CalendarDateRangeManager
+    private lateinit var mCalendarManagerImpl: CalendarDateRangeManager
+    private val mDefStartMonth = getCalendar(12, Calendar.OCTOBER, 2019)
+    private val mDefEndMonth = getCalendar(20, Calendar.JUNE, 2020)
 
     @Before
     fun setUp() {
-        val defStartMonth = getCalendar(12, Calendar.OCTOBER, 2019)
-        val defEndMonth = getCalendar(20, Calendar.JUNE, 2020)
-        mCalendarManagerImpl = DateRangeCalendarManagerImpl(defStartMonth, defEndMonth)
+        // GIVEN
+        mCalendarManagerImpl = DateRangeCalendarManagerImpl(mDefStartMonth, mDefEndMonth)
     }
 
     @Test
-    fun checkVisibleMonthRange() {
+    fun testVisibleMonthRange() {
         // GIVEN
         val expectedStartDate = getCalendar(1, Calendar.OCTOBER, 2019)
         val expectedEndDate = getCalendar(30, Calendar.JUNE, 2020)
@@ -36,6 +39,70 @@ class CalendarDateRangeTest {
         Assert.assertFalse(mCalendarManagerImpl.isSelectableDate(selectableDatePrev))
         Assert.assertTrue(mCalendarManagerImpl.isSelectableDate(selectableDateIn))
         Assert.assertFalse(mCalendarManagerImpl.isSelectableDate(selectableDatePost))
+        Assert.assertNull(mCalendarManagerImpl.getMinSelectedDate())
+        Assert.assertNull(mCalendarManagerImpl.getMaxSelectedDate())
+    }
+
+    @Test
+    fun testVisibleMonthRangeDateOrderValidations() {
+        try {
+            // WHEN
+            mCalendarManagerImpl.setVisibleMonths(mDefEndMonth, mDefStartMonth)
+        } catch (e: InvalidDateException) {
+            // THEN
+            checkDateOrderValidation(e.localizedMessage, mDefEndMonth, mDefStartMonth)
+        }
+    }
+
+    @Test
+    fun testSelectableDatesOrderValidations() {
+        try {
+            // WHEN
+            mCalendarManagerImpl.setSelectableDateRange(mDefEndMonth, mDefStartMonth)
+        } catch (e: InvalidDateException) {
+            // THEN
+            checkDateOrderValidation(e.localizedMessage, mDefEndMonth, mDefStartMonth)
+        }
+    }
+
+    @Test
+    fun testSelectedDatesOrderValidations() {
+        try {
+            // WHEN
+            mCalendarManagerImpl.setSelectedDateRange(mDefEndMonth, mDefStartMonth)
+        } catch (e: InvalidDateException) {
+            // THEN
+            checkDateOrderValidation(e.localizedMessage, mDefEndMonth, mDefStartMonth)
+        }
+    }
+
+    @Test
+    fun checkSelectableDateOutOfVisibleRange() {
+        // GIVEN
+        val selectableStartDate = getCalendar(30, Calendar.SEPTEMBER, 2019)
+        val selectableEndDate = getCalendar(2, Calendar.JUNE, 2020)
+        try {
+            // WHEN
+            mCalendarManagerImpl.setSelectableDateRange(selectableStartDate, selectableEndDate)
+        } catch (e: InvalidDateException) {
+            // THEN
+            Assert.assertEquals("Selectable start date ${(printDate(selectableStartDate))} is out of visible months" +
+                    "(${printDate(mCalendarManagerImpl.getStartVisibleMonth())} " +
+                    "- ${printDate(mCalendarManagerImpl.getEndVisibleMonth())}).",
+                    e.localizedMessage)
+        }
+
+        // GIVEN
+        val selectableStartDate1 = getCalendar(20, Calendar.OCTOBER, 2019)
+        val selectableEndDate1 = getCalendar(1, Calendar.JULY, 2020)
+        try {
+            // WHEN
+            mCalendarManagerImpl.setSelectableDateRange(selectableStartDate1, selectableEndDate1)
+        } catch (e: InvalidDateException) {
+            // THEN
+            Assert.assertEquals("Selectable end date ${(printDate(selectableEndDate1))} is out of visible months" +
+                    "(${printDate(mCalendarManagerImpl.getStartVisibleMonth())} - ${printDate(mCalendarManagerImpl.getEndVisibleMonth())}).", e.localizedMessage)
+        }
     }
 
     @Test
@@ -55,40 +122,56 @@ class CalendarDateRangeTest {
         Assert.assertFalse(mCalendarManagerImpl.isSelectableDate(selectableDatePrev))
         Assert.assertTrue(mCalendarManagerImpl.isSelectableDate(selectableDateIn))
         Assert.assertFalse(mCalendarManagerImpl.isSelectableDate(selectableDatePost))
+        Assert.assertNull(mCalendarManagerImpl.getMinSelectedDate())
+        Assert.assertNull(mCalendarManagerImpl.getMaxSelectedDate())
     }
 
     @Test
-    fun checkSelectablePrevDateException() {
+    fun testSelectedDateRangeDateValidation() {
         // GIVEN
-        val selectableStartDate = getCalendar(30, Calendar.SEPTEMBER, 2019)
-        val selectableEndDate = getCalendar(2, Calendar.JUNE, 2020)
+        val selectedStartDate = getCalendar(2, Calendar.MARCH, 2020)
+        val selectedEndDate = getCalendar(10, Calendar.MARCH, 2020)
         try {
             // WHEN
-            mCalendarManagerImpl.setSelectableDateRange(selectableStartDate, selectableEndDate)
+            mCalendarManagerImpl.setSelectedDateRange(selectedEndDate, selectedStartDate)
+        } catch (e: InvalidDateException) {
             // THEN
-            Assert.fail("Exception is expected.")
-        } catch (e: Exception) {
-            println("Error: ${e.localizedMessage}")
+            checkDateOrderValidation(e.localizedMessage, selectedEndDate, selectedStartDate)
         }
     }
 
     @Test
-    fun checkSelectablePostDateException() {
+    fun testSelectedDateRangeOutOfSelectableRangeValidation() {
         // GIVEN
-        val selectableStartDate = getCalendar(20, Calendar.OCTOBER, 2019)
-        val selectableEndDate = getCalendar(1, Calendar.JULY, 2020)
+        val selectableStartDate = getCalendar(1, Calendar.MARCH, 2020)
+        val selectableEndDate = getCalendar(11, Calendar.MARCH, 2020)
+        mCalendarManagerImpl.setSelectableDateRange(selectableStartDate, selectableEndDate)
+
+        val selectedStartDate1 = getCalendar(29, Calendar.FEBRUARY, 2020)
+        val selectedEndDate1 = getCalendar(10, Calendar.MARCH, 2020)
         try {
             // WHEN
-            mCalendarManagerImpl.setSelectableDateRange(selectableStartDate, selectableEndDate)
+            mCalendarManagerImpl.setSelectedDateRange(selectedStartDate1, selectedEndDate1)
+        } catch (e: InvalidDateException) {
             // THEN
-            Assert.fail("Exception is expected.")
-        } catch (e: Exception) {
-            println("Error: ${e.localizedMessage}")
+            Assert.assertEquals("Start date(${printDate(selectedStartDate1)}) is out of selectable date range.", e.localizedMessage)
+        }
+
+        // GIVEN
+        val selectedStartDate2 = getCalendar(2, Calendar.MARCH, 2020)
+        val selectedEndDate2 = getCalendar(12, Calendar.MARCH, 2020)
+
+        try {
+            // WHEN
+            mCalendarManagerImpl.setSelectedDateRange(selectedStartDate2, selectedEndDate2)
+        } catch (e: InvalidDateException) {
+            // THEN
+            Assert.assertEquals("End date(${printDate(selectedEndDate2)}) is out of selectable date range.", e.localizedMessage)
         }
     }
 
     @Test
-    fun checkSelectedDateRange() {
+    fun testSelectedDateRange() {
         // GIVEN
         val selectableStartDate = getCalendar(1, Calendar.MARCH, 2020)
         val selectableEndDate = getCalendar(11, Calendar.MARCH, 2020)
@@ -115,6 +198,10 @@ class CalendarDateRangeTest {
         Assert.assertEquals(CalendarRangeType.NOT_IN_RANGE, mCalendarManagerImpl.checkDateRange(selectableEndDate))
         Assert.assertEquals(CalendarRangeType.NOT_IN_RANGE, mCalendarManagerImpl.checkDateRange(dateOutOfRange1))
         Assert.assertEquals(CalendarRangeType.NOT_IN_RANGE, mCalendarManagerImpl.checkDateRange(dateOutOfRange2))
+    }
+
+    private fun checkDateOrderValidation(errorMsg: String, start: Calendar, end: Calendar) {
+        Assert.assertEquals("Start date(${printDate(start)}) can not be after end date(${printDate(end)}).", errorMsg)
     }
 
     private fun getCalendar(date: Int, month: Int, year: Int): Calendar {

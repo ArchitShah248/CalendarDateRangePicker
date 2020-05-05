@@ -180,7 +180,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
      */
     @Override
     public void resetAllSelectedViews() {
-        mDateRangeCalendarManager.setSelectedDateRange(null, null);
+        mDateRangeCalendarManager.resetSelectedDateRange();
         adapterEventCalendarMonths.resetAllSelectedViews();
     }
 
@@ -214,7 +214,6 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
     /**
      * Sets start and end date.<br>
      * <B>Note:</B><br>
-     * You can not set null start date with valid end date.<br>
      * You can not set end date before start date.<br>
      * If you are setting custom month range than do not call this before calling (@method setVisibleMonthRange).<br>
      *
@@ -222,7 +221,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
      * @param endDate   End date
      */
     @Override
-    public void setSelectedDateRange(@Nullable final Calendar startDate, @Nullable final Calendar endDate) {
+    public void setSelectedDateRange(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
         mDateRangeCalendarManager.setSelectedDateRange(startDate, endDate);
         adapterEventCalendarMonths.notifyDataSetChanged();
     }

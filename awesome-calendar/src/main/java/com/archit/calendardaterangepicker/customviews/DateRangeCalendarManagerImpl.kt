@@ -2,6 +2,7 @@ package com.archit.calendardaterangepicker.customviews
 
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.CalendarRangeType
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.Companion.DATE_FORMAT
+import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.printDate
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -49,8 +50,7 @@ internal class DateRangeCalendarManagerImpl(startMonthDate: Calendar, endMonthDa
     }
 
     override fun setVisibleMonths(startMonth: Calendar, endMonth: Calendar) {
-        require(!endMonth.before(startMonth)) { "Start date(" + startMonth.time.toString() + ") can not be after end date(" + endMonth.time.toString() + ")." }
-
+        validateDatesOrder(startMonth, endMonth)
         val startMonthDate = startMonth.clone() as Calendar
         val endMonthDate = endMonth.clone() as Calendar
 
@@ -76,29 +76,44 @@ internal class DateRangeCalendarManagerImpl(startMonthDate: Calendar, endMonthDa
         setSelectableDateRange(mStartVisibleMonth, mEndVisibleMonth)
     }
 
+    override fun getStartVisibleMonth() = mStartVisibleMonth
+
+    override fun getEndVisibleMonth() = mEndVisibleMonth
+
     override fun setSelectableDateRange(startDate: Calendar, endDate: Calendar) {
-        require(!endDate.before(startDate)) { "Start date(" + startDate.time.toString() + ") can not be after end date(" + endDate.time.toString() + ")." }
+        validateDatesOrder(startDate, endDate)
         mStartSelectableDate = startDate.clone() as Calendar
         CalendarRangeUtils.resetTime(mStartSelectableDate, CalendarRangeType.START_DATE)
         mEndSelectableDate = endDate.clone() as Calendar
         CalendarRangeUtils.resetTime(mEndSelectableDate, CalendarRangeType.LAST_DATE)
-        require(!mStartSelectableDate.before(mStartVisibleMonth)) {
-            "Selectable start date ${CalendarRangeUtils.printDate(mStartSelectableDate)} is out of visible months" +
-                    "(${CalendarRangeUtils.printDate(mStartVisibleMonth)} " +
-                    "- ${CalendarRangeUtils.printDate(mEndVisibleMonth)})."
+        if (mStartSelectableDate.before(mStartVisibleMonth)) {
+            throw InvalidDateException("Selectable start date ${printDate(mStartSelectableDate)} is out of visible months" +
+                    "(${printDate(mStartVisibleMonth)} " +
+                    "- ${printDate(mEndVisibleMonth)}).")
         }
-        require(!mEndSelectableDate.after(mEndVisibleMonth)) {
-            "Selectable end date ${CalendarRangeUtils.printDate(mEndSelectableDate)} is out of visible months" +
-                    "(${CalendarRangeUtils.printDate(mStartVisibleMonth)} " +
-                    "- ${CalendarRangeUtils.printDate(mEndVisibleMonth)})."
+        if (mEndSelectableDate.after(mEndVisibleMonth)) {
+            throw InvalidDateException("Selectable end date ${printDate(mEndSelectableDate)} is out of visible months" +
+                    "(${printDate(mStartVisibleMonth)} " +
+                    "- ${printDate(mEndVisibleMonth)}).")
         }
+        resetSelectedDateRange()
     }
 
-    override fun setSelectedDateRange(startDate: Calendar?, endDate: Calendar?) {
-        require(!(startDate == null && endDate != null)) { "Start date can not be null if you are setting end date." }
-        require(!(endDate != null && endDate.before(startDate))) { "Start date can not be after end date." }
-        this.mMinSelectedDate = startDate?.clone() as Calendar?
-        this.mMaxSelectedDate = endDate?.clone() as Calendar?
+    override fun resetSelectedDateRange() {
+        this.mMinSelectedDate = null
+        this.mMaxSelectedDate = null
+    }
+
+    override fun setSelectedDateRange(startDate: Calendar, endDate: Calendar) {
+        validateDatesOrder(startDate, endDate)
+        if (startDate.before(mStartSelectableDate)) {
+            throw InvalidDateException("Start date(${printDate(startDate)}) is out of selectable date range.")
+        }
+        if (endDate.after(mEndSelectableDate)) {
+            throw InvalidDateException("End date(${printDate(endDate)}) is out of selectable date range.")
+        }
+        this.mMinSelectedDate = startDate.clone() as Calendar
+        this.mMaxSelectedDate = endDate.clone() as Calendar
     }
 
     /**
@@ -138,12 +153,18 @@ internal class DateRangeCalendarManagerImpl(startMonthDate: Calendar, endMonthDa
     override fun isSelectableDate(date: Calendar): Boolean {
         // It would work even if date is exactly equal to one of the end cases
         val isSelectable = !(date.before(mStartSelectableDate) || date.after(mEndSelectableDate))
-        require(!(!isSelectable && checkDateRange(date) !== CalendarRangeType.NOT_IN_RANGE)) {
+        if (!(!isSelectable && checkDateRange(date) !== CalendarRangeType.NOT_IN_RANGE)) {
             "Selected date can not be out of Selectable Date range." +
-                    " Date: " + CalendarRangeUtils.printDate(date) +
-                    " Min: " + CalendarRangeUtils.printDate(mMinSelectedDate) +
-                    " Max: " + CalendarRangeUtils.printDate(mMaxSelectedDate)
+                    " Date: ${printDate(date)}" +
+                    " Min: ${printDate(mMinSelectedDate)}" +
+                    " Max: ${printDate(mMaxSelectedDate)}"
         }
         return isSelectable
+    }
+
+    private fun validateDatesOrder(start: Calendar, end: Calendar) {
+        if (start.after(end)) {
+            throw InvalidDateException("Start date(${printDate(start)}) can not be after end date(${printDate(end)}).")
+        }
     }
 }
