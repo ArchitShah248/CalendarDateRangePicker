@@ -104,7 +104,7 @@ class DateRangeMonthView extends LinearLayout {
         public void onClick(final View view) {
 
             if (calendarStyleAttr.isEditable()) {
-                final int key = (int) view.getTag();
+                final long key = (long) view.getTag();
                 final Calendar selectedCal = Calendar.getInstance();
                 Date date = new Date();
                 try {
@@ -114,51 +114,14 @@ class DateRangeMonthView extends LinearLayout {
                 }
                 selectedCal.setTime(date);
 
-                Calendar minSelectedDate = dateRangeCalendarManager.getMinSelectedDate();
-                Calendar maxSelectedDate = dateRangeCalendarManager.getMaxSelectedDate();
-
-                if (minSelectedDate != null && maxSelectedDate == null) {
-                    maxSelectedDate = selectedCal;
-
-                    final int startDateKey = DayContainer.GetContainerKey(minSelectedDate);
-                    final int lastDateKey = DayContainer.GetContainerKey(maxSelectedDate);
-
-                    if (startDateKey == lastDateKey) {
-                        minSelectedDate = maxSelectedDate;
-                    } else if (startDateKey > lastDateKey) {
-                        final Calendar temp = (Calendar) minSelectedDate.clone();
-                        minSelectedDate = maxSelectedDate;
-                        maxSelectedDate = temp;
-                    }
-                } else if (maxSelectedDate == null) {
-                    //This will call one time only
-                    minSelectedDate = selectedCal;
-                } else {
-                    minSelectedDate = selectedCal;
-                    maxSelectedDate = null;
-                }
-
-                dateRangeCalendarManager.setSelectedDateRange(minSelectedDate, maxSelectedDate);
-                drawCalendarForMonth(currentCalendarMonth);
-
                 if (calendarStyleAttr.isShouldEnabledTime()) {
-                    final Calendar finalMinSelectedDate = minSelectedDate;
-                    final Calendar finalMaxSelectedDate = maxSelectedDate;
-                    final AwesomeTimePickerDialog awesomeTimePickerDialog = new AwesomeTimePickerDialog(getContext(), getContext().getString(R.string.select_time), new AwesomeTimePickerDialog.TimePickerCallback() {
+                    final AwesomeTimePickerDialog awesomeTimePickerDialog = new AwesomeTimePickerDialog(getContext(),
+                            getContext().getString(R.string.select_time), new AwesomeTimePickerDialog.TimePickerCallback() {
                         @Override
                         public void onTimeSelected(final int hours, final int mins) {
                             selectedCal.set(Calendar.HOUR, hours);
                             selectedCal.set(Calendar.MINUTE, mins);
-
-                            Log.i(LOG_TAG, "Time: " + selectedCal.getTime().toString());
-                            if (calendarListener != null) {
-
-                                if (finalMaxSelectedDate != null) {
-                                    calendarListener.onDateRangeSelected(finalMinSelectedDate, finalMaxSelectedDate);
-                                } else {
-                                    calendarListener.onFirstDateSelected(finalMinSelectedDate);
-                                }
-                            }
+                            setSelectedDate(selectedCal);
                         }
 
                         @Override
@@ -168,16 +131,47 @@ class DateRangeMonthView extends LinearLayout {
                     });
                     awesomeTimePickerDialog.showDialog();
                 } else {
-                    Log.i(LOG_TAG, "Time: " + selectedCal.getTime().toString());
-                    if (maxSelectedDate != null) {
-                        calendarListener.onDateRangeSelected(minSelectedDate, maxSelectedDate);
-                    } else {
-                        calendarListener.onFirstDateSelected(minSelectedDate);
-                    }
+                    setSelectedDate(selectedCal);
                 }
             }
         }
     };
+
+    private void setSelectedDate(@NonNull final Calendar selectedCal) {
+
+        Calendar minSelectedDate = dateRangeCalendarManager.getMinSelectedDate();
+        Calendar maxSelectedDate = dateRangeCalendarManager.getMaxSelectedDate();
+
+        if (minSelectedDate != null && maxSelectedDate == null) {
+            maxSelectedDate = selectedCal;
+
+            final long startDateKey = DayContainer.getContainerKey(minSelectedDate);
+            final long lastDateKey = DayContainer.getContainerKey(maxSelectedDate);
+
+            if (startDateKey == lastDateKey) {
+                minSelectedDate = maxSelectedDate;
+            } else if (startDateKey > lastDateKey) {
+                final Calendar temp = (Calendar) minSelectedDate.clone();
+                minSelectedDate = maxSelectedDate;
+                maxSelectedDate = temp;
+            }
+        } else if (maxSelectedDate == null) {
+            //This will call one time only
+            minSelectedDate = selectedCal;
+        } else {
+            minSelectedDate = selectedCal;
+            maxSelectedDate = null;
+        }
+
+        dateRangeCalendarManager.setSelectedDateRange(minSelectedDate, maxSelectedDate);
+        drawCalendarForMonth(currentCalendarMonth);
+        Log.i(LOG_TAG, "Time: " + selectedCal.getTime().toString());
+        if (maxSelectedDate != null) {
+            calendarListener.onDateRangeSelected(minSelectedDate, maxSelectedDate);
+        } else {
+            calendarListener.onFirstDateSelected(minSelectedDate);
+        }
+    }
 
     /**
      * To draw calendar for the given month. Here calendar object should start from date of 1st.
@@ -265,7 +259,7 @@ class DateRangeMonthView extends LinearLayout {
             container.tvDate.setText(String.valueOf(date));
             container.tvDate.setTextSize(TypedValue.COMPLEX_UNIT_PX, calendarStyleAttr.getTextSizeDate());
         }
-        container.rootView.setTag(DayContainer.GetContainerKey(calendar));
+        container.rootView.setTag(DayContainer.getContainerKey(calendar));
     }
 
     /**
@@ -323,11 +317,12 @@ class DateRangeMonthView extends LinearLayout {
         final Calendar minDate = dateRangeCalendarManager.getMinSelectedDate();
         final Calendar maxDate = dateRangeCalendarManager.getMaxSelectedDate();
 
-        if (stripType == CalendarRangeType.START_DATE && maxDate != null &&
-                minDate.compareTo(maxDate) != 0) {
+        if (minDate != null && maxDate != null && CalendarRangeUtils.isDateSame(minDate, maxDate)) {
+            container.strip.setBackgroundColor(Color.TRANSPARENT);
+            layoutParams.setMargins(0, 0, 0, 0);
+        } else if (stripType == CalendarRangeType.START_DATE && maxDate != null) {
             final Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.range_bg_left);
             mDrawable.setColorFilter(new PorterDuffColorFilter(calendarStyleAttr.getRangeStripColor(), FILTER_MODE));
-
             container.strip.setBackground(mDrawable);
             layoutParams.setMargins(20, 0, 0, 0);
         } else if (stripType == CalendarRangeType.LAST_DATE) {

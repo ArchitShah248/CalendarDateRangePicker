@@ -189,6 +189,8 @@ class CalendarDateRangeTest {
         // THEN
         Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
         Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
+        Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!)
+        Assert.assertEquals(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!)
         Assert.assertEquals(CalendarRangeType.START_DATE, mCalendarManagerImpl.checkDateRange(selectedStartDate))
         Assert.assertEquals(CalendarRangeType.LAST_DATE, mCalendarManagerImpl.checkDateRange(selectedEndDate))
         Assert.assertEquals(CalendarRangeType.MIDDLE_DATE, mCalendarManagerImpl.checkDateRange(middleDate1))
@@ -198,6 +200,30 @@ class CalendarDateRangeTest {
         Assert.assertEquals(CalendarRangeType.NOT_IN_RANGE, mCalendarManagerImpl.checkDateRange(selectableEndDate))
         Assert.assertEquals(CalendarRangeType.NOT_IN_RANGE, mCalendarManagerImpl.checkDateRange(dateOutOfRange1))
         Assert.assertEquals(CalendarRangeType.NOT_IN_RANGE, mCalendarManagerImpl.checkDateRange(dateOutOfRange2))
+    }
+
+    @Test
+    fun testSelectedDateRangeWithSameDate() {
+        // GIVEN
+        val selectableStartDate = getCalendar(1, Calendar.MARCH, 2020)
+        val selectableEndDate = getCalendar(11, Calendar.MARCH, 2020)
+        val selectedStartDate = getCalendar(2, Calendar.MARCH, 2020)
+        selectedStartDate.set(Calendar.HOUR_OF_DAY, 1)
+        selectedStartDate.set(Calendar.MINUTE, 10)
+        val selectedEndDate = getCalendar(2, Calendar.MARCH, 2020)
+        selectedEndDate.set(Calendar.HOUR_OF_DAY, 16)
+        selectedEndDate.set(Calendar.MINUTE, 10)
+
+        // WHEN
+        mCalendarManagerImpl.setSelectableDateRange(selectableStartDate, selectableEndDate)
+        mCalendarManagerImpl.setSelectedDateRange(selectedStartDate, selectedEndDate)
+        // THEN
+        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
+        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
+        Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!)
+        Assert.assertEquals(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!)
+        Assert.assertEquals(CalendarRangeType.START_DATE, mCalendarManagerImpl.checkDateRange(selectedStartDate))
+        Assert.assertEquals(CalendarRangeType.START_DATE, mCalendarManagerImpl.checkDateRange(selectedEndDate))
     }
 
     private fun checkDateOrderValidation(errorMsg: String, start: Calendar, end: Calendar) {

@@ -1,7 +1,9 @@
 package com.archit.calendardaterangepicker.customviews
 
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.CalendarRangeType
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class CalendarRangeUtils {
 
@@ -45,7 +47,8 @@ class CalendarRangeUtils {
         @JvmStatic
         fun printDate(calendar: Calendar?): String {
             return if (calendar != null) {
-                "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH)}/${calendar.get(Calendar.YEAR)}"
+                val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                return simpleDateFormat.format(calendar.time)
             } else {
                 "null"
             }

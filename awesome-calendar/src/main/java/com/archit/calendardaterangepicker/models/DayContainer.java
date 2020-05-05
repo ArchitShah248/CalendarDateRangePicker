@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DATE_FORMAT;
+
 /**
  * Created by Archit Shah on 8/13/2017.
  */
@@ -19,7 +21,7 @@ public class DayContainer {
     public CustomTextView tvDate;
     public View strip;
 
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
     public DayContainer(final RelativeLayout rootView) {
         this.rootView = rootView;
@@ -27,14 +29,8 @@ public class DayContainer {
         tvDate = (CustomTextView) rootView.getChildAt(1);
     }
 
-    public static int GetContainerKey(final Calendar cal) {
-//            Calendar calendar = (Calendar) cal.clone();
-//            calendar.set(Calendar.HOUR, 0);
-//            calendar.set(Calendar.MINUTE, 0);
-//            calendar.set(Calendar.SECOND, 0);
-//            String key = String.valueOf(cal.getTime().getTime());
-
+    public static long getContainerKey(final Calendar cal) {
         final String str = simpleDateFormat.format(cal.getTime());
-        return Integer.valueOf(str);
+        return Long.parseLong(str);
     }
 }

@@ -2,13 +2,14 @@ package com.archit.calendardaterangepickerdemo;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.archit.calendardaterangepicker.customviews.CalendarListener;
+import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils;
 import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView;
 
 import java.util.Calendar;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         calendar.setVisibleMonthRange(startMonth, endMonth);
 
         final Calendar startDateSelectable = (Calendar) startMonth.clone();
-        startDateSelectable.add(Calendar.DATE,20);
+        startDateSelectable.add(Calendar.DATE, 20);
         final Calendar endDateSelectable = (Calendar) endMonth.clone();
         endDateSelectable.add(Calendar.DATE, -20);
         Log.d(TAG, "startDateSelectable: " + startDateSelectable.getTime().toString() + " :: endDateSelectable: " + endDateSelectable.getTime().toString());
@@ -65,11 +66,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onFirstDateSelected(@NonNull final Calendar startDate) {
             Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Selected dates: Start: " + CalendarRangeUtils.printDate(calendar.getStartDate()) +
+                    " End:" + CalendarRangeUtils.printDate(calendar.getEndDate()));
         }
 
         @Override
         public void onDateRangeSelected(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
             Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString() + " End date: " + endDate.getTime().toString(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Selected dates: Start: " + CalendarRangeUtils.printDate(calendar.getStartDate()) +
+                    " End:" + CalendarRangeUtils.printDate(calendar.getEndDate()));
         }
     };
 }

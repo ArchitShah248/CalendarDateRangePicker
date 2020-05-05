@@ -26,6 +26,7 @@
             custom:selected_date_circle_color="@color/selected_date_circle_color_app"
             custom:title_color="@color/calendar_header_title"
             custom:editable="true"
+            custom:enable_time_selection="true"
             custom:week_offset="0">
 
         </com.archit.calendardaterangepicker.customviews.DateRangeCalendarView>

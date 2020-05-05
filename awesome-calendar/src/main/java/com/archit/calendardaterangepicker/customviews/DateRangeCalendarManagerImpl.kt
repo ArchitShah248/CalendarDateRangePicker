@@ -1,8 +1,11 @@
 package com.archit.calendardaterangepicker.customviews
 
+import android.util.Log
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.CalendarRangeType
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.Companion.DATE_FORMAT
+import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.isDateSame
 import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.printDate
+import com.archit.calendardaterangepicker.models.DayContainer
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -87,12 +90,12 @@ internal class DateRangeCalendarManagerImpl(startMonthDate: Calendar, endMonthDa
         mEndSelectableDate = endDate.clone() as Calendar
         CalendarRangeUtils.resetTime(mEndSelectableDate, CalendarRangeType.LAST_DATE)
         if (mStartSelectableDate.before(mStartVisibleMonth)) {
-            throw InvalidDateException("Selectable start date ${printDate(mStartSelectableDate)} is out of visible months" +
+            throw InvalidDateException("Selectable start date ${printDate(startDate)} is out of visible months" +
                     "(${printDate(mStartVisibleMonth)} " +
                     "- ${printDate(mEndVisibleMonth)}).")
         }
         if (mEndSelectableDate.after(mEndVisibleMonth)) {
-            throw InvalidDateException("Selectable end date ${printDate(mEndSelectableDate)} is out of visible months" +
+            throw InvalidDateException("Selectable end date ${printDate(endDate)} is out of visible months" +
                     "(${printDate(mStartVisibleMonth)} " +
                     "- ${printDate(mEndVisibleMonth)}).")
         }
@@ -104,16 +107,17 @@ internal class DateRangeCalendarManagerImpl(startMonthDate: Calendar, endMonthDa
         this.mMaxSelectedDate = null
     }
 
-    override fun setSelectedDateRange(startDate: Calendar, endDate: Calendar) {
+    override fun setSelectedDateRange(startDate: Calendar, endDate: Calendar?) {
         validateDatesOrder(startDate, endDate)
         if (startDate.before(mStartSelectableDate)) {
             throw InvalidDateException("Start date(${printDate(startDate)}) is out of selectable date range.")
         }
-        if (endDate.after(mEndSelectableDate)) {
+        if (endDate != null && endDate.after(mEndSelectableDate)) {
             throw InvalidDateException("End date(${printDate(endDate)}) is out of selectable date range.")
         }
+        Log.i(TAG, "Selected dates: Start(${printDate(startDate)})-End(${printDate(endDate)})")
         this.mMinSelectedDate = startDate.clone() as Calendar
-        this.mMaxSelectedDate = endDate.clone() as Calendar
+        this.mMaxSelectedDate = endDate?.clone() as Calendar?
     }
 
     /**
@@ -122,25 +126,22 @@ internal class DateRangeCalendarManagerImpl(startMonthDate: Calendar, endMonthDa
      * @return Date type
      */
     override fun checkDateRange(selectedDate: Calendar): CalendarRangeType {
-        val dateStr = SIMPLE_DATE_FORMAT.format(selectedDate.time)
         return if (mMinSelectedDate != null && mMaxSelectedDate == null) {
-            val minDateStr = SIMPLE_DATE_FORMAT.format(mMinSelectedDate!!.time)
-            if (dateStr.equals(minDateStr, ignoreCase = true)) {
+            if (isDateSame(selectedDate, mMinSelectedDate!!)) {
                 CalendarRangeType.START_DATE
             } else {
                 CalendarRangeType.NOT_IN_RANGE
             }
-        } else if (mMinSelectedDate != null) { //Min date and Max date are selected
-            val selectedDateVal = dateStr.toLong()
-            val minDateStr = SIMPLE_DATE_FORMAT.format(mMinSelectedDate!!.time)
-            val maxDateStr = SIMPLE_DATE_FORMAT.format(mMaxSelectedDate!!.time)
-            val minDateVal = minDateStr.toLong()
-            val maxDateVal = maxDateStr.toLong()
-            if (selectedDateVal == minDateVal) {
+        } else if (mMinSelectedDate != null) {
+            //Min date and Max date are selected
+            val selectedDateVal = DayContainer.getContainerKey(selectedDate)
+            val minDateVal = DayContainer.getContainerKey(mMinSelectedDate)
+            val maxDateVal = DayContainer.getContainerKey(mMaxSelectedDate)
+            if (isDateSame(selectedDate, mMinSelectedDate!!)) {
                 CalendarRangeType.START_DATE
-            } else if (selectedDateVal == maxDateVal) {
+            } else if (isDateSame(selectedDate, mMaxSelectedDate!!)) {
                 CalendarRangeType.LAST_DATE
-            } else if (selectedDateVal in (minDateVal + 1) until maxDateVal) {
+            } else if (selectedDateVal in minDateVal until maxDateVal) {
                 CalendarRangeType.MIDDLE_DATE
             } else {
                 CalendarRangeType.NOT_IN_RANGE
@@ -162,7 +163,7 @@ internal class DateRangeCalendarManagerImpl(startMonthDate: Calendar, endMonthDa
         return isSelectable
     }
 
-    private fun validateDatesOrder(start: Calendar, end: Calendar) {
+    private fun validateDatesOrder(start: Calendar, end: Calendar?) {
         if (start.after(end)) {
             throw InvalidDateException("Start date(${printDate(start)}) can not be after end date(${printDate(end)}).")
         }

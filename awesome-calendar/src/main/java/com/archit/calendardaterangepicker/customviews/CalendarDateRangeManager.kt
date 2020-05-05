@@ -12,7 +12,7 @@ interface CalendarDateRangeManager {
     }
 
     companion object {
-        const val DATE_FORMAT = "yyyyMMdd"
+        const val DATE_FORMAT = "yyyyMMddHHmm"
     }
 
     fun setVisibleMonths(startMonth: Calendar, endMonth: Calendar)
@@ -23,7 +23,7 @@ interface CalendarDateRangeManager {
 
     fun setSelectableDateRange(startDate: Calendar, endDate: Calendar)
 
-    fun setSelectedDateRange(startDate: Calendar, endDate: Calendar)
+    fun setSelectedDateRange(startDate: Calendar, endDate: Calendar?)
 
     fun resetSelectedDateRange()
 
