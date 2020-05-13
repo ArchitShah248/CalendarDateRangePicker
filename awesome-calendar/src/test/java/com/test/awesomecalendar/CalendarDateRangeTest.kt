@@ -1,7 +1,8 @@
 package com.test.awesomecalendar
 
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager
-import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.CalendarRangeType
+import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState
+import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.LAST_DATE
 import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils
 import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.printDate
 import com.archit.calendardaterangepicker.customviews.DateRangeCalendarManagerImpl
@@ -191,15 +192,15 @@ class CalendarDateRangeTest {
         Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
         Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!)
         Assert.assertEquals(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!)
-        Assert.assertEquals(CalendarRangeType.START_DATE, mCalendarManagerImpl.checkDateRange(selectedStartDate))
-        Assert.assertEquals(CalendarRangeType.LAST_DATE, mCalendarManagerImpl.checkDateRange(selectedEndDate))
-        Assert.assertEquals(CalendarRangeType.MIDDLE_DATE, mCalendarManagerImpl.checkDateRange(middleDate1))
-        Assert.assertEquals(CalendarRangeType.MIDDLE_DATE, mCalendarManagerImpl.checkDateRange(middleDate2))
-        Assert.assertEquals(CalendarRangeType.MIDDLE_DATE, mCalendarManagerImpl.checkDateRange(middleDate3))
-        Assert.assertEquals(CalendarRangeType.NOT_IN_RANGE, mCalendarManagerImpl.checkDateRange(selectableStartDate))
-        Assert.assertEquals(CalendarRangeType.NOT_IN_RANGE, mCalendarManagerImpl.checkDateRange(selectableEndDate))
-        Assert.assertEquals(CalendarRangeType.NOT_IN_RANGE, mCalendarManagerImpl.checkDateRange(dateOutOfRange1))
-        Assert.assertEquals(CalendarRangeType.NOT_IN_RANGE, mCalendarManagerImpl.checkDateRange(dateOutOfRange2))
+        Assert.assertEquals(DateSelectionState.START_DATE, mCalendarManagerImpl.checkDateRange(selectedStartDate))
+        Assert.assertEquals(DateSelectionState.LAST_DATE, mCalendarManagerImpl.checkDateRange(selectedEndDate))
+        Assert.assertEquals(DateSelectionState.IN_SELECTED_RANGE, mCalendarManagerImpl.checkDateRange(middleDate1))
+        Assert.assertEquals(DateSelectionState.IN_SELECTED_RANGE, mCalendarManagerImpl.checkDateRange(middleDate2))
+        Assert.assertEquals(DateSelectionState.IN_SELECTED_RANGE, mCalendarManagerImpl.checkDateRange(middleDate3))
+        Assert.assertEquals(DateSelectionState.UNKNOWN, mCalendarManagerImpl.checkDateRange(selectableStartDate))
+        Assert.assertEquals(DateSelectionState.UNKNOWN, mCalendarManagerImpl.checkDateRange(selectableEndDate))
+        Assert.assertEquals(DateSelectionState.UNKNOWN, mCalendarManagerImpl.checkDateRange(dateOutOfRange1))
+        Assert.assertEquals(DateSelectionState.UNKNOWN, mCalendarManagerImpl.checkDateRange(dateOutOfRange2))
     }
 
     @Test
@@ -222,8 +223,8 @@ class CalendarDateRangeTest {
         Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
         Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!)
         Assert.assertEquals(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!)
-        Assert.assertEquals(CalendarRangeType.START_DATE, mCalendarManagerImpl.checkDateRange(selectedStartDate))
-        Assert.assertEquals(CalendarRangeType.START_DATE, mCalendarManagerImpl.checkDateRange(selectedEndDate))
+        Assert.assertEquals(DateSelectionState.START_END_SAME, mCalendarManagerImpl.checkDateRange(selectedStartDate))
+        Assert.assertEquals(DateSelectionState.START_END_SAME, mCalendarManagerImpl.checkDateRange(selectedEndDate))
     }
 
     private fun checkDateOrderValidation(errorMsg: String, start: Calendar, end: Calendar) {

@@ -4,11 +4,12 @@ import java.util.Calendar
 
 interface CalendarDateRangeManager {
 
-    enum class CalendarRangeType {
-        NOT_IN_RANGE,
+    enum class DateSelectionState {
+        UNKNOWN,
         START_DATE,
-        MIDDLE_DATE,
-        LAST_DATE
+        LAST_DATE,
+        START_END_SAME,
+        IN_SELECTED_RANGE
     }
 
     companion object {
@@ -37,5 +38,5 @@ interface CalendarDateRangeManager {
 
     fun isSelectableDate(date: Calendar): Boolean
 
-    fun checkDateRange(selectedDate: Calendar): CalendarRangeType
+    fun checkDateRange(selectedDate: Calendar): DateSelectionState
 }

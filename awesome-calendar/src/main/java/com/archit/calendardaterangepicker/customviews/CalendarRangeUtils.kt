@@ -1,11 +1,18 @@
 package com.archit.calendardaterangepicker.customviews
 
-import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.CalendarRangeType
+import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.DateTiming.END
+import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.DateTiming.START
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 class CalendarRangeUtils {
+
+    enum class DateTiming {
+        NONE,
+        START,
+        END
+    }
 
     companion object {
 
@@ -15,15 +22,15 @@ class CalendarRangeUtils {
          * @param date [Calendar]
          */
         @JvmStatic
-        fun resetTime(date: Calendar, rangeType: CalendarRangeType) {
-            when {
-                rangeType === CalendarRangeType.START_DATE -> {
+        fun resetTime(date: Calendar, dateTiming: DateTiming) {
+            when (dateTiming) {
+                START -> {
                     date[Calendar.HOUR_OF_DAY] = 0
                     date[Calendar.MINUTE] = 0
                     date[Calendar.SECOND] = 0
                     date[Calendar.MILLISECOND] = 0
                 }
-                rangeType === CalendarRangeType.LAST_DATE -> {
+                END -> {
                     date[Calendar.HOUR_OF_DAY] = 23
                     date[Calendar.MINUTE] = 59
                     date[Calendar.SECOND] = 59
