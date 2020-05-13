@@ -29,6 +29,9 @@ import com.archit.calendardaterangepicker.customviews.DateView.DateState.SELECTA
 import com.archit.calendardaterangepicker.customviews.DateView.DateState.START
 import com.archit.calendardaterangepicker.customviews.DateView.OnDateClickListener
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.LIMITED_RANGE
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.SINGLE
 import com.archit.calendardaterangepicker.timepicker.AwesomeTimePickerDialog
 import com.archit.calendardaterangepicker.timepicker.AwesomeTimePickerDialog.TimePickerCallback
 import java.util.Calendar
@@ -107,30 +110,47 @@ internal class DateRangeMonthView : LinearLayout {
         }
     }
 
-    private fun setSelectedDate(selectedCal: Calendar) {
+    private fun setSelectedDate(selectedDate: Calendar) {
+
+        val selectionMode = calendarStyleAttr.dateSelectionMode
         var minSelectedDate = dateRangeCalendarManager.getMinSelectedDate()
         var maxSelectedDate = dateRangeCalendarManager.getMaxSelectedDate()
-        if (minSelectedDate != null && maxSelectedDate == null) {
-            maxSelectedDate = selectedCal
-            val startDateKey = getContainerKey(minSelectedDate)
-            val lastDateKey = getContainerKey(maxSelectedDate)
-            if (startDateKey == lastDateKey) {
-                minSelectedDate = maxSelectedDate
-            } else if (startDateKey > lastDateKey) {
-                val temp = minSelectedDate.clone() as Calendar
-                minSelectedDate = maxSelectedDate
-                maxSelectedDate = temp
+
+        when (selectionMode) {
+            FREE_RANGE -> {
+                if (minSelectedDate != null && maxSelectedDate == null) {
+                    maxSelectedDate = selectedDate
+                    val startDateKey = getContainerKey(minSelectedDate)
+                    val lastDateKey = getContainerKey(maxSelectedDate)
+                    if (startDateKey == lastDateKey) {
+                        minSelectedDate = maxSelectedDate
+                    } else if (startDateKey > lastDateKey) {
+                        val temp = minSelectedDate.clone() as Calendar
+                        minSelectedDate = maxSelectedDate
+                        maxSelectedDate = temp
+                    }
+                } else if (maxSelectedDate == null) {
+                    //This will call one time only
+                    minSelectedDate = selectedDate
+                } else {
+                    minSelectedDate = selectedDate
+                    maxSelectedDate = null
+                }
             }
-        } else if (maxSelectedDate == null) {
-            //This will call one time only
-            minSelectedDate = selectedCal
-        } else {
-            minSelectedDate = selectedCal
-            maxSelectedDate = null
+            SINGLE -> {
+                minSelectedDate = selectedDate
+                maxSelectedDate = selectedDate
+            }
+            LIMITED_RANGE -> {
+                minSelectedDate = selectedDate
+                maxSelectedDate = selectedDate.clone() as Calendar
+                maxSelectedDate.add(Calendar.DATE, calendarStyleAttr.fixedDaysSelectionNumber)
+            }
         }
+
         dateRangeCalendarManager.setSelectedDateRange(minSelectedDate, maxSelectedDate)
         drawCalendarForMonth(currentCalendarMonth)
-        Log.i(LOG_TAG, "Time: " + selectedCal.time.toString())
+        Log.i(LOG_TAG, "Time: " + selectedDate.time.toString())
         if (maxSelectedDate != null) {
             calendarListener!!.onDateRangeSelected(minSelectedDate, maxSelectedDate)
         } else {
@@ -191,18 +211,18 @@ internal class DateRangeMonthView : LinearLayout {
      * To draw specific date container according to past date, today, selected or from range.
      *
      * @param customDateView - Date container
-     * @param calendar       - Calendar obj of specific date of the month.
+     * @param date       - Calendar obj of specific date of the month.
      */
-    private fun drawDayContainer(customDateView: CustomDateView, calendar: Calendar) {
-        customDateView.setDateText(calendar[Calendar.DATE].toString())
+    private fun drawDayContainer(customDateView: CustomDateView, date: Calendar) {
+        customDateView.setDateText(date[Calendar.DATE].toString())
         customDateView.setDateStyleAttributes(calendarStyleAttr)
         customDateView.setDateClickListener(mOnDateClickListener)
         calendarStyleAttr.fonts?.let { customDateView.setTypeface(it) }
         val dateState: DateState
-        dateState = if (currentCalendarMonth[Calendar.MONTH] != calendar[Calendar.MONTH]) {
+        dateState = if (currentCalendarMonth[Calendar.MONTH] != date[Calendar.MONTH]) {
             HIDDEN
         } else {
-            val type = dateRangeCalendarManager.checkDateRange(calendar)
+            val type = dateRangeCalendarManager.checkDateRange(date)
             if (type === START_DATE) {
                 START
             } else if (type === LAST_DATE) {
@@ -212,7 +232,7 @@ internal class DateRangeMonthView : LinearLayout {
             } else if (type === IN_SELECTED_RANGE) {
                 MIDDLE
             } else {
-                if (dateRangeCalendarManager.isSelectableDate(calendar)) {
+                if (dateRangeCalendarManager.isSelectableDate(date)) {
                     SELECTABLE
                 } else {
                     DISABLE
@@ -220,7 +240,7 @@ internal class DateRangeMonthView : LinearLayout {
             }
         }
         customDateView.updateDateBackground(dateState)
-        customDateView.tag = getContainerKey(calendar)
+        customDateView.tag = getContainerKey(date)
     }
 
     /**

@@ -10,6 +10,9 @@ import com.archit.calendardaterangepicker.R
 import com.archit.calendardaterangepicker.R.color
 import com.archit.calendardaterangepicker.R.dimen
 import com.archit.calendardaterangepicker.R.styleable
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.Companion.DEFAULT_FIXED_DAYS_SELECTION
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
 
 class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null) : CalendarStyleAttributes {
     override var fonts: Typeface? = null
@@ -52,6 +55,8 @@ class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null
             field = weekOffset
         }
     override var isEditable = true
+    override var dateSelectionMode = FREE_RANGE
+    override var fixedDaysSelectionNumber: Int = DEFAULT_FIXED_DAYS_SELECTION
 
     init {
         attributeSet?.apply { setAttributes(context, this) }
@@ -76,6 +81,7 @@ class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null
                 rangeDateColor = ta.getColor(styleable.DateRangeMonthView_range_date_color, rangeDateColor)
                 disableDateColor = ta.getColor(styleable.DateRangeMonthView_disable_date_color, disableDateColor)
                 weekOffset = ta.getColor(styleable.DateRangeMonthView_week_offset, 0)
+                dateSelectionMode = DateSelectionMode.values()[ta.getInt(R.styleable.DateRangeMonthView_date_selection_mode, 0)]
             } finally {
                 ta.recycle()
             }

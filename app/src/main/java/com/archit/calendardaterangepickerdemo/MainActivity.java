@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Calendar current = Calendar.getInstance();
         calendar.setCurrentMonth(current);
+        calendar.setFixedDaysSelection(2);
     }
 
     private final CalendarListener calendarListener = new CalendarListener() {

@@ -5,7 +5,19 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 
 interface CalendarStyleAttributes {
+
+    companion object {
+        val DEFAULT_FIXED_DAYS_SELECTION = 7
+    }
+
+    enum class DateSelectionMode {
+        FREE_RANGE,
+        SINGLE,
+        LIMITED_RANGE
+    }
+
     var fonts: Typeface?
+
     @get:ColorInt
     val titleColor: Int
     var headerBg: Drawable?
@@ -36,4 +48,6 @@ interface CalendarStyleAttributes {
     val isShouldEnabledTime: Boolean
     var weekOffset: Int
     var isEditable: Boolean
+    var dateSelectionMode: DateSelectionMode
+    var fixedDaysSelectionNumber : Int
 }

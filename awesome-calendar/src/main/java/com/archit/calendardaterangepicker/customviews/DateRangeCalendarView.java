@@ -294,4 +294,10 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
         mDateRangeCalendarManager.setSelectableDateRange(startDate, endDate);
         adapterEventCalendarMonths.notifyDataSetChanged();
     }
+
+    @Override
+    public void setFixedDaysSelection(final int numberOfDaysSelection) {
+        calendarStyleAttr.setFixedDaysSelectionNumber(numberOfDaysSelection);
+        adapterEventCalendarMonths.invalidateCalendar();
+    }
 }
