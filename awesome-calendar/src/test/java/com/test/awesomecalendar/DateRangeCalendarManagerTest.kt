@@ -12,7 +12,7 @@ import org.junit.Before
 import org.junit.Test
 import java.util.Calendar
 
-class CalendarDateRangeTest {
+class DateRangeCalendarManagerTest {
 
     private lateinit var mCalendarManagerImpl: CalendarDateRangeManager
     private val mDefStartMonth = getCalendar(12, Calendar.OCTOBER, 2019)

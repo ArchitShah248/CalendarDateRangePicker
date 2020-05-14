@@ -13,7 +13,7 @@ interface CalendarStyleAttributes {
     enum class DateSelectionMode {
         FREE_RANGE,
         SINGLE,
-        LIMITED_RANGE
+        FIXED_RANGE
     }
 
     var fonts: Typeface?
@@ -49,5 +49,7 @@ interface CalendarStyleAttributes {
     var weekOffset: Int
     var isEditable: Boolean
     var dateSelectionMode: DateSelectionMode
-    var fixedDaysSelectionNumber : Int
+    var fixedDaysSelectionNumber: Int
 }
+
+class InvalidCalendarAttributeException(override val message: String?) : IllegalArgumentException(message)
