@@ -88,6 +88,13 @@ interface DateRangeCalendarViewApi {
     fun setSelectedDateRange(startDate: Calendar, endDate: Calendar)
 
     /**
+     * Sets number of days only when date selection mode is <B>free_range</B>. If date selection mode is not set to `free_range`
+     * then exception will be thrown. Default number of days selection is 7 days from the selected date.
+     * @param numberOfDaysSelection - Number of days that needs to be selected from the selected date.
+     */
+    fun setFixedDaysSelection(numberOfDaysSelection: Int)
+
+    /**
      * To get start date.
      */
     val startDate: Calendar?

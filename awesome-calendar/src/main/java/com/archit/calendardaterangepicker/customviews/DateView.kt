@@ -13,7 +13,6 @@ interface DateView {
         fun onDateClicked(view: View, selectedDate: Calendar)
     }
 
-
     enum class DateState {
         /**
          * State for hiding date in month.
