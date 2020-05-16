@@ -31,7 +31,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
     private Locale locale;
     private ViewPager vpCalendar;
     private CalendarStyleAttributes calendarStyleAttr;
-    private DateRangeCalendarManagerImpl mDateRangeCalendarManager;
+    private CalendarDateRangeManagerImpl mDateRangeCalendarManager;
 
     private final static int TOTAL_ALLOWED_MONTHS = 30;
 
@@ -69,7 +69,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
         final Calendar defEndMonth = (Calendar) Calendar.getInstance().clone();
         defEndMonth.add(Calendar.MONTH, TOTAL_ALLOWED_MONTHS);
 
-        mDateRangeCalendarManager = new DateRangeCalendarManagerImpl(defStartMonth, defEndMonth);
+        mDateRangeCalendarManager = new CalendarDateRangeManagerImpl(defStartMonth, defEndMonth, calendarStyleAttr);
 
         adapterEventCalendarMonths = new AdapterEventCalendarMonths(context, mDateRangeCalendarManager, calendarStyleAttr);
         vpCalendar.setAdapter(adapterEventCalendarMonths);
@@ -216,6 +216,7 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
      * <B>Note:</B><br>
      * You can not set end date before start date.<br>
      * If you are setting custom month range than do not call this before calling (@method setVisibleMonthRange).<br>
+     * If you have selected date selection mode as `single` or `fixed_range` then end date will be ignored.
      *
      * @param startDate Start date
      * @param endDate   End date
@@ -295,6 +296,13 @@ public class DateRangeCalendarView extends LinearLayout implements DateRangeCale
         adapterEventCalendarMonths.notifyDataSetChanged();
     }
 
+    /**
+     * Sets number of days only when date selection mode is <B>free_range</B>. If date selection mode is not set to `free_range`
+     * then exception will be thrown.<br/
+     * <b>Note:</b> Default number of days selection is 7 days from the selected date.
+     *
+     * @param numberOfDaysSelection - Number of days that needs to be selected from the selected date.
+     */
     @Override
     public void setFixedDaysSelection(final int numberOfDaysSelection) {
         calendarStyleAttr.setFixedDaysSelectionNumber(numberOfDaysSelection);

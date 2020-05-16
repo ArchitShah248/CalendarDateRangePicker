@@ -81,7 +81,7 @@ interface DateRangeCalendarViewApi {
      * <B>Note:</B><br></br>
      * You can not set end date before start date.<br></br>
      * If you are setting custom month range than do not call this before calling (@method setVisibleMonthRange).<br></br>
-     *
+     * If you have selected date selection mode as `single` or `fixed_range` then end date will be ignored.
      * @param startDate Start date
      * @param endDate   End date
      */

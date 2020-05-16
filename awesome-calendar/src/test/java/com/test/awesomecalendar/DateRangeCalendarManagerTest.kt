@@ -2,14 +2,18 @@ package com.test.awesomecalendar
 
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState
-import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.LAST_DATE
 import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils
 import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.printDate
-import com.archit.calendardaterangepicker.customviews.DateRangeCalendarManagerImpl
+import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManagerImpl
 import com.archit.calendardaterangepicker.customviews.InvalidDateException
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FIXED_RANGE
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.SINGLE
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito
 import java.util.Calendar
 
 class DateRangeCalendarManagerTest {
@@ -17,15 +21,17 @@ class DateRangeCalendarManagerTest {
     private lateinit var mCalendarManagerImpl: CalendarDateRangeManager
     private val mDefStartMonth = getCalendar(12, Calendar.OCTOBER, 2019)
     private val mDefEndMonth = getCalendar(20, Calendar.JUNE, 2020)
+    private val mockCalendarStyleAttributes = Mockito.mock(CalendarStyleAttributes::class.java)
 
     @Before
     fun setUp() {
         // GIVEN
-        mCalendarManagerImpl = DateRangeCalendarManagerImpl(mDefStartMonth, mDefEndMonth)
+        Mockito.`when`(mockCalendarStyleAttributes.dateSelectionMode).thenReturn(FREE_RANGE)
+        mCalendarManagerImpl = CalendarDateRangeManagerImpl(mDefStartMonth, mDefEndMonth, mockCalendarStyleAttributes)
     }
 
     @Test
-    fun testVisibleMonthRange() {
+    fun `test visible month range`() {
         // GIVEN
         val expectedStartDate = getCalendar(1, Calendar.OCTOBER, 2019)
         val expectedEndDate = getCalendar(30, Calendar.JUNE, 2020)
@@ -45,7 +51,7 @@ class DateRangeCalendarManagerTest {
     }
 
     @Test
-    fun testVisibleMonthRangeDateOrderValidations() {
+    fun `test visible month range date order validations`() {
         try {
             // WHEN
             mCalendarManagerImpl.setVisibleMonths(mDefEndMonth, mDefStartMonth)
@@ -56,7 +62,7 @@ class DateRangeCalendarManagerTest {
     }
 
     @Test
-    fun testSelectableDatesOrderValidations() {
+    fun `test selectable dates order validations`() {
         try {
             // WHEN
             mCalendarManagerImpl.setSelectableDateRange(mDefEndMonth, mDefStartMonth)
@@ -67,7 +73,7 @@ class DateRangeCalendarManagerTest {
     }
 
     @Test
-    fun testSelectedDatesOrderValidations() {
+    fun `test selected dates order validations`() {
         try {
             // WHEN
             mCalendarManagerImpl.setSelectedDateRange(mDefEndMonth, mDefStartMonth)
@@ -78,7 +84,7 @@ class DateRangeCalendarManagerTest {
     }
 
     @Test
-    fun checkSelectableDateOutOfVisibleRange() {
+    fun `check selectable date out of visible range`() {
         // GIVEN
         val selectableStartDate = getCalendar(30, Calendar.SEPTEMBER, 2019)
         val selectableEndDate = getCalendar(2, Calendar.JUNE, 2020)
@@ -107,7 +113,7 @@ class DateRangeCalendarManagerTest {
     }
 
     @Test
-    fun checkSelectableDateRange() {
+    fun `check selectable date range`() {
         // GIVEN
         val selectableStartDate = getCalendar(20, Calendar.OCTOBER, 2019)
         val selectableEndDate = getCalendar(2, Calendar.JUNE, 2020)
@@ -128,7 +134,7 @@ class DateRangeCalendarManagerTest {
     }
 
     @Test
-    fun testSelectedDateRangeDateValidation() {
+    fun `test selected date range date validation`() {
         // GIVEN
         val selectedStartDate = getCalendar(2, Calendar.MARCH, 2020)
         val selectedEndDate = getCalendar(10, Calendar.MARCH, 2020)
@@ -142,7 +148,7 @@ class DateRangeCalendarManagerTest {
     }
 
     @Test
-    fun testSelectedDateRangeOutOfSelectableRangeValidation() {
+    fun `test selected date range out of selectable range validation`() {
         // GIVEN
         val selectableStartDate = getCalendar(1, Calendar.MARCH, 2020)
         val selectableEndDate = getCalendar(11, Calendar.MARCH, 2020)
@@ -172,7 +178,7 @@ class DateRangeCalendarManagerTest {
     }
 
     @Test
-    fun testSelectedDateRange() {
+    fun `test selected date range with date selection mode free range`() {
         // GIVEN
         val selectableStartDate = getCalendar(1, Calendar.MARCH, 2020)
         val selectableEndDate = getCalendar(11, Calendar.MARCH, 2020)
@@ -204,7 +210,53 @@ class DateRangeCalendarManagerTest {
     }
 
     @Test
-    fun testSelectedDateRangeWithSameDate() {
+    fun `test selected date range with date selection mode single`() {
+        // GIVEN
+        Mockito.`when`(mockCalendarStyleAttributes.dateSelectionMode).thenReturn(SINGLE)
+        val selectedStartDate = getCalendar(5, Calendar.MARCH, 2020)
+        val selectedEndDate = getCalendar(10, Calendar.MARCH, 2020)
+
+        val dateOutOfRange1 = getCalendar(4, Calendar.MARCH, 2020)
+        val dateOutOfRange2 = getCalendar(6, Calendar.MARCH, 2020)
+        // WHEN
+        mCalendarManagerImpl.setSelectedDateRange(selectedStartDate, selectedEndDate)
+        // THEN
+        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
+        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedStartDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
+        Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!)
+        Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMaxSelectedDate()!!)
+        Assert.assertEquals(DateSelectionState.START_END_SAME, mCalendarManagerImpl.checkDateRange(selectedStartDate))
+        Assert.assertEquals(DateSelectionState.UNKNOWN, mCalendarManagerImpl.checkDateRange(selectedEndDate))
+        Assert.assertEquals(DateSelectionState.UNKNOWN, mCalendarManagerImpl.checkDateRange(dateOutOfRange1))
+        Assert.assertEquals(DateSelectionState.UNKNOWN, mCalendarManagerImpl.checkDateRange(dateOutOfRange2))
+    }
+
+    @Test
+    fun `test selected date range with date selection mode fixed range`() {
+        // GIVEN
+        Mockito.`when`(mockCalendarStyleAttributes.dateSelectionMode).thenReturn(FIXED_RANGE)
+        Mockito.`when`(mockCalendarStyleAttributes.fixedDaysSelectionNumber).thenReturn(2)
+        val selectedStartDate = getCalendar(5, Calendar.MARCH, 2020)
+        val selectedEndDate = getCalendar(10, Calendar.MARCH, 2020)
+
+        val dateInRange1 = getCalendar(6, Calendar.MARCH, 2020)
+        val dateOutOfRange1 = getCalendar(8, Calendar.MARCH, 2020)
+        // WHEN
+        mCalendarManagerImpl.setSelectedDateRange(selectedStartDate, selectedEndDate)
+        // THEN
+        val expectedSelectedEndDate = getCalendar(7, Calendar.MARCH, 2020)
+        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
+        Assert.assertTrue(CalendarRangeUtils.isDateSame(expectedSelectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
+        Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!)
+        Assert.assertEquals(DateSelectionState.START_DATE, mCalendarManagerImpl.checkDateRange(selectedStartDate))
+        Assert.assertEquals(DateSelectionState.LAST_DATE, mCalendarManagerImpl.checkDateRange(expectedSelectedEndDate))
+        Assert.assertEquals(DateSelectionState.UNKNOWN, mCalendarManagerImpl.checkDateRange(selectedEndDate))
+        Assert.assertEquals(DateSelectionState.IN_SELECTED_RANGE, mCalendarManagerImpl.checkDateRange(dateInRange1))
+        Assert.assertEquals(DateSelectionState.UNKNOWN, mCalendarManagerImpl.checkDateRange(dateOutOfRange1))
+    }
+
+    @Test
+    fun `test selected date range with same date`() {
         // GIVEN
         val selectableStartDate = getCalendar(1, Calendar.MARCH, 2020)
         val selectableEndDate = getCalendar(11, Calendar.MARCH, 2020)

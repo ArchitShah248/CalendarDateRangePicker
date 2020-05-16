@@ -11,9 +11,16 @@ import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Compani
 import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.printDate
 import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.DateTiming.END
 import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.DateTiming.START
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FIXED_RANGE
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.SINGLE
 import java.util.Calendar
 
-internal class DateRangeCalendarManagerImpl(startMonthDate: Calendar, endMonthDate: Calendar) : CalendarDateRangeManager {
+internal class CalendarDateRangeManagerImpl(startMonthDate: Calendar,
+                                            endMonthDate: Calendar,
+                                            private val calendarStyleAttributes: CalendarStyleAttributes) : CalendarDateRangeManager {
     private lateinit var mStartVisibleMonth: Calendar
     private lateinit var mEndVisibleMonth: Calendar
     private lateinit var mStartSelectableDate: Calendar
@@ -23,7 +30,7 @@ internal class DateRangeCalendarManagerImpl(startMonthDate: Calendar, endMonthDa
     private val mVisibleMonths = mutableListOf<Calendar>()
 
     companion object {
-        private val TAG = DateRangeCalendarManagerImpl::class.java.simpleName
+        private const val TAG = "CDRManagerImpl"
     }
 
     init {
@@ -117,9 +124,24 @@ internal class DateRangeCalendarManagerImpl(startMonthDate: Calendar, endMonthDa
         if (endDate?.after(mEndSelectableDate) == true) {
             throw InvalidDateException("End date(${printDate(endDate)}) is out of selectable date range.")
         }
-        Log.i(TAG, "Selected dates: Start(${printDate(startDate)})-End(${printDate(endDate)})")
+        val selectionMode: DateSelectionMode = calendarStyleAttributes.dateSelectionMode
+        val finalEndDate: Calendar?
+        when (selectionMode) {
+            SINGLE -> {
+                finalEndDate = startDate.clone() as Calendar
+                Log.w(TAG, "End date is ignored due date selection mode: $selectionMode")
+            }
+            FIXED_RANGE -> {
+                Log.w(TAG, "End date is ignored due date selection mode: $selectionMode")
+                finalEndDate = startDate.clone() as Calendar
+                finalEndDate.add(Calendar.DATE, calendarStyleAttributes.fixedDaysSelectionNumber)
+            }
+            FREE_RANGE -> finalEndDate = endDate
+            else -> throw IllegalArgumentException("Unsupported selectionMode: $selectionMode")
+        }
+        Log.i(TAG, "Selected dates: Start(${printDate(startDate)})-End(${printDate(finalEndDate)}) for mode:$selectionMode")
         this.mMinSelectedDate = startDate.clone() as Calendar
-        this.mMaxSelectedDate = endDate?.clone() as Calendar?
+        this.mMaxSelectedDate = finalEndDate?.clone() as Calendar?
     }
 
     /**

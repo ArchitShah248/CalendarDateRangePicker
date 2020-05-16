@@ -12,7 +12,7 @@ import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
 import java.util.Calendar
 
 internal class AdapterEventCalendarMonths(private val mContext: Context,
-                                          dateRangeCalendarManager: DateRangeCalendarManagerImpl,
+                                          calendarDateRangeManager: CalendarDateRangeManagerImpl,
                                           calendarStyleAttr: CalendarStyleAttributes) : PagerAdapter() {
     private val mCalendarStyleAttr: CalendarStyleAttributes
     private var mCalendarListener: CalendarListener? = null
@@ -105,7 +105,7 @@ internal class AdapterEventCalendarMonths(private val mContext: Context,
         }
 
     init {
-        mDateRangeCalendarManager = dateRangeCalendarManager
+        mDateRangeCalendarManager = calendarDateRangeManager
         mCalendarStyleAttr = calendarStyleAttr
     }
 }
