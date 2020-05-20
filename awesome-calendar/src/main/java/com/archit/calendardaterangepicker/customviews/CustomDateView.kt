@@ -43,6 +43,7 @@ class CustomDateView @JvmOverloads constructor(
 
     private var onDateClickListener: OnDateClickListener? = null
     private var mDateState: DateState
+    private val isRightToLeft = resources.getBoolean(R.bool.cdr_is_right_to_left)
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -165,29 +166,31 @@ class CustomDateView @JvmOverloads constructor(
      * @param state - DateState
      */
     private fun makeAsSelectedDate(state: DateState) {
-        val layoutParams = strip.layoutParams as LayoutParams
         when (state) {
             START_END_SAME -> {
+                val layoutParams = strip.layoutParams as LayoutParams
                 strip.setBackgroundColor(Color.TRANSPARENT)
                 layoutParams.setMargins(0, 0, 0, 0)
+                strip.layoutParams = layoutParams
             }
             START -> {
-                val drawable = ContextCompat.getDrawable(context, drawable.range_bg_left)
-                drawable!!.colorFilter = PorterDuffColorFilter(stripColor, filterMode)
-                strip.background = drawable
-                layoutParams.setMargins(20, 0, 0, 0)
+                if (isRightToLeft) {
+                    setRightFacedSelectedDate()
+                } else {
+                    setLeftFacedSelectedDate()
+                }
             }
             END -> {
-                val drawable = ContextCompat.getDrawable(context, drawable.range_bg_right)
-                drawable!!.colorFilter = PorterDuffColorFilter(stripColor, filterMode)
-                strip.background = drawable
-                layoutParams.setMargins(0, 0, 20, 0)
+                if (isRightToLeft) {
+                    setLeftFacedSelectedDate()
+                } else {
+                    setRightFacedSelectedDate()
+                }
             }
             else -> {
                 throw IllegalArgumentException("$state is an invalid state.")
             }
         }
-        strip.layoutParams = layoutParams
         val mDrawable = ContextCompat.getDrawable(context, drawable.green_circle)
         mDrawable!!.colorFilter = PorterDuffColorFilter(selectedDateCircleColor, filterMode)
         tvDate.background = mDrawable
@@ -195,6 +198,24 @@ class CustomDateView @JvmOverloads constructor(
         tvDate.setTextColor(selectedDateColor)
         visibility = View.VISIBLE
         setOnClickListener(mViewClickListener)
+    }
+
+    private fun setLeftFacedSelectedDate() {
+        val layoutParams = strip.layoutParams as LayoutParams
+        val drawable = ContextCompat.getDrawable(context, drawable.range_bg_left)
+        drawable!!.colorFilter = PorterDuffColorFilter(stripColor, filterMode)
+        strip.background = drawable
+        layoutParams.setMargins(20, 0, 0, 0)
+        strip.layoutParams = layoutParams
+    }
+
+    private fun setRightFacedSelectedDate() {
+        val layoutParams = strip.layoutParams as LayoutParams
+        val drawable = ContextCompat.getDrawable(context, drawable.range_bg_right)
+        drawable!!.colorFilter = PorterDuffColorFilter(stripColor, filterMode)
+        strip.background = drawable
+        layoutParams.setMargins(0, 0, 20, 0)
+        strip.layoutParams = layoutParams
     }
 
     /**
