@@ -179,7 +179,7 @@ You can add this into your xamarin project from below link<br/>
 - [FahanBakht](https://github.com/FahanBakht)
  
  
-### Please help me in making it best by reporting issue or posting any fetaure extension.
+### Please help me in making it best by reporting issue or posting any feature extension.
 
 ### Requirements
 
