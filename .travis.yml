@@ -38,5 +38,6 @@ android:
 script: ./gradlew connectedAndroidTest
 
 before_install:
+  - touch local.properties
   - chmod +x gradlew
   - yes | sdkmanager "platforms;android-28"
