@@ -5,7 +5,7 @@ env:
   global:
     - ANDROID_API_LEVEL=28
     - ANDROID_BUILD_TOOLS_VERSION=28.0.3
-    - ANDROID_ABI=armeabi-v7a
+    - ANDROID_ABI=google_apis/armeabi-v7a
 
 android:
   components:
@@ -27,8 +27,7 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-x86-android-26
-    - sys-img-armeabi-v7a-android-17
+    - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
 
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
@@ -42,6 +41,6 @@ before_install:
   - chmod +x gradlew #Grant permissions
   - yes | sdkmanager "platforms;android-28"
   - android list targets
-  - echo no | android create avd --force -n test -t android-28 --abi armeabi-v7a -c 100M #Create AVD for given api
+  - echo no | android create avd --force -n test -t android-28 --abi google_apis/armeabi-v7a -c 100M #Create AVD for given api
   - emulator -avd test -no-audio -no-window & #Start emulator
   - android-wait-for-emulator
