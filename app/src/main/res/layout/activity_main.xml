@@ -16,14 +16,14 @@
         custom:cardCornerRadius="8dp">
 
         <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
-            android:id="@+id/calendar"
+            android:id="@+id/drcvCalendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             custom:calendar_tag="Test"
             custom:date_selection_mode="free_range"
             custom:disable_date_color="#ABABAB"
             custom:editable="true"
-            custom:enable_time_selection="true"
+            custom:enable_time_selection="false"
             custom:header_bg="@drawable/calendar_header"
             custom:range_color="@color/range_bg_color_app"
             custom:selected_date_circle_color="@color/selected_date_circle_color_app"

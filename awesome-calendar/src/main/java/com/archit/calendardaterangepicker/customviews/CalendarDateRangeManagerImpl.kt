@@ -7,10 +7,8 @@ import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.D
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.START_DATE
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.START_END_SAME
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.UNKNOWN
-import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.isDateSame
-import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.printDate
-import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.DateTiming.END
-import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.DateTiming.START
+import com.archit.calendardaterangepicker.customviews.DateTiming.END
+import com.archit.calendardaterangepicker.customviews.DateTiming.START
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FIXED_RANGE
@@ -67,20 +65,20 @@ internal class CalendarDateRangeManagerImpl(startMonthDate: Calendar,
         val endMonthDate = endMonth.clone() as Calendar
 
         startMonthDate[Calendar.DAY_OF_MONTH] = 1
-        CalendarRangeUtils.resetTime(startMonthDate, START)
+        resetTime(startMonthDate, START)
 
         endMonthDate[Calendar.DAY_OF_MONTH] = endMonthDate.getActualMaximum(Calendar.DAY_OF_MONTH)
-        CalendarRangeUtils.resetTime(endMonthDate, END)
+        resetTime(endMonthDate, END)
 
         mStartVisibleMonth = startMonthDate.clone() as Calendar
-        CalendarRangeUtils.resetTime(mStartVisibleMonth, START)
+        resetTime(mStartVisibleMonth, START)
         mEndVisibleMonth = endMonthDate.clone() as Calendar
-        CalendarRangeUtils.resetTime(mEndVisibleMonth, END)
+        resetTime(mEndVisibleMonth, END)
 
         // Creating visible months data list
         mVisibleMonths.clear()
         val temp = mStartVisibleMonth.clone() as Calendar
-        while (!CalendarRangeUtils.isMonthSame(temp, mEndVisibleMonth)) {
+        while (!isMonthSame(temp, mEndVisibleMonth)) {
             mVisibleMonths.add(temp.clone() as Calendar)
             temp.add(Calendar.MONTH, 1)
         }
@@ -95,9 +93,9 @@ internal class CalendarDateRangeManagerImpl(startMonthDate: Calendar,
     override fun setSelectableDateRange(startDate: Calendar, endDate: Calendar) {
         validateDatesOrder(startDate, endDate)
         mStartSelectableDate = startDate.clone() as Calendar
-        CalendarRangeUtils.resetTime(mStartSelectableDate, START)
+        resetTime(mStartSelectableDate, START)
         mEndSelectableDate = endDate.clone() as Calendar
-        CalendarRangeUtils.resetTime(mEndSelectableDate, END)
+        resetTime(mEndSelectableDate, END)
         if (mStartSelectableDate.before(mStartVisibleMonth)) {
             throw InvalidDateException("Selectable start date ${printDate(startDate)} is out of visible months" +
                     "(${printDate(mStartVisibleMonth)} " +

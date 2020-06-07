@@ -17,8 +17,7 @@ import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.D
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.LAST_DATE
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.START_DATE
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.START_END_SAME
-import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.resetTime
-import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.DateTiming.NONE
+import com.archit.calendardaterangepicker.customviews.DateTiming.NONE
 import com.archit.calendardaterangepicker.customviews.DateView.Companion.getContainerKey
 import com.archit.calendardaterangepicker.customviews.DateView.DateState
 import com.archit.calendardaterangepicker.customviews.DateView.DateState.DISABLE
@@ -29,8 +28,8 @@ import com.archit.calendardaterangepicker.customviews.DateView.DateState.SELECTA
 import com.archit.calendardaterangepicker.customviews.DateView.DateState.START
 import com.archit.calendardaterangepicker.customviews.DateView.OnDateClickListener
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
-import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FIXED_RANGE
+import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.SINGLE
 import com.archit.calendardaterangepicker.timepicker.AwesomeTimePickerDialog
 import com.archit.calendardaterangepicker.timepicker.AwesomeTimePickerDialog.TimePickerCallback
