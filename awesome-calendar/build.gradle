@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 ext {
     bintrayRepo = 'EnticeArc'
@@ -17,7 +17,7 @@ ext {
     gitUrl = 'https://github.com/ArchitShah248/CalendarDateRangePicker.git'
     githubRepository= 'ArchitShah248/CalendarDateRangePicker'
 
-    libraryVersion = '1.1.7'
+    libraryVersion = '2.0.0'
 
     developerId = 'architshah248'
     developerName = 'Archit Shah'
@@ -37,7 +37,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
-        versionName "1.1.7"
+        versionName "2.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -48,6 +48,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -56,10 +62,15 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    testImplementation 'junit:junit:4.12'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.android.support:support-annotations:28.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.7.22'
+    testImplementation "com.android.support.test:runner:1.0.2"
+    testImplementation "org.robolectric:robolectric:4.2.1"
+    testImplementation 'androidx.test:core:1.2.0'
+    androidTestImplementation "org.mockito:mockito-android:2.6.1"
 }
 
 apply from: 'install.gradle'

@@ -38,6 +38,7 @@
         <item name="android:layout_centerInParent">true</item>
         <item name="android:paddingBottom">@dimen/dayOfMonthPaddingBottom</item>
         <item name="android:textColor">@color/default_date_color</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="ContainerDayOfWeek">
@@ -50,9 +51,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/strip_height</item>
         <item name="android:background">@color/range_bg_color</item>
-        <item name="android:layout_centerVertical">true</item>
-
-
+        <item name="android:layout_gravity">center</item>
     </style>
 
 </resources>

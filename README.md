@@ -36,7 +36,7 @@ For Gradle:
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:1.1.7'
+    compile 'com.archit.calendar:awesome-calendar:2.0.0'
 }
 ```
 
@@ -46,7 +46,7 @@ For Maven:
 <dependency>
   <groupId>com.archit.calendar</groupId>
   <artifactId>awesome-calendar</artifactId>
-  <version>1.1.7</version>
+  <version>2.0.0</version>
   <type>pom</type>
 </dependency>
 ```
@@ -86,7 +86,8 @@ For Maven:
 | text_size_date             | Dimension | Date text size                     |
 | header_bg                  | Drawable  | Header background                  |
 | week_offset                | Dimension | To set week start day offset                  |
-| editable           | Boolean   | When true user can edit. By default its value is true               |
+| editable                   | Boolean   | When true user can edit. By default its value is true               |
+| date_selection_mode        | enum      | To set date selection from (FREE_RANGE, SINGLE, FIXED_RANGE)     |
 
 
 **Set callbacks**
@@ -168,6 +169,10 @@ endSelectionDate.add(Calendar.DATE, 40);
 calendar.setSelectedDateRange(startSelectionDate, endSelectionDate);
 ````
 
+**Set days selection (only for FIXED_RANGE)**
+````Java
+calendar.setFixedDaysSelection(6);
+````
 
 ### Xamarin
 You can add this into your xamarin project from below link<br/>
@@ -183,7 +188,7 @@ You can add this into your xamarin project from below link<br/>
 
 ### Requirements
 
-- Java 8
+- Java 8, Kotlin
 - Latest version of Android SDK and Android Build Tools
 
 

@@ -7,18 +7,18 @@
     android:minHeight="@dimen/weekRowMinHeight"
     android:orientation="horizontal">
 
-    <include layout="@layout/layout_calendar_day" />
+    <com.archit.calendardaterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
 
-    <include layout="@layout/layout_calendar_day" />
+    <com.archit.calendardaterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
 
-    <include layout="@layout/layout_calendar_day" />
+    <com.archit.calendardaterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
 
-    <include layout="@layout/layout_calendar_day" />
+    <com.archit.calendardaterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
 
-    <include layout="@layout/layout_calendar_day" />
+    <com.archit.calendardaterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
 
-    <include layout="@layout/layout_calendar_day" />
+    <com.archit.calendardaterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
 
-    <include layout="@layout/layout_calendar_day" />
+    <com.archit.calendardaterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
 
 </LinearLayout>
