@@ -47,7 +47,25 @@ class CalendarTest {
     @Test
     fun checkSelectableDateRange() {
         // Calendar visible month range set to 2019-Dec to 2020-May and current visible month set to January 2020
-        val calendar = activityTestRule.activity.findViewById(R.id.drcvCalendar) as DateRangeCalendarView
+        val calendar = activityTestRule.activity.findViewById(R.id.cdrvCalendar) as DateRangeCalendarView
+        // Start date is set to 19/Jan/2020 and end date 20/April/2020.
+        checkNotNull(calendar.startDate)
+        checkNotNull(calendar.endDate)
+        Assert.assertTrue(isDateSame(getCalendar(19, Calendar.JANUARY, 2020), calendar.startDate!!))
+        Assert.assertTrue(isDateSame(getCalendar(20, Calendar.APRIL, 2020), calendar.endDate!!))
+        val expectedSelectableStartDate = getCalendar(8, Calendar.JANUARY, 2020)
+        Espresso.onView(withCustomDateTag(DateView.getContainerKey(expectedSelectableStartDate))).perform(ViewActions.click())
+        clickOnRightNavigationArrow(4)
+        val expectedSelectableEndDate = getCalendar(1, Calendar.MAY, 2020)
+        Espresso.onView(withCustomDateTag(DateView.getContainerKey(expectedSelectableEndDate))).perform(ViewActions.click())
+        Assert.assertTrue(isDateSame(getCalendar(19, Calendar.JANUARY, 2020), calendar.startDate!!))
+        Assert.assertTrue(isDateSame(getCalendar(20, Calendar.APRIL, 2020), calendar.endDate!!))
+    }
+
+    @Test
+    fun checkSelectedDateRange() {
+        // Calendar visible month range set to 2019-Dec to 2020-May and current visible month set to January 2020
+        val calendar = activityTestRule.activity.findViewById(R.id.cdrvCalendar) as DateRangeCalendarView
         // Start date is set to 19/Jan/2020 and end date 20/April/2020.
         checkNotNull(calendar.startDate)
         checkNotNull(calendar.endDate)

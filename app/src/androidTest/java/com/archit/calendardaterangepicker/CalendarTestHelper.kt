@@ -29,10 +29,10 @@ class withCustomDateTag(private val dateTag : Long) : BaseMatcher<View>() {
         description?.appendText("Matching view with dateTag($dateTag) and CustomDateView class.")
     }
 
-    override fun matches(item: Any?): Boolean = item is CustomDateView && item.tag == dateTag
+    override fun matches(item: Any?): Boolean = item is CustomDateView && item.tag == dateTag && item.visibility == View.VISIBLE
 
     override fun describeMismatch(item: Any?, mismatchDescription: Description?) {
-        mismatchDescription?.appendText("Tag($dateTag) not matched.")
+        mismatchDescription?.appendText("CustomDateView with tag($dateTag) not matched.")
     }
 }
 

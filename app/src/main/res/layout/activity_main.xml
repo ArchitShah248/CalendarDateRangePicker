@@ -16,7 +16,7 @@
         custom:cardCornerRadius="8dp">
 
         <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
-            android:id="@+id/drcvCalendar"
+            android:id="@+id/cdrvCalendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             custom:calendar_tag="Test"
