@@ -36,7 +36,7 @@ For Gradle:
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:1.1.7'
+    compile 'com.archit.calendar:awesome-calendar:2.0.0'
 }
 ```
 
@@ -46,7 +46,7 @@ For Maven:
 <dependency>
   <groupId>com.archit.calendar</groupId>
   <artifactId>awesome-calendar</artifactId>
-  <version>1.1.7</version>
+  <version>2.0.0</version>
   <type>pom</type>
 </dependency>
 ```
@@ -188,7 +188,7 @@ You can add this into your xamarin project from below link<br/>
 
 ### Requirements
 
-- Java 8
+- Java 8, Kotlin
 - Latest version of Android SDK and Android Build Tools
 
 
