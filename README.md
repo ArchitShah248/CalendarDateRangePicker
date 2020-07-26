@@ -17,6 +17,7 @@ An Android Library to pick dates range, that helps user to select range from fut
 - Small in size
 - Material design support
 - Resolution support
+- RTL support
 
 Screenshots
 -----------
