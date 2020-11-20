@@ -43,6 +43,6 @@ before_install:
   - sdkmanager --list
   - yes | sdkmanager "platforms;android-25" "system-images;android-25;google_apis;armeabi-v7a"
   - android list targets
-  - echo no | android create avd --force -n test -t android-25 -c 100M #Create AVD for given api
+  - echo no | android create avd --force -n test -t android-25 --tag google_apis/arm64-v8a -c 100M #Create AVD for given api
   - emulator -avd test -no-audio -no-window & #Start emulator
   - android-wait-for-emulator
