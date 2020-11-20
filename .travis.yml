@@ -4,7 +4,7 @@ dist: trusty
 env:
   global:
     - ANDROID_API_LEVEL=25
-    - ANDROID_BUILD_TOOLS_VERSION=25.2.5
+    - ANDROID_BUILD_TOOLS_VERSION=25.0.3
     - ANDROID_ABI=sys-img-armeabi-v7a-google_apis-25
 
 android:
@@ -28,6 +28,7 @@ android:
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-google_apis-25
+    - sys-img-arm64-v8a-google_apis-25
 
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
@@ -39,6 +40,7 @@ script: ./gradlew connectedAndroidTest
 before_install:
   - touch local.properties
   - chmod +x gradlew #Grant permissions
+  - sdkmanager --list
   - yes | sdkmanager "platforms;android-25" "system-images;android-25;google_apis;armeabi-v7a"
   - android list targets
   - echo no | android create avd --force -n test -t android-25 -c 100M #Create AVD for given api
