@@ -41,6 +41,7 @@ before_install:
   - chmod +x gradlew #Grant permissions
   - yes | sdkmanager "platforms;android-28"
   - android list targets
+  - android list sdk --extended --no-ui --all
   - echo no | android create avd --force -n test -t android-28 -c 100M #Create AVD for given api
   - emulator -avd test -no-audio -no-window & #Start emulator
   - android-wait-for-emulator
