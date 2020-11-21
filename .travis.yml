@@ -36,7 +36,8 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
-script: ./gradlew connectedAndroidTest
+#script: ./gradlew connectedAndroidTest
+script: ./gradlew test
 
 before_install:
   - touch local.properties
@@ -44,13 +45,6 @@ before_install:
   - sdkmanager --list
   #  - yes | sdkmanager "platforms;android-25" "system-images;android-25;google_apis;armeabi-v7a"
   - android list targets
-
-  # Set up KVM on linux for hardware acceleration. Manually here so it only happens for emulator tests, takes ~30s
-  - travis_retry sudo -E apt-get -yq --no-install-suggests --no-install-recommends install bridge-utils libpulse0 libvirt-bin qemu-kvm virtinst ubuntu-vm-builder
-  - sudo adduser `test-emu` libvirt
-  - sudo adduser `test-emu` kvm
-  - virsh list --all
-
-  - echo no | android create avd --force -n test -t android-25 --abi google_apis/x86_64 -c 100M #Create AVD for given api
-  - emulator -avd test -noaudio -no-window #Start emulator
-  - android-wait-for-emulator
+#  - echo no | android create avd --force -n test -t android-25 --abi google_apis/x86_64 -c 100M #Create AVD for given api
+#  - emulator -avd test -noaudio -no-window #Start emulator
+#  - android-wait-for-emulator
