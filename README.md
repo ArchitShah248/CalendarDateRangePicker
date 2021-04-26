@@ -3,7 +3,7 @@
  [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CalendarDateRangePicker-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6929)
  [![Xamarin](https://img.shields.io/badge/Xamarin-CalendarDateRangePicker-ff69b4.svg?style=flat)](https://github.com/kibotu/Xamarin.Awesome.Calendar)
  [![NuGet Badge](https://buildstats.info/nuget/Xamarin.Awesome.Calendar)](https://www.nuget.org/packages/Xamarin.Awesome.Calendar/)
- 
+ [![Build Status](https://travis-ci.com/ArchitShah248/CalendarDateRangePicker.svg?branch=master)](https://travis-ci.com/ArchitShah248/CalendarDateRangePicker)
 
 ==================
 

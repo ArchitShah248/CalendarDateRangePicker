@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.archit.calendardaterangepicker.customviews.CalendarListener;
-import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils;
 import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView;
 
 import java.util.Calendar;
