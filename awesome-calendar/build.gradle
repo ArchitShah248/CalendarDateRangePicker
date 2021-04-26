@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 ext {
     bintrayRepo = 'EnticeArc'
@@ -17,7 +17,7 @@ ext {
     gitUrl = 'https://github.com/ArchitShah248/CalendarDateRangePicker.git'
     githubRepository= 'ArchitShah248/CalendarDateRangePicker'
 
-    libraryVersion = '1.1.7'
+    libraryVersion = '2.0.0'
 
     developerId = 'architshah248'
     developerName = 'Archit Shah'
@@ -37,7 +37,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
-        versionName "1.1.7"
+        versionName "2.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

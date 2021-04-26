@@ -14,6 +14,8 @@ import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView;
 
 import java.util.Calendar;
 
+import static com.archit.calendardaterangepicker.customviews.CalendarRangeUtilsKt.printDate;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        calendar = findViewById(R.id.calendar);
+        calendar = findViewById(R.id.cdrvCalendar);
 
         final Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
         calendar.setFonts(typeface);
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 //        calendar.setNavRightImage(ContextCompat.getDrawable(this,R.drawable.ic_right));
 
         final Calendar startMonth = Calendar.getInstance();
-        startMonth.add(Calendar.MONTH, -2);
+        startMonth.set(2019, Calendar.DECEMBER, 20);
         final Calendar endMonth = (Calendar) startMonth.clone();
         endMonth.add(Calendar.MONTH, 5);
         Log.d(TAG, "Start month: " + startMonth.getTime().toString() + " :: End month: " + endMonth.getTime().toString());
@@ -57,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "startSelectedDate: " + startSelectedDate.getTime().toString() + " :: endSelectedDate: " + endSelectedDate.getTime().toString());
         calendar.setSelectedDateRange(startSelectedDate, endSelectedDate);
 
-        final Calendar current = Calendar.getInstance();
+        final Calendar current = (Calendar) startMonth.clone();
+        current.add(Calendar.MONTH, 1);
         calendar.setCurrentMonth(current);
 //        calendar.setFixedDaysSelection(2);
     }
@@ -66,15 +69,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onFirstDateSelected(@NonNull final Calendar startDate) {
             Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString(), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "Selected dates: Start: " + CalendarRangeUtils.printDate(calendar.getStartDate()) +
-                    " End:" + CalendarRangeUtils.printDate(calendar.getEndDate()));
+            Log.d(TAG, "Selected dates: Start: " + printDate(calendar.getStartDate()) +
+                    " End:" + printDate(calendar.getEndDate()));
         }
 
         @Override
         public void onDateRangeSelected(@NonNull final Calendar startDate, @NonNull final Calendar endDate) {
             Toast.makeText(MainActivity.this, "Start Date: " + startDate.getTime().toString() + " End date: " + endDate.getTime().toString(), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "Selected dates: Start: " + CalendarRangeUtils.printDate(calendar.getStartDate()) +
-                    " End:" + CalendarRangeUtils.printDate(calendar.getEndDate()));
+            Log.d(TAG, "Selected dates: Start: " + printDate(calendar.getStartDate()) +
+                    " End:" + printDate(calendar.getEndDate()));
         }
     };
 }

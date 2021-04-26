@@ -2,10 +2,11 @@ package com.test.awesomecalendar
 
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState
-import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils
-import com.archit.calendardaterangepicker.customviews.CalendarRangeUtils.Companion.printDate
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManagerImpl
 import com.archit.calendardaterangepicker.customviews.InvalidDateException
+import com.archit.calendardaterangepicker.customviews.isDateSame
+import com.archit.calendardaterangepicker.customviews.isMonthSame
+import com.archit.calendardaterangepicker.customviews.printDate
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FIXED_RANGE
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
@@ -41,8 +42,8 @@ class DateRangeCalendarManagerTest {
         // THEN
         val data = mCalendarManagerImpl.getVisibleMonthDataList()
         Assert.assertEquals(9, data.size)
-        Assert.assertTrue(CalendarRangeUtils.isMonthSame(expectedStartDate, data.first()))
-        Assert.assertTrue(CalendarRangeUtils.isMonthSame(expectedEndDate, data.last()))
+        Assert.assertTrue(isMonthSame(expectedStartDate, data.first()))
+        Assert.assertTrue(isMonthSame(expectedEndDate, data.last()))
         Assert.assertFalse(mCalendarManagerImpl.isSelectableDate(selectableDatePrev))
         Assert.assertTrue(mCalendarManagerImpl.isSelectableDate(selectableDateIn))
         Assert.assertFalse(mCalendarManagerImpl.isSelectableDate(selectableDatePost))
@@ -194,8 +195,8 @@ class DateRangeCalendarManagerTest {
         mCalendarManagerImpl.setSelectableDateRange(selectableStartDate, selectableEndDate)
         mCalendarManagerImpl.setSelectedDateRange(selectedStartDate, selectedEndDate)
         // THEN
-        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
-        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
+        Assert.assertTrue(isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
+        Assert.assertTrue(isDateSame(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
         Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!)
         Assert.assertEquals(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!)
         Assert.assertEquals(DateSelectionState.START_DATE, mCalendarManagerImpl.checkDateRange(selectedStartDate))
@@ -221,8 +222,8 @@ class DateRangeCalendarManagerTest {
         // WHEN
         mCalendarManagerImpl.setSelectedDateRange(selectedStartDate, selectedEndDate)
         // THEN
-        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
-        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedStartDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
+        Assert.assertTrue(isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
+        Assert.assertTrue(isDateSame(selectedStartDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
         Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!)
         Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMaxSelectedDate()!!)
         Assert.assertEquals(DateSelectionState.START_END_SAME, mCalendarManagerImpl.checkDateRange(selectedStartDate))
@@ -245,8 +246,8 @@ class DateRangeCalendarManagerTest {
         mCalendarManagerImpl.setSelectedDateRange(selectedStartDate, selectedEndDate)
         // THEN
         val expectedSelectedEndDate = getCalendar(7, Calendar.MARCH, 2020)
-        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
-        Assert.assertTrue(CalendarRangeUtils.isDateSame(expectedSelectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
+        Assert.assertTrue(isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
+        Assert.assertTrue(isDateSame(expectedSelectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
         Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!)
         Assert.assertEquals(DateSelectionState.START_DATE, mCalendarManagerImpl.checkDateRange(selectedStartDate))
         Assert.assertEquals(DateSelectionState.LAST_DATE, mCalendarManagerImpl.checkDateRange(expectedSelectedEndDate))
@@ -271,8 +272,8 @@ class DateRangeCalendarManagerTest {
         mCalendarManagerImpl.setSelectableDateRange(selectableStartDate, selectableEndDate)
         mCalendarManagerImpl.setSelectedDateRange(selectedStartDate, selectedEndDate)
         // THEN
-        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
-        Assert.assertTrue(CalendarRangeUtils.isDateSame(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
+        Assert.assertTrue(isDateSame(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!))
+        Assert.assertTrue(isDateSame(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!))
         Assert.assertEquals(selectedStartDate, mCalendarManagerImpl.getMinSelectedDate()!!)
         Assert.assertEquals(selectedEndDate, mCalendarManagerImpl.getMaxSelectedDate()!!)
         Assert.assertEquals(DateSelectionState.START_END_SAME, mCalendarManagerImpl.checkDateRange(selectedStartDate))
@@ -282,10 +283,10 @@ class DateRangeCalendarManagerTest {
     private fun checkDateOrderValidation(errorMsg: String, start: Calendar, end: Calendar) {
         Assert.assertEquals("Start date(${printDate(start)}) can not be after end date(${printDate(end)}).", errorMsg)
     }
+}
 
-    private fun getCalendar(date: Int, month: Int, year: Int): Calendar {
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month, date)
-        return calendar
-    }
+fun getCalendar(date: Int, month: Int, year: Int): Calendar {
+    val calendar = Calendar.getInstance()
+    calendar.set(year, month, date)
+    return calendar
 }
