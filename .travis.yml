@@ -1,0 +1,49 @@
+language: android
+dist: trusty
+
+env:
+  global:
+    - ANDROID_API_LEVEL=28
+    - ANDROID_BUILD_TOOLS_VERSION=28.0.3
+
+android:
+  components:
+    # Uncomment the lines below if you want to
+    # use the latest revision of Android SDK Tools
+    - tools
+    - platform-tools
+
+    # The BuildTools version used by your project
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+
+    # The SDK version used to compile your project
+    - android-$ANDROID_API_LEVEL
+
+    # Additional components
+    # - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+    #    - sys-img-x86_64-google_apis-25
+    #    - sys-img-armeabi-v7a-google_apis-25
+    #    - sys-img-arm64-v8a-google_apis-25
+
+  licenses:
+#    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+
+#script: ./gradlew connectedAndroidTest #Runs unit tests + instrumentation tests
+script: ./gradlew test #Runs only unit tests
+
+before_install:
+  - touch local.properties
+  - chmod +x gradlew #Grant permissions
+  - sdkmanager --list
+    - yes | sdkmanager "platforms;android-28"
+  - android list targets
+#  - echo no | android create avd --force -n test -t android-25 --abi google_apis/x86_64 -c 100M #Create AVD for given api
+#  - emulator -avd test -noaudio -no-window #Start emulator
+#  - android-wait-for-emulator
