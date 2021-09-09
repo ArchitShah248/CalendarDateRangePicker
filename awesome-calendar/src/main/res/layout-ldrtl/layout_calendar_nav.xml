@@ -12,7 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_left_selector" />
+        android:src="@drawable/ic_right_selector" />
 
     <com.archit.calendardaterangepicker.customviews.CustomTextView
         android:id="@+id/tvYearTitle"
@@ -32,5 +32,5 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_right_selector" />
+        android:src="@drawable/ic_left_selector" />
 </RelativeLayout>
