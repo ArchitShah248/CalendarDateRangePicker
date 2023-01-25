@@ -29,8 +29,8 @@ class AwesomeTimePickerDialog(context: Context, private val mTitle: String, priv
 
     init {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setGravity(Gravity.BOTTOM)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window?.setGravity(Gravity.BOTTOM)
         setCanceledOnTouchOutside(false)
         initView()
         setListeners()
@@ -38,11 +38,11 @@ class AwesomeTimePickerDialog(context: Context, private val mTitle: String, priv
         //Grab the window of the dialog, and change the width
         val lp = LayoutParams()
         val window = this.window
-        lp.copyFrom(window.attributes)
+        lp.copyFrom(window?.attributes)
         //This makes the dialog take up the full width
         lp.width = LayoutParams.MATCH_PARENT
         lp.height = LayoutParams.WRAP_CONTENT
-        window.attributes = lp
+        window?.attributes = lp
     }
 
     private fun initView() {
