@@ -31,7 +31,6 @@ ext {
 
 android {
     compileSdkVersion 33
-    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 16
@@ -66,11 +65,11 @@ dependencies {
     implementation 'com.android.support:support-annotations:28.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:2.7.22'
     testImplementation "com.android.support.test:runner:1.0.2"
-    testImplementation "org.robolectric:robolectric:4.2.1"
     testImplementation 'androidx.test:core:1.5.0'
-    androidTestImplementation "org.mockito:mockito-android:2.6.1"
+
+    testImplementation "io.mockk:mockk:$mockk_version"
+    androidTestImplementation "io.mockk:mockk-android:$mockk_version"
 }
 
 apply from: 'install.gradle'
