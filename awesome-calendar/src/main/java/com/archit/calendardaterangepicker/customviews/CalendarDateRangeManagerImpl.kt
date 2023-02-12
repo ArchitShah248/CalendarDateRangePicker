@@ -7,18 +7,20 @@ import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.D
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.START_DATE
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.START_END_SAME
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.UNKNOWN
-import com.archit.calendardaterangepicker.customviews.DateTiming.END
-import com.archit.calendardaterangepicker.customviews.DateTiming.START
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FIXED_RANGE
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.SINGLE
+import com.archit.calendardaterangepicker.models.DateTiming
 import java.util.Calendar
 
-internal class CalendarDateRangeManagerImpl(startMonthDate: Calendar,
-                                            endMonthDate: Calendar,
-                                            private val calendarStyleAttributes: CalendarStyleAttributes) : CalendarDateRangeManager {
+@Suppress("TooManyFunctions")
+internal class CalendarDateRangeManagerImpl(
+    startMonthDate: Calendar,
+    endMonthDate: Calendar,
+    private val calendarStyleAttributes: CalendarStyleAttributes,
+) : CalendarDateRangeManager {
     private lateinit var mStartVisibleMonth: Calendar
     private lateinit var mEndVisibleMonth: Calendar
     private lateinit var mStartSelectableDate: Calendar
@@ -56,7 +58,7 @@ internal class CalendarDateRangeManagerImpl(startMonthDate: Calendar,
                 }
             }
         }
-        throw RuntimeException("Month(" + month.time.toString() + ") is not available in the given month range.")
+        throw IllegalStateException("Month(" + month.time.toString() + ") is not available in the given month range.")
     }
 
     override fun setVisibleMonths(startMonth: Calendar, endMonth: Calendar) {
@@ -65,15 +67,15 @@ internal class CalendarDateRangeManagerImpl(startMonthDate: Calendar,
         val endMonthDate = endMonth.clone() as Calendar
 
         startMonthDate[Calendar.DAY_OF_MONTH] = 1
-        resetTime(startMonthDate, START)
+        resetTime(startMonthDate, DateTiming.START)
 
         endMonthDate[Calendar.DAY_OF_MONTH] = endMonthDate.getActualMaximum(Calendar.DAY_OF_MONTH)
-        resetTime(endMonthDate, END)
+        resetTime(endMonthDate, DateTiming.END)
 
         mStartVisibleMonth = startMonthDate.clone() as Calendar
-        resetTime(mStartVisibleMonth, START)
+        resetTime(mStartVisibleMonth, DateTiming.START)
         mEndVisibleMonth = endMonthDate.clone() as Calendar
-        resetTime(mEndVisibleMonth, END)
+        resetTime(mEndVisibleMonth, DateTiming.END)
 
         // Creating visible months data list
         mVisibleMonths.clear()
@@ -93,18 +95,22 @@ internal class CalendarDateRangeManagerImpl(startMonthDate: Calendar,
     override fun setSelectableDateRange(startDate: Calendar, endDate: Calendar) {
         validateDatesOrder(startDate, endDate)
         mStartSelectableDate = startDate.clone() as Calendar
-        resetTime(mStartSelectableDate, START)
+        resetTime(mStartSelectableDate, DateTiming.START)
         mEndSelectableDate = endDate.clone() as Calendar
-        resetTime(mEndSelectableDate, END)
+        resetTime(mEndSelectableDate, DateTiming.END)
         if (mStartSelectableDate.before(mStartVisibleMonth)) {
-            throw InvalidDateException("Selectable start date ${printDate(startDate)} is out of visible months" +
-                    "(${printDate(mStartVisibleMonth)} " +
-                    "- ${printDate(mEndVisibleMonth)}).")
+            throw InvalidDateException(
+                "Selectable start date ${printDate(startDate)} is out of visible months" +
+                        "(${printDate(mStartVisibleMonth)} " +
+                        "- ${printDate(mEndVisibleMonth)})."
+            )
         }
         if (mEndSelectableDate.after(mEndVisibleMonth)) {
-            throw InvalidDateException("Selectable end date ${printDate(endDate)} is out of visible months" +
-                    "(${printDate(mStartVisibleMonth)} " +
-                    "- ${printDate(mEndVisibleMonth)}).")
+            throw InvalidDateException(
+                "Selectable end date ${printDate(endDate)} is out of visible months" +
+                        "(${printDate(mStartVisibleMonth)} " +
+                        "- ${printDate(mEndVisibleMonth)})."
+            )
         }
         resetSelectedDateRange()
     }
@@ -135,9 +141,11 @@ internal class CalendarDateRangeManagerImpl(startMonthDate: Calendar,
                 finalEndDate.add(Calendar.DATE, calendarStyleAttributes.fixedDaysSelectionNumber)
             }
             FREE_RANGE -> finalEndDate = endDate
-            else -> throw IllegalArgumentException("Unsupported selectionMode: $selectionMode")
         }
-        Log.i(TAG, "Selected dates: Start(${printDate(startDate)})-End(${printDate(finalEndDate)}) for mode:$selectionMode")
+        Log.i(
+            TAG,
+            "Selected dates: Start(${printDate(startDate)})-End(${printDate(finalEndDate)}) for mode:$selectionMode"
+        )
         this.mMinSelectedDate = startDate.clone() as Calendar
         this.mMaxSelectedDate = finalEndDate?.clone() as Calendar?
     }
@@ -147,6 +155,7 @@ internal class CalendarDateRangeManagerImpl(startMonthDate: Calendar,
      *
      * @return DateSelectionState state
      */
+    @Suppress("ReturnCount")
     override fun checkDateRange(selectedDate: Calendar): DateSelectionState {
 
         if (mMinSelectedDate != null && mMaxSelectedDate != null) {

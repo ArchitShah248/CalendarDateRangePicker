@@ -39,14 +39,16 @@ class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null
     override var isShouldEnabledTime = false
 
     /**
-     * To set week offset
+     * To set week offset.
      *
      * @param weekOffset
      */
     override var weekOffset = 0
         set(weekOffset) {
-            if (weekOffset < 0 || weekOffset > 6) {
-                throw InvalidCalendarAttributeException("Week offset can only be between 0 to 6. 0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat")
+            if (weekOffset < MIN_WEEK_OFFSET || weekOffset > MAX_WEEK_OFFSET) {
+                throw InvalidCalendarAttributeException(
+                    "Week offset can only be between 0 to 6. 0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat"
+                )
             }
             field = weekOffset
         }
@@ -55,11 +57,13 @@ class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null
     override var fixedDaysSelectionNumber: Int = DEFAULT_FIXED_DAYS_SELECTION
         set(value) {
             if (dateSelectionMode !== FIXED_RANGE) {
-                throw InvalidCalendarAttributeException("Selected date selection mode is not `fixed_range` for `date_selection_mode` " +
-                        "attribute in layout.")
+                throw InvalidCalendarAttributeException(
+                    "Selected date selection mode is not `fixed_range` for `date_selection_mode` " +
+                            "attribute in layout."
+                )
             }
-            if (value < 0 || value > 365) {
-                throw InvalidCalendarAttributeException("Fixed days can be between 0 to 365.")
+            if (value < MIN_FIXED_DAYS || value > MAX_FIXED_DAYS) {
+                throw InvalidCalendarAttributeException("Fixed days can be between $MIN_FIXED_DAYS to $MAX_FIXED_DAYS.")
             }
             field = value
         }
@@ -76,7 +80,8 @@ class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null
                 headerBg = ta.getDrawable(R.styleable.DateRangeMonthView_header_bg)
                 weekColor = ta.getColor(R.styleable.DateRangeMonthView_week_color, weekColor)
                 rangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_range_color, rangeStripColor)
-                selectedDateCircleColor = ta.getColor(R.styleable.DateRangeMonthView_selected_date_circle_color, selectedDateCircleColor)
+                selectedDateCircleColor =
+                    ta.getColor(R.styleable.DateRangeMonthView_selected_date_circle_color, selectedDateCircleColor)
                 isShouldEnabledTime = ta.getBoolean(R.styleable.DateRangeMonthView_enable_time_selection, false)
                 isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_editable, true)
                 textSizeTitle = ta.getDimension(R.styleable.DateRangeMonthView_text_size_title, textSizeTitle)
@@ -87,7 +92,8 @@ class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null
                 rangeDateColor = ta.getColor(R.styleable.DateRangeMonthView_range_date_color, rangeDateColor)
                 disableDateColor = ta.getColor(R.styleable.DateRangeMonthView_disable_date_color, disableDateColor)
                 weekOffset = ta.getColor(R.styleable.DateRangeMonthView_week_offset, 0)
-                dateSelectionMode = DateSelectionMode.values()[ta.getInt(R.styleable.DateRangeMonthView_date_selection_mode, 0)]
+                dateSelectionMode =
+                    DateSelectionMode.values()[ta.getInt(R.styleable.DateRangeMonthView_date_selection_mode, 0)]
             } finally {
                 ta.recycle()
             }
@@ -95,6 +101,13 @@ class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null
     }
 
     companion object {
+
+        private const val MIN_WEEK_OFFSET = 0
+        private const val MAX_WEEK_OFFSET = 6
+
+        private const val MIN_FIXED_DAYS = 0
+        private const val MAX_FIXED_DAYS = 365
+
         /**
          * To parse attributes from xml layout to configure calendar views.
          */
@@ -105,7 +118,8 @@ class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null
             calendarStyleAttr.textSizeDate = context.resources.getDimension(R.dimen.text_size_date)
             calendarStyleAttr.weekColor = ContextCompat.getColor(context, R.color.week_color)
             calendarStyleAttr.rangeStripColor = ContextCompat.getColor(context, R.color.range_bg_color)
-            calendarStyleAttr.selectedDateCircleColor = ContextCompat.getColor(context, R.color.selected_date_circle_color)
+            calendarStyleAttr.selectedDateCircleColor =
+                ContextCompat.getColor(context, R.color.selected_date_circle_color)
             calendarStyleAttr.selectedDateColor = ContextCompat.getColor(context, R.color.selected_date_color)
             calendarStyleAttr.defaultDateColor = ContextCompat.getColor(context, R.color.default_date_color)
             calendarStyleAttr.rangeDateColor = ContextCompat.getColor(context, R.color.range_date_color)

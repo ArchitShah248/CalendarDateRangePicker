@@ -6,10 +6,6 @@ import androidx.annotation.ColorInt
 
 interface CalendarStyleAttributes {
 
-    companion object {
-        val DEFAULT_FIXED_DAYS_SELECTION = 7
-    }
-
     enum class DateSelectionMode {
         FREE_RANGE,
         SINGLE,
@@ -50,6 +46,10 @@ interface CalendarStyleAttributes {
     var isEditable: Boolean
     var dateSelectionMode: DateSelectionMode
     var fixedDaysSelectionNumber: Int
+
+    companion object {
+        const val DEFAULT_FIXED_DAYS_SELECTION = 7
+    }
 }
 
 class InvalidCalendarAttributeException(override val message: String?) : IllegalArgumentException(message)

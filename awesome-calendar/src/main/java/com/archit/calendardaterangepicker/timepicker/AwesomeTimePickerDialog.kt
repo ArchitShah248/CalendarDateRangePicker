@@ -13,7 +13,11 @@ import com.archit.calendardaterangepicker.R.layout
 import com.archit.calendardaterangepicker.customviews.CustomTextView
 import java.util.Calendar
 
-class AwesomeTimePickerDialog(context: Context, private val mTitle: String, private val onTimeChangedListener: TimePickerCallback) : Dialog(context) {
+class AwesomeTimePickerDialog(
+    context: Context,
+    private val mTitle: String,
+    private val onTimeChangedListener: TimePickerCallback,
+) : Dialog(context) {
     private lateinit var tvDialogDone: CustomTextView
     private lateinit var tvDialogCancel: CustomTextView
     private var hours = 0
@@ -23,14 +27,11 @@ class AwesomeTimePickerDialog(context: Context, private val mTitle: String, priv
         fun onTimeSelected(hours: Int, mins: Int)
         fun onCancel()
     }
-    companion object {
-        private val LOG_TAG = AwesomeTimePickerDialog::class.java.simpleName
-    }
 
     init {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window.setGravity(Gravity.BOTTOM)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window?.setGravity(Gravity.BOTTOM)
         setCanceledOnTouchOutside(false)
         initView()
         setListeners()
@@ -38,11 +39,11 @@ class AwesomeTimePickerDialog(context: Context, private val mTitle: String, priv
         //Grab the window of the dialog, and change the width
         val lp = LayoutParams()
         val window = this.window
-        lp.copyFrom(window.attributes)
+        lp.copyFrom(window?.attributes)
         //This makes the dialog take up the full width
         lp.width = LayoutParams.MATCH_PARENT
         lp.height = LayoutParams.WRAP_CONTENT
-        window.attributes = lp
+        window?.attributes = lp
     }
 
     private fun initView() {

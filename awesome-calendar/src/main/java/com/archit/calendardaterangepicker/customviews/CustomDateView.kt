@@ -31,7 +31,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-
+@Suppress("TooManyFunctions")
 class CustomDateView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr), DateView {
@@ -112,7 +112,6 @@ class CustomDateView @JvmOverloads constructor(
             SELECTABLE -> enabledDayContainer()
             DISABLE -> disableDayContainer()
             MIDDLE -> makeAsRangeDate()
-            else -> throw IllegalArgumentException("$dateState is an invalid state.")
         }
     }
 
@@ -205,7 +204,7 @@ class CustomDateView @JvmOverloads constructor(
         val drawable = ContextCompat.getDrawable(context, drawable.range_bg_left)
         drawable!!.colorFilter = PorterDuffColorFilter(stripColor, filterMode)
         strip.background = drawable
-        layoutParams.setMargins(20, 0, 0, 0)
+        layoutParams.setMargins(MARGIN_LEFT, 0, 0, 0)
         strip.layoutParams = layoutParams
     }
 
@@ -214,7 +213,7 @@ class CustomDateView @JvmOverloads constructor(
         val drawable = ContextCompat.getDrawable(context, drawable.range_bg_right)
         drawable!!.colorFilter = PorterDuffColorFilter(stripColor, filterMode)
         strip.background = drawable
-        layoutParams.setMargins(0, 0, 20, 0)
+        layoutParams.setMargins(0, 0, MARGIN_RIGHT, 0)
         strip.layoutParams = layoutParams
     }
 
@@ -233,5 +232,10 @@ class CustomDateView @JvmOverloads constructor(
         layoutParams.setMargins(0, 0, 0, 0)
         strip.layoutParams = layoutParams
         setOnClickListener(mViewClickListener)
+    }
+
+    companion object {
+        private const val MARGIN_RIGHT = 20
+        private const val MARGIN_LEFT = 20
     }
 }
