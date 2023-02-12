@@ -10,7 +10,6 @@ import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSel
 import com.archit.calendardaterangepicker.models.InvalidCalendarAttributeException
 import io.mockk.every
 import io.mockk.mockk
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test
@@ -48,7 +47,7 @@ class CalendarAttributesTest {
         try {
             mTested.dateSelectionMode = FIXED_RANGE
             mTested.fixedDaysSelectionNumber = -1
-            Assert.fail("Fixed day selection validation is failing.")
+            fail("Fixed day selection validation is failing.")
         } catch (e: InvalidCalendarAttributeException) {
             assertEquals("Fixed days can be between 0 to 365.", e.message)
         }
@@ -59,7 +58,7 @@ class CalendarAttributesTest {
         try {
             mTested.dateSelectionMode = FIXED_RANGE
             mTested.fixedDaysSelectionNumber = 366
-            Assert.fail("Fixed date selection validation is failing.")
+            fail("Fixed date selection validation is failing.")
         } catch (e: InvalidCalendarAttributeException) {
             assertEquals("Fixed days can be between 0 to 365.", e.message)
         }
@@ -70,10 +69,12 @@ class CalendarAttributesTest {
         try {
             mTested.dateSelectionMode = SINGLE
             mTested.fixedDaysSelectionNumber = 366
-            Assert.fail("Fixed date selection validation is failing.")
+            fail("Fixed date selection validation is failing.")
         } catch (e: InvalidCalendarAttributeException) {
-            assertEquals("Selected date selection mode is not `fixed_range` for `date_selection_mode` " +
-                    "attribute in layout.", e.message)
+            assertEquals(
+                "Selected date selection mode is not `fixed_range` for `date_selection_mode` " +
+                        "attribute in layout.", e.message
+            )
         }
     }
 
@@ -88,9 +89,12 @@ class CalendarAttributesTest {
     fun `test invalid negative week offset`() {
         try {
             mTested.weekOffset = -1
-            Assert.fail("Week offset validation is failing.")
+            fail("Week offset validation is failing.")
         } catch (e: InvalidCalendarAttributeException) {
-            assertEquals("Week offset can only be between 0 to 6. 0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat", e.message)
+            assertEquals(
+                "Week offset can only be between 0 to 6. 0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat",
+                e.message
+            )
         }
     }
 
@@ -100,7 +104,10 @@ class CalendarAttributesTest {
             mTested.weekOffset = 7
             fail("Week offset validation is failing.")
         } catch (e: InvalidCalendarAttributeException) {
-            assertEquals("Week offset can only be between 0 to 6. 0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat", e.message)
+            assertEquals(
+                "Week offset can only be between 0 to 6. 0->Sun, 1->Mon, 2->Tue, 3->Wed, 4->Thu, 5->Fri, 6->Sat",
+                e.message
+            )
         }
     }
 

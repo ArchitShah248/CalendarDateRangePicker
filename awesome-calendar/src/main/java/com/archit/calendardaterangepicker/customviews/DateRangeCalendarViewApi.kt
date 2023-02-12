@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import java.util.Calendar
 
+@Suppress("TooManyFunctions")
 interface DateRangeCalendarViewApi {
     /**
      * To set calendar listener
@@ -52,8 +53,10 @@ interface DateRangeCalendarViewApi {
     var isEditable: Boolean
 
     /**
-     * To provide month range to be shown to user. If start month is greater than end month than it will give [IllegalArgumentException].<br></br>
-     * **Note:** Do not call this method after calling date selection method (@method setSelectedDateRange) as it will reset date selection.
+     * To provide month range to be shown to user. If start month is greater than end month than
+     * it will give [IllegalArgumentException].<br></br>
+     * **Note:** Do not call this method after calling date selection method (@method setSelectedDateRange)
+     * as it will reset date selection.
      *
      * @param startMonth Start month of the calendar
      * @param endMonth   End month of the calendar
@@ -80,7 +83,8 @@ interface DateRangeCalendarViewApi {
      * Sets start and end date.<br></br>
      * <B>Note:</B><br></br>
      * You can not set end date before start date.<br></br>
-     * If you are setting custom month range than do not call this before calling (@method setVisibleMonthRange).<br></br>
+     * If you are setting custom month range than do not call this before calling
+     * (@method setVisibleMonthRange).<br></br>
      * If you have selected date selection mode as `single` or `fixed_range` then end date will be ignored.
      * @param startDate Start date
      * @param endDate   End date
@@ -88,8 +92,9 @@ interface DateRangeCalendarViewApi {
     fun setSelectedDateRange(startDate: Calendar, endDate: Calendar)
 
     /**
-     * Sets number of days only when date selection mode is <B>free_range</B>. If date selection mode is not set to `free_range`
-     * then exception will be thrown. Default number of days selection is 7 days from the selected date.
+     * Sets number of days only when date selection mode is <B>free_range</B>. If date selection
+     * mode is not set to `free_range` then exception will be thrown.
+     * Default number of days selection is 7 days from the selected date.
      * @param numberOfDaysSelection - Number of days that needs to be selected from the selected date.
      */
     fun setFixedDaysSelection(numberOfDaysSelection: Int)

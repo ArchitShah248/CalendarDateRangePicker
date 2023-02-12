@@ -11,9 +11,11 @@ import com.archit.calendardaterangepicker.R.layout
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
 import java.util.Calendar
 
-internal class AdapterEventCalendarMonths(private val mContext: Context,
-                                          calendarDateRangeManager: CalendarDateRangeManagerImpl,
-                                          calendarStyleAttr: CalendarStyleAttributes) : PagerAdapter() {
+internal class AdapterEventCalendarMonths(
+    private val mContext: Context,
+    calendarDateRangeManager: CalendarDateRangeManagerImpl,
+    calendarStyleAttr: CalendarStyleAttributes
+) : PagerAdapter() {
     private val mCalendarStyleAttr: CalendarStyleAttributes
     private var mCalendarListener: CalendarListener? = null
     private val mDateRangeCalendarManager: CalendarDateRangeManager
@@ -31,7 +33,9 @@ internal class AdapterEventCalendarMonths(private val mContext: Context,
         val inflater = LayoutInflater.from(mContext)
         val layout = inflater.inflate(layout.layout_pager_month, container, false) as ViewGroup
         val dateRangeMonthView: DateRangeMonthView = layout.findViewById(id.cvEventCalendarView)
-        dateRangeMonthView.drawCalendarForMonth(mCalendarStyleAttr, getCurrentMonth(modelObject), mDateRangeCalendarManager)
+        dateRangeMonthView.drawCalendarForMonth(
+            mCalendarStyleAttr, getCurrentMonth(modelObject), mDateRangeCalendarManager
+        )
         dateRangeMonthView.setCalendarListener(calendarAdapterListener)
         container.addView(layout)
         return layout
@@ -59,14 +63,14 @@ internal class AdapterEventCalendarMonths(private val mContext: Context,
 
     private val calendarAdapterListener: CalendarListener = object : CalendarListener {
         override fun onFirstDateSelected(startDate: Calendar) {
-            mHandler.postDelayed({ notifyDataSetChanged() }, 50)
+            mHandler.postDelayed({ notifyDataSetChanged() }, DELAY_IN_MILLIS)
             if (mCalendarListener != null) {
                 mCalendarListener!!.onFirstDateSelected(startDate)
             }
         }
 
         override fun onDateRangeSelected(startDate: Calendar, endDate: Calendar) {
-            mHandler.postDelayed({ notifyDataSetChanged() }, 50)
+            mHandler.postDelayed({ notifyDataSetChanged() }, DELAY_IN_MILLIS)
             if (mCalendarListener != null) {
                 mCalendarListener!!.onDateRangeSelected(startDate, endDate)
             }
@@ -81,7 +85,7 @@ internal class AdapterEventCalendarMonths(private val mContext: Context,
      * To redraw calendar.
      */
     fun invalidateCalendar() {
-        mHandler.postDelayed({ notifyDataSetChanged() }, 50)
+        mHandler.postDelayed({ notifyDataSetChanged() }, DELAY_IN_MILLIS)
     }
 
     /**
@@ -107,5 +111,9 @@ internal class AdapterEventCalendarMonths(private val mContext: Context,
     init {
         mDateRangeCalendarManager = calendarDateRangeManager
         mCalendarStyleAttr = calendarStyleAttr
+    }
+
+    companion object {
+        private const val DELAY_IN_MILLIS = 50L
     }
 }

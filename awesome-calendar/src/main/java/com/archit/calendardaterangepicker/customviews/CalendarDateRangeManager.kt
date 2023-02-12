@@ -2,6 +2,7 @@ package com.archit.calendardaterangepicker.customviews
 
 import java.util.Calendar
 
+@Suppress("TooManyFunctions")
 interface CalendarDateRangeManager {
 
     enum class DateSelectionState {

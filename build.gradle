@@ -3,6 +3,7 @@
 buildscript {
     ext.kotlin_version = '1.7.21'
     ext.mockk_version = '1.13.3'
+    ext.detekt_version = '1.22.0'
 
     repositories {
         mavenCentral()
@@ -16,8 +17,12 @@ buildscript {
 
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
     }
 }
+
+apply plugin: "io.gitlab.arturbosch.detekt"
 
 allprojects {
     repositories {

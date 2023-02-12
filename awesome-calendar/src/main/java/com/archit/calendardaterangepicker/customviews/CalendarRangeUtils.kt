@@ -1,35 +1,28 @@
 package com.archit.calendardaterangepicker.customviews
 
-import com.archit.calendardaterangepicker.customviews.DateTiming.END
-import com.archit.calendardaterangepicker.customviews.DateTiming.START
+import com.archit.calendardaterangepicker.models.DateTiming
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
-enum class DateTiming {
-    NONE,
-    START,
-    END
-}
 
 /**
  * Resets date time to HH:mm:ss SSS = 00:00:00 000 or 23:59:59 999
  *
  * @param date [Calendar]
  */
-fun resetTime(date: Calendar, dateTiming: DateTiming) {
+internal fun resetTime(date: Calendar, dateTiming: DateTiming) {
     when (dateTiming) {
-        START -> {
+        DateTiming.START -> {
             date[Calendar.HOUR_OF_DAY] = 0
             date[Calendar.MINUTE] = 0
             date[Calendar.SECOND] = 0
             date[Calendar.MILLISECOND] = 0
         }
-        END -> {
-            date[Calendar.HOUR_OF_DAY] = 23
-            date[Calendar.MINUTE] = 59
-            date[Calendar.SECOND] = 59
-            date[Calendar.MILLISECOND] = 999
+        DateTiming.END -> {
+            date[Calendar.HOUR_OF_DAY] = LAST_HOUR_OF_THE_DAY
+            date[Calendar.MINUTE] = LAST_MINUTE
+            date[Calendar.SECOND] = LAST_SECOND
+            date[Calendar.MILLISECOND] = LAST_MILLI_SECOND
         }
         else -> {
             date[Calendar.HOUR_OF_DAY] = 0
@@ -39,6 +32,11 @@ fun resetTime(date: Calendar, dateTiming: DateTiming) {
         }
     }
 }
+
+private const val LAST_HOUR_OF_THE_DAY = 23
+private const val LAST_MINUTE = 59
+private const val LAST_SECOND = 59
+private const val LAST_MILLI_SECOND = 999
 
 /**
  * To print calendar date.

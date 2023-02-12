@@ -1,9 +1,13 @@
 package com.test.awesomecalendar
 
-import com.archit.calendardaterangepicker.customviews.*
+import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState
+import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManagerImpl
+import com.archit.calendardaterangepicker.customviews.InvalidDateException
+import com.archit.calendardaterangepicker.customviews.isDateSame
+import com.archit.calendardaterangepicker.customviews.isMonthSame
+import com.archit.calendardaterangepicker.customviews.printDate
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
-import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.*
 import io.mockk.every
 import io.mockk.mockk
 import java.util.Calendar
@@ -24,7 +28,9 @@ class DateRangeCalendarManagerTest {
     @Before
     fun setUp() {
         // GIVEN
-        every { mockCalendarStyleAttributes.dateSelectionMode } returns FREE_RANGE
+        every {
+            mockCalendarStyleAttributes.dateSelectionMode
+        } returns CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
         mCalendarManagerImpl =
             CalendarDateRangeManagerImpl(mDefStartMonth, mDefEndMonth, mockCalendarStyleAttributes)
     }
@@ -92,10 +98,12 @@ class DateRangeCalendarManagerTest {
             mCalendarManagerImpl.setSelectableDateRange(selectableStartDate, selectableEndDate)
         } catch (e: InvalidDateException) {
             // THEN
-            assertEquals("Selectable start date ${(printDate(selectableStartDate))} is out of visible months" +
-                    "(${printDate(mCalendarManagerImpl.getStartVisibleMonth())} " +
-                    "- ${printDate(mCalendarManagerImpl.getEndVisibleMonth())}).",
-                    e.localizedMessage)
+            assertEquals(
+                "Selectable start date ${(printDate(selectableStartDate))} is out of visible months" +
+                        "(${printDate(mCalendarManagerImpl.getStartVisibleMonth())} " +
+                        "- ${printDate(mCalendarManagerImpl.getEndVisibleMonth())}).",
+                e.localizedMessage
+            )
         }
 
         // GIVEN
@@ -166,7 +174,10 @@ class DateRangeCalendarManagerTest {
             mCalendarManagerImpl.setSelectedDateRange(selectedStartDate1, selectedEndDate1)
         } catch (e: InvalidDateException) {
             // THEN
-            assertEquals("Start date(${printDate(selectedStartDate1)}) is out of selectable date range.", e.localizedMessage)
+            assertEquals(
+                "Start date(${printDate(selectedStartDate1)}) is out of selectable date range.",
+                e.localizedMessage
+            )
         }
 
         // GIVEN
@@ -178,7 +189,10 @@ class DateRangeCalendarManagerTest {
             mCalendarManagerImpl.setSelectedDateRange(selectedStartDate2, selectedEndDate2)
         } catch (e: InvalidDateException) {
             // THEN
-            assertEquals("End date(${printDate(selectedEndDate2)}) is out of selectable date range.", e.localizedMessage)
+            assertEquals(
+                "End date(${printDate(selectedEndDate2)}) is out of selectable date range.",
+                e.localizedMessage
+            )
         }
     }
 
@@ -217,7 +231,7 @@ class DateRangeCalendarManagerTest {
     @Test
     fun `test selected date range with date selection mode single`() {
         // GIVEN
-        every { mockCalendarStyleAttributes.dateSelectionMode } returns SINGLE
+        every { mockCalendarStyleAttributes.dateSelectionMode } returns CalendarStyleAttributes.DateSelectionMode.SINGLE
         val selectedStartDate = getCalendar(5, Calendar.MARCH, 2020)
         val selectedEndDate = getCalendar(10, Calendar.MARCH, 2020)
 
@@ -240,7 +254,7 @@ class DateRangeCalendarManagerTest {
     fun `test selected date range with date selection mode fixed range`() {
         // GIVEN
         with(mockCalendarStyleAttributes) {
-            every { dateSelectionMode } returns FIXED_RANGE
+            every { dateSelectionMode } returns CalendarStyleAttributes.DateSelectionMode.FIXED_RANGE
             every { fixedDaysSelectionNumber } returns 2
         }
         val selectedStartDate = getCalendar(5, Calendar.MARCH, 2020)
@@ -286,7 +300,7 @@ class DateRangeCalendarManagerTest {
         assertEquals(DateSelectionState.START_END_SAME, mCalendarManagerImpl.checkDateRange(selectedEndDate))
     }
 
-    private fun checkDateOrderValidation(errorMsg: String, start: Calendar, end: Calendar) {
+    private fun checkDateOrderValidation(errorMsg: String?, start: Calendar, end: Calendar) {
         assertEquals("Start date(${printDate(start)}) can not be after end date(${printDate(end)}).", errorMsg)
     }
 }

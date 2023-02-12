@@ -20,6 +20,7 @@ import java.text.DateFormatSymbols
 import java.util.Calendar
 import java.util.Locale
 
+@Suppress("TooManyFunctions")
 class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
     private lateinit var tvYearTitle: CustomTextView
     private lateinit var imgVNavLeft: AppCompatImageView
@@ -69,13 +70,13 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
 
     private fun setListeners() {
         vpCalendar.addOnPageChangeListener(object : OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
             override fun onPageSelected(position: Int) {
                 setCalendarYearTitle(position)
                 setNavigationHeader(position)
             }
 
-            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrollStateChanged(state: Int) = Unit
         })
         imgVNavLeft.setOnClickListener {
             val newPosition = vpCalendar.currentItem - 1
@@ -179,7 +180,8 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
      * Sets start and end date.<br></br>
      * <B>Note:</B><br></br>
      * You can not set end date before start date.<br></br>
-     * If you are setting custom month range than do not call this before calling (@method setVisibleMonthRange).<br></br>
+     * If you are setting custom month range than do not call this
+     * before calling (@method setVisibleMonthRange).<br></br>
      * If you have selected date selection mode as `single` or `fixed_range` then end date will be ignored.
      *
      * @param startDate Start date
@@ -217,8 +219,10 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
         }
 
     /**
-     * To provide month range to be shown to user. If start month is greater than end month than it will give [IllegalArgumentException].<br></br>
-     * By default it will also make selectable date range as per visible month's dates. If you want to customize the selectable date range then
+     * To provide month range to be shown to user. If start month is greater than end month
+     * than it will give [IllegalArgumentException].<br></br>
+     * By default it will also make selectable date range as per visible month's dates. If you want
+     * to customize the selectable date range then
      * use [.setSelectableDateRange].<br></br><br></br>
      * **Note:** Do not call this method after calling date selection method [.setSelectableDateRange]
      * / [.setSelectedDateRange] as it will reset date selection.
@@ -249,7 +253,8 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
     }
 
     /**
-     * Sets number of days only when date selection mode is <B>free_range</B>. If date selection mode is not set to `free_range`
+     * Sets number of days only when date selection mode is <B>free_range</B>.
+     * If date selection mode is not set to `free_range`
      * then exception will be thrown.<br></br>/
      * **Note:** Default number of days selection is 7 days from the selected date.
      *

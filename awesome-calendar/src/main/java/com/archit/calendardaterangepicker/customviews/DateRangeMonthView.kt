@@ -17,7 +17,6 @@ import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.D
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.LAST_DATE
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.START_DATE
 import com.archit.calendardaterangepicker.customviews.CalendarDateRangeManager.DateSelectionState.START_END_SAME
-import com.archit.calendardaterangepicker.customviews.DateTiming.NONE
 import com.archit.calendardaterangepicker.customviews.DateView.Companion.getContainerKey
 import com.archit.calendardaterangepicker.customviews.DateView.DateState
 import com.archit.calendardaterangepicker.customviews.DateView.DateState.DISABLE
@@ -31,6 +30,7 @@ import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FIXED_RANGE
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.SINGLE
+import com.archit.calendardaterangepicker.models.DateTiming
 import com.archit.calendardaterangepicker.timepicker.AwesomeTimePickerDialog
 import com.archit.calendardaterangepicker.timepicker.AwesomeTimePickerDialog.TimePickerCallback
 import java.util.Calendar
@@ -45,62 +45,23 @@ internal class DateRangeMonthView : LinearLayout {
     private lateinit var calendarStyleAttr: CalendarStyleAttributes
     private var calendarListener: CalendarListener? = null
     private lateinit var dateRangeCalendarManager: CalendarDateRangeManager
-    fun setCalendarListener(calendarListener: CalendarListener?) {
-        this.calendarListener = calendarListener
-    }
 
-    constructor(context: Context) : super(context) {
-        initView(context, null)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        initView(context, attrs)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        initView(context, attrs)
-    }
-
-    @TargetApi(VERSION_CODES.LOLLIPOP)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int,
-                defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
-        initView(context, attrs)
-    }
-
-    /**
-     * To initialize child views
-     *
-     * @param context      - App context
-     * @param attributeSet - Attr set
-     */
-    private fun initView(context: Context, attributeSet: AttributeSet?) {
-        val layoutInflater = LayoutInflater.from(context)
-        val mainView = layoutInflater.inflate(layout.layout_calendar_month, this, true) as LinearLayout
-        llDaysContainer = mainView.findViewById(R.id.llDaysContainer)
-        llTitleWeekContainer = mainView.findViewById(R.id.llTitleWeekContainer)
-        setListeners()
-    }
-
-    /**
-     * To set listeners.
-     */
-    private fun setListeners() {}
     private val mOnDateClickListener: OnDateClickListener = object : OnDateClickListener {
         override fun onDateClicked(view: View, selectedDate: Calendar) {
             if (calendarStyleAttr.isEditable) {
                 if (calendarStyleAttr.isShouldEnabledTime) {
                     val awesomeTimePickerDialog = AwesomeTimePickerDialog(context,
-                            context.getString(string.select_time), object : TimePickerCallback {
-                        override fun onTimeSelected(hours: Int, mins: Int) {
-                            selectedDate[Calendar.HOUR] = hours
-                            selectedDate[Calendar.MINUTE] = mins
-                            setSelectedDate(selectedDate)
-                        }
+                        context.getString(string.select_time), object : TimePickerCallback {
+                            override fun onTimeSelected(hours: Int, mins: Int) {
+                                selectedDate[Calendar.HOUR] = hours
+                                selectedDate[Calendar.MINUTE] = mins
+                                setSelectedDate(selectedDate)
+                            }
 
-                        override fun onCancel() {
-                            resetAllSelectedViews()
-                        }
-                    })
+                            override fun onCancel() {
+                                resetAllSelectedViews()
+                            }
+                        })
                     awesomeTimePickerDialog.showDialog()
                 } else {
                     setSelectedDate(selectedDate)
@@ -109,8 +70,44 @@ internal class DateRangeMonthView : LinearLayout {
         }
     }
 
-    private fun setSelectedDate(selectedDate: Calendar) {
+    fun setCalendarListener(calendarListener: CalendarListener?) {
+        this.calendarListener = calendarListener
+    }
 
+    constructor(context: Context) : super(context) {
+        initView(context)
+    }
+
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        initView(context)
+    }
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        initView(context)
+    }
+
+    @TargetApi(VERSION_CODES.LOLLIPOP)
+    constructor(
+        context: Context, attrs: AttributeSet?, defStyleAttr: Int,
+        defStyleRes: Int
+    ) : super(context, attrs, defStyleAttr, defStyleRes) {
+        initView(context)
+    }
+
+    /**
+     * To initialize child views
+     *
+     * @param context      - App context
+     * @param attributeSet - Attr set
+     */
+    private fun initView(context: Context) {
+        val layoutInflater = LayoutInflater.from(context)
+        val mainView = layoutInflater.inflate(layout.layout_calendar_month, this, true) as LinearLayout
+        llDaysContainer = mainView.findViewById(R.id.llDaysContainer)
+        llTitleWeekContainer = mainView.findViewById(R.id.llTitleWeekContainer)
+    }
+
+    private fun setSelectedDate(selectedDate: Calendar) {
         val selectionMode = calendarStyleAttr.dateSelectionMode
         var minSelectedDate = dateRangeCalendarManager.getMinSelectedDate()
         var maxSelectedDate = dateRangeCalendarManager.getMaxSelectedDate()
@@ -164,7 +161,11 @@ internal class DateRangeMonthView : LinearLayout {
      * @param month                    Month to be drawn
      * @param dateRangeCalendarManager Calendar data manager
      */
-    fun drawCalendarForMonth(calendarStyleAttr: CalendarStyleAttributes, month: Calendar, dateRangeCalendarManager: CalendarDateRangeManager) {
+    fun drawCalendarForMonth(
+        calendarStyleAttr: CalendarStyleAttributes,
+        month: Calendar,
+        dateRangeCalendarManager: CalendarDateRangeManager,
+    ) {
         this.calendarStyleAttr = calendarStyleAttr
         currentCalendarMonth = month.clone() as Calendar
         this.dateRangeCalendarManager = dateRangeCalendarManager
@@ -180,25 +181,25 @@ internal class DateRangeMonthView : LinearLayout {
         setWeekTextAttributes()
         currentCalendarMonth = month.clone() as Calendar
         currentCalendarMonth[Calendar.DATE] = 1
-        resetTime(currentCalendarMonth, NONE)
+        resetTime(currentCalendarMonth, DateTiming.NONE)
         val weekTitle = context.resources.getStringArray(array.week_sun_sat)
 
         //To set week day title as per offset
-        for (i in 0..6) {
+        for (i in 0 until TOTAL_DAYS_IN_A_WEEK) {
             val textView = llTitleWeekContainer.getChildAt(i) as CustomTextView
-            val weekStr = weekTitle[(i + calendarStyleAttr.weekOffset) % 7]
+            val weekStr = weekTitle[(i + calendarStyleAttr.weekOffset) % TOTAL_DAYS_IN_A_WEEK]
             textView.text = weekStr
         }
         var startDay = month[Calendar.DAY_OF_WEEK] - calendarStyleAttr.weekOffset
 
         //To rotate week day according to offset
         if (startDay < 1) {
-            startDay = startDay + 7
+            startDay = startDay + TOTAL_DAYS_IN_A_WEEK
         }
         month.add(Calendar.DATE, -startDay + 1)
         for (i in 0 until llDaysContainer.childCount) {
             val weekRow = llDaysContainer.getChildAt(i) as LinearLayout
-            for (j in 0..6) {
+            for (j in 0 until TOTAL_DAYS_IN_A_WEEK) {
                 val customDateView = weekRow.getChildAt(j) as CustomDateView
                 drawDayContainer(customDateView, month)
                 month.add(Calendar.DATE, 1)
@@ -217,8 +218,7 @@ internal class DateRangeMonthView : LinearLayout {
         customDateView.setDateStyleAttributes(calendarStyleAttr)
         customDateView.setDateClickListener(mOnDateClickListener)
         calendarStyleAttr.fonts?.let { customDateView.setTypeface(it) }
-        val dateState: DateState
-        dateState = if (currentCalendarMonth[Calendar.MONTH] != date[Calendar.MONTH]) {
+        val dateState: DateState = if (currentCalendarMonth[Calendar.MONTH] != date[Calendar.MONTH]) {
             HIDDEN
         } else {
             val type = dateRangeCalendarManager.checkDateRange(date)
@@ -264,5 +264,6 @@ internal class DateRangeMonthView : LinearLayout {
 
     companion object {
         private val LOG_TAG = DateRangeMonthView::class.java.simpleName
+        private const val TOTAL_DAYS_IN_A_WEEK = 7
     }
 }
