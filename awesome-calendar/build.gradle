@@ -71,8 +71,6 @@ dependencies {
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
 }
 
-apply from: 'install.gradle'
-apply from: 'bintray.gradle'
 repositories {
     mavenCentral()
 }
