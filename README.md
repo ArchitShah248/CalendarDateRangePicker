@@ -37,7 +37,7 @@ For Gradle:
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:2.0.0'
+    implementation 'com.archit.calendar:awesome-calendar:2.0.0'
 }
 ```
 
