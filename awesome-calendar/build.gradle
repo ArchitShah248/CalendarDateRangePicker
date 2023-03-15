@@ -3,29 +3,21 @@ apply plugin: 'kotlin-android'
 apply plugin: "io.gitlab.arturbosch.detekt"
 
 ext {
-    bintrayRepo = 'EnticeArc'
-    bintrayName = 'awesome-calendar'   // Has to be same as your library module name
+    PUBLISH_GROUP_ID = 'io.github.architshah248.calendar'
+    PUBLISH_VERSION = '2.0.0'
+    PUBLISH_ARTIFACT_ID = 'awesome-calendar'     // Has to be same as your library module name
+    PUBLISH_DESCRIPTION = 'Android library to select range of dates.'
 
-    publishedGroupId = 'com.archit.calendar'
-    libraryName = 'Awesome-Calendar'
-    artifact = 'awesome-calendar'     // Has to be same as your library module name
+    PUBLISH_URL = 'https://github.com/ArchitShah248/CalendarDateRangePicker'
+    PUBLISH_LICENSE_NAME = 'Apache License'
+    PUBLISH_LICENSE_URL = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
 
-    libraryDescription = 'Android library to select range of dates.'
-
-    // Your github repo link
-    siteUrl = 'https://github.com/ArchitShah248/CalendarDateRangePicker'
-    gitUrl = 'https://github.com/ArchitShah248/CalendarDateRangePicker.git'
-    githubRepository= 'ArchitShah248/CalendarDateRangePicker'
-
-    libraryVersion = '2.0.0'
-
-    developerId = 'architshah248'
-    developerName = 'Archit Shah'
-    developerEmail = 'architshah248@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+    PUBLISH_DEVELOPER_ID = 'architshah248'
+    PUBLISH_DEVELOPER_NAME = 'Archit Shah'
+    PUBLISH_DEVELOPER_EMAIL = 'architshah248@gmail.com'
+    PUBLISH_SCM_CONNECTION = 'scm:git:github.com/ArchitShah248/CalendarDateRangePicker.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION = 'scm:git:ssh://github.com/ArchitShah248/CalendarDateRangePicker.git'
+    PUBLISH_SCM_URL = 'https://github.com/ArchitShah248/CalendarDateRangePicker/tree/master'
 }
 
 android {
@@ -70,6 +62,8 @@ dependencies {
     })
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
 }
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 repositories {
     mavenCentral()

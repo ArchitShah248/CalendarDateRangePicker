@@ -6,11 +6,12 @@ buildscript {
     ext.detekt_version = '1.22.0'
 
     repositories {
-        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
         google()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.1'
+        classpath 'com.android.tools.build:gradle:7.4.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -19,10 +20,14 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
+
+        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
     }
 }
 
 apply plugin: "io.gitlab.arturbosch.detekt"
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
+apply from: "${rootDir}/scripts/publish-root.gradle"
 
 allprojects {
     repositories {

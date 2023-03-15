@@ -1,8 +1,8 @@
 # CalendarDateRangePicker
-[ ![Download](https://api.bintray.com/packages/architshah248/EnticeArc/awesome-calendar/images/download.svg) ](https://bintray.com/architshah248/EnticeArc/awesome-calendar/_latestVersion)
- [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CalendarDateRangePicker-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6929)
- [![Xamarin](https://img.shields.io/badge/Xamarin-CalendarDateRangePicker-ff69b4.svg?style=flat)](https://github.com/kibotu/Xamarin.Awesome.Calendar)
- [![NuGet Badge](https://buildstats.info/nuget/Xamarin.Awesome.Calendar)](https://www.nuget.org/packages/Xamarin.Awesome.Calendar/)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.architshah248.calendar/awesome-calendar?label=MavenCentral&logo=apache-maven)](https://search.maven.org/artifact/io.github.architshah248.calendar/awesome-calendar)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CalendarDateRangePicker-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6929)
+[![Xamarin](https://img.shields.io/badge/Xamarin-CalendarDateRangePicker-ff69b4.svg?style=flat)](https://github.com/kibotu/Xamarin.Awesome.Calendar)
+[![NuGet Badge](https://buildstats.info/nuget/Xamarin.Awesome.Calendar)](https://www.nuget.org/packages/Xamarin.Awesome.Calendar/)
  
 
 ==================
@@ -37,7 +37,7 @@ For Gradle:
 Add following line to App level gradle:
 ```
 dependencies {
-    compile 'com.archit.calendar:awesome-calendar:2.0.0'
+    implementation 'io.github.architshah248.calendar:awesome-calendar:2.0.0'
 }
 ```
 
@@ -45,10 +45,9 @@ dependencies {
 For Maven:
 ```xml
 <dependency>
-  <groupId>com.archit.calendar</groupId>
-  <artifactId>awesome-calendar</artifactId>
-  <version>2.0.0</version>
-  <type>pom</type>
+    <groupId>io.github.architshah248.calendar</groupId>
+    <artifactId>awesome-calendar</artifactId>
+    <version>2.0.0</version>
 </dependency>
 ```
 
