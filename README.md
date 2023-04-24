@@ -26,7 +26,7 @@ Screenshots
 <img width="30%" src="screenshots/device-2017-08-14-143933.png" />
 
 
-Developer setup
+Developer setup - Yasir
 ---------------
 
 **Import DateRangePicker dependency**
