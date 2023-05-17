@@ -19,25 +19,25 @@ interface CalendarStyleAttributes {
     var headerBg: Drawable?
 
     @get:ColorInt
-    val weekColor: Int
+    var weekColor: Int
 
     @get:ColorInt
-    val rangeStripColor: Int
+    var rangeStripColor: Int
 
     @get:ColorInt
-    val selectedDateCircleColor: Int
+    var selectedDateCircleColor: Int
 
     @get:ColorInt
-    val selectedDateColor: Int
+    var selectedDateColor: Int
 
     @get:ColorInt
-    val defaultDateColor: Int
+    var defaultDateColor: Int
 
     @get:ColorInt
     val disableDateColor: Int
 
     @get:ColorInt
-    val rangeDateColor: Int
+    var rangeDateColor: Int
     val textSizeTitle: Float
     val textSizeWeek: Float
     val textSizeDate: Float

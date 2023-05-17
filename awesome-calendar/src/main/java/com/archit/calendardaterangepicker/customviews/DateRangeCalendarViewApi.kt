@@ -2,7 +2,7 @@ package com.archit.calendardaterangepicker.customviews
 
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import java.util.Calendar
+import java.util.*
 
 @Suppress("TooManyFunctions")
 interface DateRangeCalendarViewApi {
@@ -108,4 +108,11 @@ interface DateRangeCalendarViewApi {
      * To get end date.
      */
     val endDate: Calendar?
+
+    fun setDateRangeColor(color: Int)
+    fun setSelectedDateColor(color: Int)
+    fun setSelectedDateCircleColor(color: Int)
+    fun setRangeStripColor(color: Int)
+    fun setWeekColor(color: Int)
+    fun setDefaultDateColor(color: Int)
 }

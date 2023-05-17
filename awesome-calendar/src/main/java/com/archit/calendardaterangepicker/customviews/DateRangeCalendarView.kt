@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.archit.calendardaterangepicker.R
@@ -17,8 +18,7 @@ import com.archit.calendardaterangepicker.R.layout
 import com.archit.calendardaterangepicker.models.CalendarStyleAttrImpl
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
 import java.text.DateFormatSymbols
-import java.util.Calendar
-import java.util.Locale
+import java.util.*
 
 @Suppress("TooManyFunctions")
 class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
@@ -39,11 +39,17 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
         initViews(context, attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         initViews(context, attrs)
     }
 
-    private fun initViews(context: Context, attrs: AttributeSet?) {
+    private fun initViews(
+        context: Context, attrs: AttributeSet?
+    ) {
         locale = context.resources.configuration.locale
         calendarStyleAttr = CalendarStyleAttrImpl(context, attrs)
         val layoutInflater = LayoutInflater.from(context)
@@ -59,8 +65,10 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
         defStartMonth.add(Calendar.MONTH, -TOTAL_ALLOWED_MONTHS)
         val defEndMonth = Calendar.getInstance().clone() as Calendar
         defEndMonth.add(Calendar.MONTH, TOTAL_ALLOWED_MONTHS)
-        mDateRangeCalendarManager = CalendarDateRangeManagerImpl(defStartMonth, defEndMonth, calendarStyleAttr)
-        adapterEventCalendarMonths = AdapterEventCalendarMonths(context, mDateRangeCalendarManager, calendarStyleAttr)
+        mDateRangeCalendarManager =
+            CalendarDateRangeManagerImpl(defStartMonth, defEndMonth, calendarStyleAttr)
+        adapterEventCalendarMonths =
+            AdapterEventCalendarMonths(context, mDateRangeCalendarManager, calendarStyleAttr)
         vpCalendar.adapter = adapterEventCalendarMonths
         vpCalendar.offscreenPageLimit = 0
         vpCalendar.currentItem = TOTAL_ALLOWED_MONTHS
@@ -70,7 +78,12 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
 
     private fun setListeners() {
         vpCalendar.addOnPageChangeListener(object : OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) = Unit
+
             override fun onPageSelected(position: Int) {
                 setCalendarYearTitle(position)
                 setNavigationHeader(position)
@@ -203,6 +216,30 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
      */
     override val endDate: Calendar?
         get() = mDateRangeCalendarManager.getMaxSelectedDate()
+
+    override fun setDateRangeColor(color: Int) {
+        calendarStyleAttr.rangeDateColor = ContextCompat.getColor(context, color)
+    }
+
+    override fun setSelectedDateColor(color: Int) {
+        calendarStyleAttr.selectedDateColor = ContextCompat.getColor(context, color)
+    }
+
+    override fun setSelectedDateCircleColor(color: Int) {
+        calendarStyleAttr.selectedDateCircleColor = ContextCompat.getColor(context, color)
+    }
+
+    override fun setRangeStripColor(color: Int) {
+        calendarStyleAttr.rangeStripColor = ContextCompat.getColor(context, color)
+    }
+
+    override fun setWeekColor(color: Int) {
+        calendarStyleAttr.weekColor = ContextCompat.getColor(context, color)
+    }
+
+    override fun setDefaultDateColor(color: Int) {
+        calendarStyleAttr.defaultDateColor = ContextCompat.getColor(context, color)
+    }
 
     /**
      * To get editable mode.

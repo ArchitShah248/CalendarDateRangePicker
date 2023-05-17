@@ -15,30 +15,23 @@ import androidx.core.content.ContextCompat
 import com.archit.calendardaterangepicker.R
 import com.archit.calendardaterangepicker.R.drawable
 import com.archit.calendardaterangepicker.customviews.DateView.DateState
-import com.archit.calendardaterangepicker.customviews.DateView.DateState.DISABLE
-import com.archit.calendardaterangepicker.customviews.DateView.DateState.END
-import com.archit.calendardaterangepicker.customviews.DateView.DateState.HIDDEN
-import com.archit.calendardaterangepicker.customviews.DateView.DateState.MIDDLE
-import com.archit.calendardaterangepicker.customviews.DateView.DateState.SELECTABLE
-import com.archit.calendardaterangepicker.customviews.DateView.DateState.START
-import com.archit.calendardaterangepicker.customviews.DateView.DateState.START_END_SAME
+import com.archit.calendardaterangepicker.customviews.DateView.DateState.*
 import com.archit.calendardaterangepicker.customviews.DateView.OnDateClickListener
 import com.archit.calendardaterangepicker.models.CalendarStyleAttrImpl
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 @Suppress("TooManyFunctions")
 class CustomDateView @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr), DateView {
 
     private val tvDate: CustomTextView
     private val strip: View
-    private val simpleDateFormat = SimpleDateFormat(CalendarDateRangeManager.DATE_FORMAT, Locale.getDefault())
+    private val simpleDateFormat =
+        SimpleDateFormat(CalendarDateRangeManager.DATE_FORMAT, Locale.getDefault())
     private val filterMode = SRC_IN
 
     private var onDateClickListener: OnDateClickListener? = null
@@ -57,7 +50,8 @@ class CustomDateView @JvmOverloads constructor(
         }
     }
 
-    private val defCalendarStyleAttr: CalendarStyleAttrImpl = CalendarStyleAttrImpl.getDefAttributes(context)
+    private val defCalendarStyleAttr: CalendarStyleAttrImpl =
+        CalendarStyleAttrImpl.getDefAttributes(context)
     override var dateTextSize: Float = defCalendarStyleAttr.textSizeDate
     override var defaultDateColor: Int = defCalendarStyleAttr.defaultDateColor
     override var disableDateColor: Int = defCalendarStyleAttr.disableDateColor

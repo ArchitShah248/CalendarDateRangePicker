@@ -11,25 +11,23 @@ import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSel
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FIXED_RANGE
 import com.archit.calendardaterangepicker.models.CalendarStyleAttributes.DateSelectionMode.FREE_RANGE
 
-class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null) : CalendarStyleAttributes {
+class CalendarStyleAttrImpl(
+    context: Context,
+    attributeSet: AttributeSet? = null
+) : CalendarStyleAttributes {
     override var fonts: Typeface? = null
     override var titleColor = ContextCompat.getColor(context, R.color.title_color)
         private set
     override var headerBg: Drawable? = null
     override var weekColor = ContextCompat.getColor(context, R.color.week_color)
-        private set
     override var rangeStripColor = ContextCompat.getColor(context, R.color.range_bg_color)
-        private set
-    override var selectedDateCircleColor = ContextCompat.getColor(context, R.color.selected_date_circle_color)
-        private set
+    override var selectedDateCircleColor =
+        ContextCompat.getColor(context, R.color.selected_date_circle_color)
     override var selectedDateColor = ContextCompat.getColor(context, R.color.selected_date_color)
-        private set
     override var defaultDateColor = ContextCompat.getColor(context, R.color.default_date_color)
-        private set
     override var disableDateColor = ContextCompat.getColor(context, R.color.disable_date_color)
         private set
     override var rangeDateColor = ContextCompat.getColor(context, R.color.range_date_color)
-        private set
     override var textSizeTitle = context.resources.getDimension(R.dimen.text_size_title)
         private set
     override var textSizeWeek = context.resources.getDimension(R.dimen.text_size_week)
@@ -74,26 +72,44 @@ class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null
 
     private fun setAttributes(context: Context, attributeSet: AttributeSet?) {
         if (attributeSet != null) {
-            val ta = context.obtainStyledAttributes(attributeSet, R.styleable.DateRangeMonthView, 0, 0)
+            val ta =
+                context.obtainStyledAttributes(attributeSet, R.styleable.DateRangeMonthView, 0, 0)
             try {
                 titleColor = ta.getColor(R.styleable.DateRangeMonthView_title_color, titleColor)
                 headerBg = ta.getDrawable(R.styleable.DateRangeMonthView_header_bg)
                 weekColor = ta.getColor(R.styleable.DateRangeMonthView_week_color, weekColor)
-                rangeStripColor = ta.getColor(R.styleable.DateRangeMonthView_range_color, rangeStripColor)
+                rangeStripColor =
+                    ta.getColor(R.styleable.DateRangeMonthView_range_color, rangeStripColor)
                 selectedDateCircleColor =
-                    ta.getColor(R.styleable.DateRangeMonthView_selected_date_circle_color, selectedDateCircleColor)
-                isShouldEnabledTime = ta.getBoolean(R.styleable.DateRangeMonthView_enable_time_selection, false)
+                    ta.getColor(
+                        R.styleable.DateRangeMonthView_selected_date_circle_color,
+                        selectedDateCircleColor
+                    )
+                isShouldEnabledTime =
+                    ta.getBoolean(R.styleable.DateRangeMonthView_enable_time_selection, false)
                 isEditable = ta.getBoolean(R.styleable.DateRangeMonthView_editable, true)
-                textSizeTitle = ta.getDimension(R.styleable.DateRangeMonthView_text_size_title, textSizeTitle)
-                textSizeWeek = ta.getDimension(R.styleable.DateRangeMonthView_text_size_week, textSizeWeek)
-                textSizeDate = ta.getDimension(R.styleable.DateRangeMonthView_text_size_date, textSizeDate)
-                selectedDateColor = ta.getColor(R.styleable.DateRangeMonthView_selected_date_color, selectedDateColor)
-                defaultDateColor = ta.getColor(R.styleable.DateRangeMonthView_default_date_color, defaultDateColor)
-                rangeDateColor = ta.getColor(R.styleable.DateRangeMonthView_range_date_color, rangeDateColor)
-                disableDateColor = ta.getColor(R.styleable.DateRangeMonthView_disable_date_color, disableDateColor)
+                textSizeTitle =
+                    ta.getDimension(R.styleable.DateRangeMonthView_text_size_title, textSizeTitle)
+                textSizeWeek =
+                    ta.getDimension(R.styleable.DateRangeMonthView_text_size_week, textSizeWeek)
+                textSizeDate =
+                    ta.getDimension(R.styleable.DateRangeMonthView_text_size_date, textSizeDate)
+                selectedDateColor = ta.getColor(
+                    R.styleable.DateRangeMonthView_selected_date_color,
+                    selectedDateColor
+                )
+                defaultDateColor =
+                    ta.getColor(R.styleable.DateRangeMonthView_default_date_color, defaultDateColor)
+                rangeDateColor =
+                    ta.getColor(R.styleable.DateRangeMonthView_range_date_color, rangeDateColor)
+                disableDateColor =
+                    ta.getColor(R.styleable.DateRangeMonthView_disable_date_color, disableDateColor)
                 weekOffset = ta.getColor(R.styleable.DateRangeMonthView_week_offset, 0)
                 dateSelectionMode =
-                    DateSelectionMode.values()[ta.getInt(R.styleable.DateRangeMonthView_date_selection_mode, 0)]
+                    DateSelectionMode.values()[ta.getInt(
+                        R.styleable.DateRangeMonthView_date_selection_mode,
+                        0
+                    )]
             } finally {
                 ta.recycle()
             }
@@ -113,17 +129,23 @@ class CalendarStyleAttrImpl(context: Context, attributeSet: AttributeSet? = null
          */
         fun getDefAttributes(context: Context): CalendarStyleAttrImpl {
             val calendarStyleAttr = CalendarStyleAttrImpl(context)
-            calendarStyleAttr.textSizeTitle = context.resources.getDimension(R.dimen.text_size_title)
+            calendarStyleAttr.textSizeTitle =
+                context.resources.getDimension(R.dimen.text_size_title)
             calendarStyleAttr.textSizeWeek = context.resources.getDimension(R.dimen.text_size_week)
             calendarStyleAttr.textSizeDate = context.resources.getDimension(R.dimen.text_size_date)
             calendarStyleAttr.weekColor = ContextCompat.getColor(context, R.color.week_color)
-            calendarStyleAttr.rangeStripColor = ContextCompat.getColor(context, R.color.range_bg_color)
+            calendarStyleAttr.rangeStripColor =
+                ContextCompat.getColor(context, R.color.range_bg_color)
             calendarStyleAttr.selectedDateCircleColor =
                 ContextCompat.getColor(context, R.color.selected_date_circle_color)
-            calendarStyleAttr.selectedDateColor = ContextCompat.getColor(context, R.color.selected_date_color)
-            calendarStyleAttr.defaultDateColor = ContextCompat.getColor(context, R.color.default_date_color)
-            calendarStyleAttr.rangeDateColor = ContextCompat.getColor(context, R.color.range_date_color)
-            calendarStyleAttr.disableDateColor = ContextCompat.getColor(context, R.color.disable_date_color)
+            calendarStyleAttr.selectedDateColor =
+                ContextCompat.getColor(context, R.color.selected_date_color)
+            calendarStyleAttr.defaultDateColor =
+                ContextCompat.getColor(context, R.color.default_date_color)
+            calendarStyleAttr.rangeDateColor =
+                ContextCompat.getColor(context, R.color.range_date_color)
+            calendarStyleAttr.disableDateColor =
+                ContextCompat.getColor(context, R.color.disable_date_color)
             return calendarStyleAttr
         }
     }
