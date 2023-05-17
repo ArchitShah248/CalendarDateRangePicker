@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llTitleWeekContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <com.youxel.daterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek1"
+        style="@style/WeekDayTitleStyle"
+        android:tag="dayOfWeek1"
+        android:text="@string/cdrp_sun" />
+
+    <com.youxel.daterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek2"
+        style="@style/WeekDayTitleStyle"
+        android:tag="dayOfWeek2"
+        android:text="@string/cdrp_mon" />
+
+    <com.youxel.daterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek3"
+        style="@style/WeekDayTitleStyle"
+        android:tag="dayOfWeek3"
+        android:text="@string/cdrp_tue" />
+
+    <com.youxel.daterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek4"
+        style="@style/WeekDayTitleStyle"
+        android:tag="dayOfWeek4"
+        android:text="@string/cdrp_wed" />
+
+    <com.youxel.daterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek5"
+        style="@style/WeekDayTitleStyle"
+        android:tag="dayOfWeek5"
+        android:text="@string/cdrp_thu" />
+
+    <com.youxel.daterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek6"
+        style="@style/WeekDayTitleStyle"
+        android:tag="dayOfWeek6"
+        android:text="@string/cdrp_fri" />
+
+    <com.youxel.daterangepicker.customviews.CustomTextView
+        android:id="@+id/tvDayOfWeek7"
+        style="@style/WeekDayTitleStyle"
+        android:tag="dayOfWeek7"
+        android:text="@string/cdrp_sat" />
+
+</LinearLayout>

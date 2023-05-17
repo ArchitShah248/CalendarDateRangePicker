@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.archit.calendardaterangepickerdemo.MainActivity">
+    tools:context="com.youxel.daterangepickerdemo.MainActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCalendar"
@@ -15,7 +15,7 @@
         android:layout_marginEnd="20dp"
         custom:cardCornerRadius="8dp">
 
-        <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
+        <com.youxel.daterangepicker.customviews.DateRangeCalendarView
             android:id="@+id/cdrvCalendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             custom:title_color="@color/calendar_header_title"
             custom:week_offset="0">
 
-        </com.archit.calendardaterangepicker.customviews.DateRangeCalendarView>
+        </com.youxel.daterangepicker.customviews.DateRangeCalendarView>
 
     </androidx.cardview.widget.CardView>
 

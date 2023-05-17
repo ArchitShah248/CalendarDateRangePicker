@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:gravity="center_horizontal"
+    android:minHeight="@dimen/weekRowMinHeight"
+    android:orientation="horizontal">
+
+    <com.youxel.daterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
+
+    <com.youxel.daterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
+
+    <com.youxel.daterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
+
+    <com.youxel.daterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
+
+    <com.youxel.daterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
+
+    <com.youxel.daterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
+
+    <com.youxel.daterangepicker.customviews.CustomDateView style="@style/ContainerDayOfWeek" />
+
+</LinearLayout>
