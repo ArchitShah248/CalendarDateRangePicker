@@ -101,6 +101,7 @@ class CustomDateView @JvmOverloads constructor(
             DateState.START, DateState.END, DateState.START_END_SAME -> makeAsSelectedDate(
                 dateState
             )
+
             DateState.HIDDEN -> hideDayContainer()
             DateState.SELECTABLE -> enabledDayContainer()
             DateState.DISABLE -> disableDayContainer()
@@ -165,6 +166,7 @@ class CustomDateView @JvmOverloads constructor(
                 layoutParams.setMargins(0, 0, 0, 0)
                 strip.layoutParams = layoutParams
             }
+
             DateState.START -> {
                 if (isRightToLeft) {
                     setRightFacedSelectedDate()
@@ -172,6 +174,7 @@ class CustomDateView @JvmOverloads constructor(
                     setLeftFacedSelectedDate()
                 }
             }
+
             DateState.END -> {
                 if (isRightToLeft) {
                     setLeftFacedSelectedDate()
@@ -179,6 +182,7 @@ class CustomDateView @JvmOverloads constructor(
                     setRightFacedSelectedDate()
                 }
             }
+
             else -> {
                 throw IllegalArgumentException("$state is an invalid state.")
             }
