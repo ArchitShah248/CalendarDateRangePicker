@@ -1,6 +1,7 @@
 package com.youxel.daterangepicker.customviews
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -185,6 +186,11 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
      */
     override fun setNavRightImage(rightDrawable: Drawable) {
         imgVNavRight.setImageDrawable(rightDrawable)
+    }
+
+    override fun setNavIconsTint(color: Int) {
+        imgVNavLeft.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        imgVNavRight.setColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 
     /**
