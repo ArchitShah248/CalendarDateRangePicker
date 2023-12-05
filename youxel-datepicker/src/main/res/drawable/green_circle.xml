@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
+    android:shape="rectangle">
     <size
         android:height="@dimen/dayOfMonthBoxSize"
         android:width="@dimen/dayOfMonthBoxSize" />
-    <corners android:radius="25dp" />
+    <corners android:radius="5dp" />
     <solid android:color="@color/selected_date_circle_color" />
 
 </shape>
