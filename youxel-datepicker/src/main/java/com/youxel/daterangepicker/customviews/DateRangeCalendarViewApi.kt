@@ -41,6 +41,10 @@ interface DateRangeCalendarViewApi {
      * To set right navigation ImageView drawable
      */
     fun setNavRightImage(rightDrawable: Drawable)
+    /**
+     * To set navigation ImageView tint color
+     */
+    fun setNavIconsTint(color: Int)
 
     /**
      * To get editable mode.
