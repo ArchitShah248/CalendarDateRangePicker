@@ -115,4 +115,5 @@ interface DateRangeCalendarViewApi {
     fun setRangeStripColor(color: Int)
     fun setWeekColor(color: Int)
     fun setDefaultDateColor(color: Int)
+    fun setLocale(customLocale: Locale)
 }

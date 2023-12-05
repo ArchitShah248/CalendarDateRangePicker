@@ -14,9 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.youxel.datepicker.R
-
-import com.youxel.datepicker.R
-.layout
+import com.youxel.datepicker.R.layout
 import com.youxel.daterangepicker.models.CalendarStyleAttrImpl
 import com.youxel.daterangepicker.models.CalendarStyleAttributes
 import java.text.DateFormatSymbols
@@ -42,9 +40,7 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
+        context, attrs, defStyleAttr
     ) {
         initViews(context, attrs)
     }
@@ -52,7 +48,9 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
     private fun initViews(
         context: Context, attrs: AttributeSet?
     ) {
-        locale = context.resources.configuration.locale
+        if (!::locale.isInitialized) {
+            locale = context.resources.configuration.locale
+        }
         calendarStyleAttr = CalendarStyleAttrImpl(context, attrs)
         val layoutInflater = LayoutInflater.from(context)
         layoutInflater.inflate(layout.layout_calendar_container, this, true)
@@ -81,9 +79,7 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
     private fun setListeners() {
         vpCalendar.addOnPageChangeListener(object : OnPageChangeListener {
             override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
+                position: Int, positionOffset: Float, positionOffsetPixels: Int
             ) = Unit
 
             override fun onPageSelected(position: Int) {
@@ -241,6 +237,10 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
 
     override fun setDefaultDateColor(color: Int) {
         calendarStyleAttr.defaultDateColor = ContextCompat.getColor(context, color)
+    }
+
+    override fun setLocale(customLocale: Locale) {
+        locale = customLocale
     }
 
     /**
