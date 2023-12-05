@@ -1,0 +1,25 @@
+<resources>
+    <string name="cdrp_mon">الاثنين</string>
+    <string name="cdrp_tue">الثلاثاء</string>
+    <string name="cdrp_wed">الأربعاء</string>
+    <string name="cdrp_thu">الخميس</string>
+    <string name="cdrp_fri">الجمعة</string>
+    <string name="cdrp_sat">السبت</string>
+    <string name="cdrp_sun">الأحد</string>
+
+    <string-array name="week_sun_sat">
+        <item>@string/cdrp_sun</item>
+        <item>@string/cdrp_mon</item>
+        <item>@string/cdrp_tue</item>
+        <item>@string/cdrp_wed</item>
+        <item>@string/cdrp_thu</item>
+        <item>@string/cdrp_fri</item>
+        <item>@string/cdrp_sat</item>
+    </string-array>
+
+    <string name="cancel">إلغاء</string>
+    <string name="done">تم</string>
+    <string name="title_time_picker">اخترا لتاريخ</string>
+    <string name="select_time">اختر الوقت</string>
+
+</resources>
