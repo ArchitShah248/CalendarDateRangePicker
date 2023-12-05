@@ -1,4 +1,4 @@
-package com.youxel.daterangepickerdemo;
+package com.youxel.calendardaterangepickerdemo;
 
 import static com.youxel.daterangepicker.customviews.CalendarRangeUtilsKt.printDate;
 

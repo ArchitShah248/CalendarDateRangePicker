@@ -2,8 +2,8 @@
 <resources>
 
     <!-- dateTitleLayout -->
-    <dimen name="text_size_title">22sp</dimen>
-    <dimen name="dateTitlePaddingBottom">5dp</dimen>
+    <dimen name="text_size_title">16sp</dimen>
+    <dimen name="dateTitlePaddingBottom">8dp</dimen>
     <!-- weekLayout -->
     <dimen name="weekDaysPaddingBottom">0dp</dimen>
     <dimen name="text_size_week">15sp</dimen>

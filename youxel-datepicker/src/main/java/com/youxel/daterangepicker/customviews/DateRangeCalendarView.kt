@@ -8,8 +8,8 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
@@ -54,7 +54,7 @@ class DateRangeCalendarView : LinearLayout, DateRangeCalendarViewApi {
         calendarStyleAttr = CalendarStyleAttrImpl(context, attrs)
         val layoutInflater = LayoutInflater.from(context)
         layoutInflater.inflate(layout.layout_calendar_container, this, true)
-        val rlHeaderCalendar = findViewById<RelativeLayout>(R.id.rlHeaderCalendar)
+        val rlHeaderCalendar = findViewById<ConstraintLayout>(R.id.rlHeaderCalendar)
         rlHeaderCalendar.background = calendarStyleAttr.headerBg
         tvYearTitle = findViewById(R.id.tvYearTitle)
         tvYearTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, calendarStyleAttr.textSizeTitle)
